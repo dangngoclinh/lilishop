@@ -1,0 +1,58 @@
+h1, h2, h3, h4, h5, h6, .dt-sc-ico-content h4 a, .dt-sc-ico-content.type2 h4 a, .entry-title h3, .dt-sc-team h4, h3.widgettitle, .dt-sc-music-audio h5 a, input[type=text], input[type=email], textarea, .breadcrumb-section h1, .activity h4, .megamenu-child-container > ul.sub-menu > li > a {
+    font-family: 'Lobster', cursive;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.dt-sc-toggle-frame h5 a, .course h5.dt-sc-toggle-accordion:before, .course h5.dt-sc-toggle-accordion.active:before, h5.dt-sc-toggle a, h5.dt-sc-toggle-accordion a, .product-details h5 a, .front-portfolio .image-overlay h5 a {
+    font-family: 'Roboto', sans-serif;
+}
+
+.product-details {
+    min-height: 110px;
+}
+
+.product-details h5 {
+    min-height: 48px;
+    width: 100%;
+}
+
+#primary {
+    margin-top: 0;
+}
+
+.dt-sc-team:hover .dt-sc-image-overlay a.link, .portfolio:hover .image-overlay a.link {
+    left: 45%;
+}
+
+.clearfix:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+footer .widget_recent_entries ul li {
+    margin-bottom: 5px;
+}
+
+ul.dt-sc-fancy-list li {
+    margin-bottom: 5px;
+}
+
+figure {
+    display: inline-block;
+    text-align: center;
+    font-style: italic;
+    font-size: smaller;
+    text-indent: 0;
+    border: thin #F7F7F7 solid;
+    margin: 0.5em;
+    padding: 0.5em;
+    max-width: 100%;
+    background-color: #fff;
+}
+img.scaled {
+    width: 100%;
+}

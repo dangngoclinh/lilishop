@@ -1,0 +1,9 @@
+@extends('adminlte.layout.master')
+@section('breadcrumb')
+@endsection
+@section('header')
+@endsection
+@section('content')
+@endsection
+@section('footer')
+@endsection
