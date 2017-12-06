@@ -44,7 +44,6 @@
         }); </script>
 @endsection
 @section('content')
-    <!--primary starts-->
     <section id="primary" class="content-full-width">
         <div class="container clearfix">
             <a href="">
@@ -55,35 +54,7 @@
         <!--container starts-->
         <div class="container clearfix">
             <h2 class="dt-sc-hr-green-title">Sản Phẩm Mới</h2>
-            <ul class="products">
-                @foreach($products_new as $key => $product)
-                    @php
-                        //$url = url('san-pham/' . $product->tenkhongdau . '-' . $product->id . '.html');
-                        $url = route('page.product', ['name' => $product->tenkhongdau, 'id' => $product->id]);
-                        $photo  = url('public/upload/sanpham/' . $product->photo);
-                        $class = '';
-                        if($key% 4 == 0)
-                            $class = 'first';
-                    @endphp
-                    <li class="dt-sc-one-fourth column {{ $class }}">
-                        <div class="product-thumb">
-                            <a href="{{ $url }}">
-                                <img src="{{ $photo }}" alt="" title="">
-                            </a>
-                            <span class="sale"> Sale! </span>
-                            <div class="image-overlay">
-                                <div class="product-button">
-                                    <a href="{{ $url }}" class="add-cart-btn"> Mua Ngay </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-details">
-                            <h5><a href="{{ $url }}"> {{ $product->ten }} </a></h5>
-                            <p class="price-box"><span class="price"> {{ number_format($product->gia) }} đ </span></p>
-                        </div>
-                    </li>
-                @endforeach
-            </ul>
+            @include('index.partials.product_list_4', ['products' => $products_new])
         </div>
 
         <div class="dt-sc-hr"></div>

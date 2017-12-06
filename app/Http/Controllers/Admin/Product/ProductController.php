@@ -6,6 +6,7 @@ use App\Model\Image as Media;
 use App\Model\Product;
 use App\Model\ProductCategory;
 use App\Model\ProductTag;
+use App\Model\Size;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -20,7 +21,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('adminlte.product.index');
+        $products = Product::paginate(1);
+        return view('adminlte.product.index', compact('products'));
     }
 
     /**
@@ -87,7 +89,14 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+                               'name' => 'required',
+                               'slug' => 'required|unique:table_product,slug,' . $id
+                           ]);
+        $product = Product::find($id);
+        $product->fill($request->all());
+        $product->update();
+        return back()->with('success', __('Update success'));
     }
 
     /**
@@ -228,14 +237,121 @@ class ProductController extends Controller
         }
     }
 
-    public function postDeleteColor(Request $request)
+    public function postColorDelete(Request $request, $id)
     {
-        $product_id = $request->input('product_id');
-        $image_id   = $request->input('image_id');
-        $product    = Product::find($product_id);
+        $image_id = $request->input('image_id');
+        $product  = Product::find($id);
         if ($product) {
             $product->colors()->detach($image_id);
             return response()->json(['status' => true]);
+        }
+    }
+
+    public function postColorName(Request $request, $id)
+    {
+        $image_id = $request->input('image_id');
+        $product  = Product::find($id);
+        if ($product) {
+            $product->colors()->updateExistingPivot($image_id, ['name' => $request->input('name')]);
+            return response()->json(['status' => true]);
+        }
+    }
+
+    public function postAddTag(Request $request, $id)
+    {
+        $request->validate([
+                               'tag_id' => 'required'
+                           ]);
+        $tag     = ProductTag::find($request->input('tag_id'));
+        $product = Product::find($id);
+        if ($product && $tag) {
+            $product->tags()->attach($tag->id);
+            return response()->json(['status' => true]);
+        }
+    }
+
+    public function postSizeAdd(Request $request, $id)
+    {
+        $size    = Size::find($request->input('id'));
+        $product = Product::find($id);
+        if ($product && $size) {
+            $product->attachSize($size->id);
+            return response()->json(['status' => true]);
+        }
+        return response()->json(['status' => false]);
+    }
+
+    public function postSizeDelete(Request $request, $id)
+    {
+        $size    = Size::find($request->input('id'));
+        $product = Product::find($id);
+        if ($product && $size) {
+            $product->dettachSize($size->id);
+            return response()->json(['status' => true]);
+        }
+        return response()->json(['status' => false]);
+    }
+
+    public function getSizeLoad($id)
+    {
+        $product = Product::find($id);
+        if ($product) {
+            $sizes = $product->sizes;
+            return response()->view('adminlte.product.partials.sizes', compact('sizes'));
+        }
+    }
+
+    public function ajax(Request $request, $id)
+    {
+        $request->validate([
+                               'act' => 'required'
+                           ]);
+        $act     = $request->input('act');
+        $product = Product::find($id);
+        if ($product) {
+            switch ($act) {
+                case "size_add":
+                    $product->attachSize($request->input('size_id'));
+                    return response()->json(['status' => true]);
+                    break;
+                case "size_delete":
+                    $product->detachSize($request->input('size_id'));
+                    return response()->json(['status' => true]);
+                    break;
+                case "set_featured":
+                    $image = Media::find($request->input('image_id'));
+                    $product->featured()->associate($image);
+                    $product->save();
+                    return response()->json(['status' => true]);
+                    break;
+                case "load_featured":
+                    $featured = $product->featured;
+                    return response()->view('adminlte.product.partials.featured', compact('featured'));
+                    break;
+
+                case "add_category":
+                    $checked     = $request->input('checked');
+                    $category_id = $request->input('category_id');
+                    if ($checked)
+                        $product->attachCategory($category_id);
+                    else
+                        $product->detachCategory($category_id);
+                    break;
+                case "add_tag":
+                    $tag_id  = $request->input('tag_id');
+                    $product->attachTag($tag_id);
+                    return response()->json(['status' => true]);
+                    break;
+                case "delete_tag":
+                    $tag_id  = $request->input('tag_id');
+                    $product->detachTag($tag_id);
+                    return response()->json(['status' => true]);
+                    break;
+                case "load_tag":
+                    $tags = $product->tags;
+                    return response()->view('adminlte.product.partials.tags', compact('tags'));
+                    break;
+            }
         }
     }
 }

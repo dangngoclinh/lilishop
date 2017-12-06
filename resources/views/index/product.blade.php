@@ -4,56 +4,81 @@
 @section('author', 'this is author')
 @section('keyword', 'this is keyword')
 @section('content')
-    <!--breadcrumb-section starts-->
-    <div class="breadcrumb-section">
-        <div class="container">
-            <h1>{{ $product->ten }}</h1>
-            <div class="breadcrumb">
-                <a href="{{ route('page.home') }}">Home</a>
-                <span class="fa fa-angle-double-right"></span>
-                <span class="current">Pretty Little Girl</span>
-            </div>
-        </div>
-    </div>
-    <!--breadcrumb-section ends-->
-    <!--container starts-->
+
     <div class="container">
+        <div class="container clearfix">
+            <a href="">
+                <img src="{{ asset('public/upload/tichdiem1.jpg') }}" alt="">
+            </a>
+        </div>
+        <div class="dt-sc-hr"></div>
         <!--primary starts-->
         <section id="primary" class="with-sidebar">
 
+
             <div class="images">
                 <a href="#">
-                    <img src="{{ url('public/upload/sanpham/' . $product->photo) }}" alt="" title="">
+                    <img src="{{ media($product->featured->medium) }}" alt="" title="">
                 </a>
             </div>
             <div class="summary">
-                <h2>{{ $product->ten }}</h2>
+                <h2>{{ $product->name }}</h2>
                 <p class="price">
-                    <del>{{ number_format('150000') }}</del>
-                    <span>{{ number_format($product->gia) }} vnđ</span>
+                    @if($product->price_sale)
+                        <del>{{ number_format($product->price) }}</del>
+                        <span>{{ number_format($product->price_sale) }} đ</span>
+                    @else
+                        <span>{{ number_format($product->price) }} đ</span>
+                    @endif
                 </p>
                 <p>
-                    {!! $product->mota !!}
+                    {!! $product->excerpt !!}
                 </p>
-                <form class="cart" method="post" action="#">
-                    <div class="quantity buttons_added">
-                        <input type='button' value='-' class='qtyminus'>
-                        <input type='number' name='quantity' value='0' class='qty'>
-                        <input type='button' value='+' class='qtyplus'>
+                <form class="carts" method="post" action="#">
+                    <div class="box-field columns">
+                        <p class="color-label">
+                            <label for="size">Chọn kích cỡ: </label>
+                            <span>12T</span>
+                        </p>
+                        <select name="select-size" onchange="fn_set_size(this);">
+                            @foreach($product->ProductSizes as $size)
+                                <option value="{{ $size->id }}">{{ $size->size->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @include('index.partials.product_size', ['colors' => $product->ProductSizes->first()->productColors])
+                    <div class="box-field columns box-quantity">
+                        <label for="quantity">Số lượng: </label>
+
+                        <input type="number" name="quantity" value="1" class="small">
+                        <button type="submit" class="dt-sc-button small">Thêm vào giỏ hàng</button>
                     </div>
                     <input type="hidden" name="add-to-cart" value="1146">
-                    <button type="submit" class="dt-sc-button medium">Thêm vào giỏ hàng</button>
                 </form>
                 <div class="product_meta">
-                    <p class="posted_in">Categories: <a href="#">Gosh</a>, <a href="#" rel="tag">Cool</a></p>
-                    <p class="posted_in">Tags: <a href="#">Gosh</a>, <a href="#" rel="tag">Cool</a></p>
+                    <p class="posted_in">Categories:
+                        @foreach($product->categories as $category)
+                            <a href="{{ route('product.category', ['name' => $category->slug, 'id' => $category->id]) }}">{{ $category->name }}</a>
+                            ,
+                        @endforeach
+                    </p>
+                    <p class="posted_in">Tags:
+                        @foreach($product->tags as $tag)
+                            <a href="{{ route('product.tag', ['name' => $tag->slug, 'id' => $tag->id]) }}"
+                               rel="tag">{{ $tag->name }}</a>,
+                        @endforeach
+                    </p>
+                </div>
+                <div class="loading">
+                    <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                    <span class="sr-only">Loading...</span>
                 </div>
             </div>
 
 
             <div class="related">
                 <h2>Có thể bạn quan tâm</h2>
-                <ul class="products">
+                {{--<ul class="products">
                     @foreach($product_related as $key => $related)
                         @php
                         $class = 'dt-sc-one-fifth column';
@@ -79,7 +104,7 @@
                             </div>
                         </li>
                     @endforeach
-                </ul>
+                </ul>--}}
             </div>
             <!-- end .related -->
             <div class="dt-sc-hr"></div>
@@ -106,7 +131,9 @@
                                     <div class="rating-review">
                                         <span class="author-rating rating-5"></span> <a href="#">5 reviews</a>
                                     </div>
-                                    <p>Nam consectetur justo non nis dapibus, ac commodo mi sagittis. Integer enim odio. In lobortis rhoncus pulvinar. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+                                    <p>Nam consectetur justo non nis dapibus, ac commodo mi sagittis. Integer enim odio.
+                                        In lobortis rhoncus pulvinar. Pellentesque habitant morbi tristique senectus et
+                                        netus et malesuada fames ac turpis egestas.</p>
                                 </div>
                             </li>
                         </ol>
@@ -199,8 +226,10 @@
 
             <aside class="widget widget_text">
                 <h3 class="widgettitle">Kids Achievements</h3>
-                <p>In lobortis rhoncus pulvinar. Pellentesque habitant morbi tristique <a href="#" class="highlighter">senectus</a> et netus et malesuada fames ac turpis egestas. </p>
-                <p>Sed tempus ligula ac mi iaculis lobortis. Nam consectetur justo non nisi dapibus, ac commodo mi sagittis. Integer enim odio.</p>
+                <p>In lobortis rhoncus pulvinar. Pellentesque habitant morbi tristique <a href="#" class="highlighter">senectus</a>
+                    et netus et malesuada fames ac turpis egestas. </p>
+                <p>Sed tempus ligula ac mi iaculis lobortis. Nam consectetur justo non nisi dapibus, ac commodo mi
+                    sagittis. Integer enim odio.</p>
             </aside>
 
             <aside class="widget widget_text">
@@ -221,11 +250,13 @@
                         <h5><a href="">Explore your Thoughts!</a></h5>
                         <p>Nam consectetur justo non nis dapibus, ac commodo mi sagittis. Integer enim odio.</p>
                         <h5><a href="">Perform for Success!</a></h5>
-                        <p>Sed ut perspiciatis unde omi iste natus error siterrecte voluptatem accusantium doloremque laudantium.</p>
+                        <p>Sed ut perspiciatis unde omi iste natus error siterrecte voluptatem accusantium doloremque
+                            laudantium.</p>
                     </div>
                     <div class="dt-sc-tabs-content">
                         <h5><a href="">Admire &amp; Achieve!</a></h5>
-                        <p>Sed ut perspiciatis unde omi iste natus error siterrecte voluptatem accusantium doloremque laudantium.</p>
+                        <p>Sed ut perspiciatis unde omi iste natus error siterrecte voluptatem accusantium doloremque
+                            laudantium.</p>
                         <h5><a href="">Your Opportuntiy!</a></h5>
                         <p>Nam consectetur justo non nis dapibus, ac commodo mi sagittis. Integer enim odio.</p>
                     </div>
@@ -252,8 +283,22 @@
     </div>
     <!--container ends-->
 @endsection
+@section('header')
+@endsection
 @section('footer')
     <script type="text/javascript" src="{{ asset('resources/assets/kidslife/js/jquery.tabs.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('resources/assets/kidslife/js/shortcodes.js') }}"></script>
     <script type="text/javascript" src="{{ asset('resources/assets/kidslife/js/custom.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+
+        });
+        function selectSize() {
+
+        }
+
+        function selectColor() {
+
+        }
+    </script>
 @endsection

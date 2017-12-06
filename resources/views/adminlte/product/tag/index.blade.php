@@ -3,7 +3,7 @@
 @endsection
 @section('content')
     <!-- Default box -->
-    <div class="box">
+    <div class="box box-solid">
         <div class="box-header with-border">
             <h3 class="box-title">Danh sách Tags</h3>
 
@@ -29,19 +29,8 @@
                 <tr>
                     <th width="5%">
                         <div class="btn-group btn-checkbox cm-check-items">
-                            <a href="" data-toggle="dropdown" class="btn dropdown-toggle">
-                                <span class="caret pull-right"></span>
-                            </a>
                             <input type="checkbox" name="check_all" value="Y" title="Chọn / bỏ chọn tất cả"
-                                   class="pull-left cm-check-items ">
-
-                            <ul class="dropdown-menu">
-                                <li><a class="cm-on">Tất cả</a></li>
-                                <li><a class="cm-off">Không có</a></li>
-                                <li><a data-ca-status="a">Hoạt động</a></li>
-                                <li><a data-ca-status="d">Vô hiệu</a></li>
-                                <li><a data-ca-status="h">Ẩn</a></li>
-                            </ul>
+                                   class="pull-left">
                         </div>
                     </th>
                     <th>Tên</th>

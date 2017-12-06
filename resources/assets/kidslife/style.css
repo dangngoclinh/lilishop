@@ -282,10 +282,10 @@ input[type=submit]:hover {
 input[type=number] {
     background: #FFFFFF;
     border: 1px solid #dddddd;
-    padding: 12px 5px 12px 10px;
-    display: block;
-    margin: 10px 0 10px;
-    width: 100%;
+    padding: 10px 5px 10px 10px;
+    display: inline-block;
+    margin: 11px 0 10px;
+    width: 75px;
     outline: none;
     -moz-appearance: textfield;
 }
@@ -316,10 +316,6 @@ textarea {
 input.error, textarea.error {
     padding: 15px 18px;
     border: 1px solid #FF0000;
-}
-
-#primary form p {
-    margin-bottom: 20px;
 }
 
 /*--------------------------------------------------------------

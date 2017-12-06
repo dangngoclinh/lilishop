@@ -21,10 +21,6 @@
     <link href="{{ asset('resources/assets/kidslife/css/responsive.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('vendor/bower_dl/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('resources/assets/kidslife/css/shortcodes.css') }}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="{{ asset('resources/assets/kidslife/css/layerslider.css') }}" type="text/css">
-    <!--prettyPhoto-->
-    <link href="{{ asset('resources/assets/kidslife/css/prettyPhoto.css') }}" rel="stylesheet" type="text/css"
-          media="all"/>
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -36,19 +32,20 @@
 <body class="{{ $body_class }}">
 <!--wrapper starts-->
 <div class="wrapper">
-    <!--header starts-->
+    @include('index.layout.topmenu')
+    <!--End top-menu-->
     @include('index.layout.header')
     <!--header ends-->
-    <!--main starts-->
+
     <div id="main">
         @yield('content')
     </div>
     <!--main ends-->
     @include('index.layout.footer')
-
+    <!--footer ends-->
 </div>
 <!--wrapper ends-->
-<a href="" title="Go to Top" class="back-to-top">To Top ↑</a>
+<a href="#" title="Go to Top" class="back-to-top">To Top ↑</a>
 <!--Java Scripts-->
 <script type="text/javascript" src="{{ asset('vendor/bower_dl/jquery/dist/jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('vendor/bower_dl/jquery-migrate/jquery-migrate.min.js') }}"></script>

@@ -19,6 +19,6 @@ class AdminLogin
         if(Auth::check() && Auth::user()->canAccessAdminDashboard()) {
             return $next($request);
         }
-        return redirect()->route('admin.login');
+        return redirect()->route('admin.login')->with('url', url()->current());
     }
 }

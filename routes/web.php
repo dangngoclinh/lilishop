@@ -16,13 +16,7 @@ Route::get('/', 'Index\PageController@home')->name('page.home');
 Route::get('/san-pham.html', 'Index\PageController@products')
     ->name('page.products');
 
-Route::get('/category/{name}-{id}.html', 'Index\CategoryController@index')
-    ->where(['name' => '[a-z]+', 'id' => '[0-9]+'])
-    ->name('page.category');
 
-Route::get('/san-pham/{name}-{id}.html', 'Index\ProductController@index')
-    ->where(['name' => '[a-z-]+', 'id' => '[0-9]+'])
-    ->name('page.product');
 
 Route::get('/lien-he.html', 'Index\PageController@contact')
     ->name('page.contact');
@@ -34,20 +28,27 @@ Route::group(['namespace' => 'Index'], function () {
         ->where(['slug' => '[a-z-]+', 'id' => '[0-9-]+'])
         ->name('index.news.view');
 
+    //product
+    Route::get('/category/{name}-{id}.html', 'ProductCategoryController@index')
+        ->where(['name' => '[a-z]+', 'id' => '[0-9]+'])
+        ->name('product.category');
+
+    Route::get('/tag/{name}-{id}.html', 'ProductTagController@index')
+        ->where(['name' => '[a-z-]+', 'id' => '[0-9]+'])
+        ->name('product.tag');
+
+    Route::get('/san-pham/{name}-{id}.html', 'ProductController@index')
+        ->where(['name' => '[a-z-]+', 'id' => '[0-9]+'])
+        ->name('page.product');
+
 });
 
-
-Route::get('/tag/{name}-{id}.html', function () {
-    return view('index/tag');
-});
-
-Route::get('/gio-hang.html', function () {
-    return view('index/cart');
-});
 
 Route::get('/test', function () {
     echo '<pre>';
-    print_r(App\Model\Product::find(1)->images()->where('id', 58)->first());
+    $product = \App\Model\Product::find(1);
+    $product->attachTag(2);
+    dd($product->tags);
     echo '</pre>';
 });
 
@@ -154,9 +155,15 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['adm
         Route::group(['prefix' => 'edit'], function () {
             Route::get('/{id}', 'ProductController@edit')->where(['id' => '[0-9]+'])
                 ->name('admin.product.edit');
-            Route::get('/quantity/{id}', 'ProductController@quantity')->where(['id' => '[0-9]+'])
+            Route::get('/quantity/{id}', 'UnitController@index')->where(['id' => '[0-9]+'])
                 ->name('admin.product.edit.quantity');
+            Route::post('/quantity/{id}', 'UnitController@store')->where(['id' => '[0-9]+']);
+            Route::post('/quantity/{id}/general', 'UnitController@storeGeneral')->where(['id' => '[0-9]+']);
 
+
+            //ajax
+            Route::post('/{id}/ajax', 'ProductController@ajax')->where(['id' => '[0-9]+'])
+                ->name('admin.product.edit.ajax');
 
 
             //file upload
@@ -181,16 +188,25 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['adm
                 ->name('admin.product.edit.panel.tag');
             Route::get('/panel/imageitem/{image_id}', 'ProductController@getPanelImageItem')->where(['image_id' => '[0-9]+'])
                 ->name('admin.product.edit.panel.imageitem');
-            Route::get('/panel/color/{id}', 'ProductController@getPanelImageItem')->where(['id' => '[0-9]+'])
+            Route::get('/panel/color/{id}', 'ProductController@getPanelColor')->where(['id' => '[0-9]+'])
                 ->name('admin.product.edit.panel.color');
 
             //color
             Route::post('/post/color/{id}', 'ProductController@postAddColor')->where(['id' => '[0-9]+'])
                 ->name('admin.product.edit.add.color');
-            Route::post('/color/delete', 'ProductController@postDeleteColor')
+            Route::post('/color/delete/{id}', 'ProductController@postColorDelete')
+                ->where(['id' => '[0-9]+'])
                 ->name('admin.product.edit.color.delete');
+            Route::post('/color/name/{id}', 'ProductController@postColorName')
+                ->where(['id' => '[0-9]+'])
+                ->name('admin.product.edit.color.name');
 
-
+            //size
+            Route::post('/size/add/{id}', 'ProductController@postSizeAdd')
+                ->where(['id' => '[0-9]+'])
+                ->name('admin.product.edit.size.add');
+            Route::get('/size/load/{id}', 'ProductController@getSizeLoad')->where(['id' => '[0-9]+'])
+                ->name('admin.product.edit.size.load');
         });
 
 

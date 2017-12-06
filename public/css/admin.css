@@ -165,3 +165,39 @@ table .btn .caret {
     right: 21px;
     top: 5px;
 }
+
+.btn-size {
+    margin-right: 15px;
+}
+
+.product-color img {
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-bottom: 0;
+    background-color: #f9f9f9;
+}
+
+.product-color .input-group .form-control {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.border-top-none span,
+.border-top-none input {
+    border-top: none;
+}
+
+.border-top-none span {
+    min-width: 77px;
+}
+
+.image-color {
+    margin-bottom: 20px;
+}
+
+.tag-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+

@@ -25,4 +25,6 @@ Route::group(['prefix' => 'news'], function() {
 Route::group(['prefix' => 'product'], function() {
     Route::get('tags', 'Api\ProductController@tags')
         ->name('api.product.tags');
+    Route::get('sizes', 'Api\ProductController@sizes')
+        ->name('api.product.sizes');
 });

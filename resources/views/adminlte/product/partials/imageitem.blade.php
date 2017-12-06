@@ -70,7 +70,7 @@
                 <div class="msg"></div>
                 <button type="button" class="btn btn-danger image-delete" data-id="{{ $media->id }}">@lang('Delete')</button>
                 <button type="button" class="btn btn-info image-set-color" data-id="{{ $media->id }}" data-product-id="{{ $media->imageable_id }}">@lang('Set is Color')</button>
-                <button type="button" class="btn btn-warning image-set-featured" data-id="{{ $media->id }}">Featured</button>
+                <button type="button" class="btn btn-warning" onclick="setFeatured('{{ $media->id }}', loadFeatured, modalClose); return false;">Featured</button>
                 <button type="button" class="btn btn-warning image-add-to-content">Insert</button>
                 <button type="submit" class="btn btn-info">Lưu</button>
             </div>

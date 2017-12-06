@@ -29,27 +29,84 @@
                     <!-- /.box-header -->
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="name" class="col-sm-2 control-label">Tiêu đề</label>
+                            <label for="name" class="col-sm-3 control-label">ID Sản Phẩm</label>
 
-                            <div class="col-sm-10">
+                            <div class="col-sm-9">
+                                <strong>{{ $product->id }}</strong>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="name" class="col-sm-3 control-label">Tiêu đề</label>
+
+                            <div class="col-sm-9">
                                 <input type="text" class="form-control" name="name" placeholder="Tiêu đề"
                                        value="{{ $product->name }}">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="name" class="col-sm-2 control-label">Slug</label>
+                            <label for="name" class="col-sm-3 control-label">Slug</label>
 
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="name" placeholder="Tiêu đề"
-                                       value="{{ $product->slug }}" disabled>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="slug"
+                                       value="{{ $product->slug }}">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="excerpt" class="col-sm-2 control-label">Tóm tắt</label>
+                            <label for="name" class="col-sm-3 control-label">SKU</label>
 
-                            <div class="col-sm-10">
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="SKU"
+                                       value="{{ $product->SKU }}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="excerpt" class="col-sm-3 control-label">Tóm tắt</label>
+
+                            <div class="col-sm-9">
                                 <textarea class="form-control" name="excerpt"
                                           rows="4">{{ $product->excerpt }}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="excerpt" class="col-sm-3 control-label">Giá</label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" name="price"
+                                       rows="4" value="{{ $product->price }}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="excerpt" class="col-sm-3 control-label">Giá khuyến mãi</label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" name="price_sale" value="{{ $product->price_sale }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="excerpt" class="col-sm-3 control-label">Bắt đầu khuyến mãi</label>
+
+                            <div class="col-sm-9">
+                                <div class="input-group date">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
+                                    <input type="text" name="sale_begin" class="form-control pull-right"
+                                           id="datepicker">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="excerpt" class="col-sm-3 control-label">Kết thúc khuyến mãi</label>
+
+                            <div class="col-sm-9">
+                                <div class="input-group date">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
+                                    <input type="text" name="sale_end" class="form-control pull-right"
+                                           id="datepicker">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -87,25 +144,25 @@
                     </div>
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="seo_title" class="col-sm-2 control-label">SEO Title</label>
+                            <label for="seo_title" class="col-sm-2 control-label">Title</label>
 
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="seo_title" placeholder="SEO Title"
+                                <input type="text" class="form-control" name="title" placeholder="SEO Title"
                                        value="{{ $product->title }}">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="seo_keywords" class="col-sm-2 control-label">SEO Keywords</label>
+                            <label for="seo_keywords" class="col-sm-2 control-label">Keywords</label>
 
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="seo_keywords" placeholder="SEO Keywords"
+                                <input type="text" class="form-control" name="keywords" placeholder="SEO Keywords"
                                        value="{{ $product->keywords }}">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="seo_description" class="col-md-2 control-label">SEo Description</label>
+                            <label for="seo_description" class="col-md-2 control-label">Description</label>
                             <div class="col-sm-10">
-                                <textarea class="form-control" name="seo_description"
+                                <textarea class="form-control" name="description"
                                           rows="4">{{ $product->description }}</textarea>
                             </div>
                         </div>
@@ -145,11 +202,31 @@
                     <div class="box-body">
                         @include('adminlte.product.partials.colors', ['colors' => $product->colors])
                     </div>
+                </div>
+                <div class="box box-solid box-sizes">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">@lang('Size')</h3>
+                        <div class="box-tools">
+                            <!-- This will cause the box to collapse when clicked -->
+                            <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                                    title="Collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        @include('adminlte.product.partials.sizes', ['sizes' => $product->sizes])
+                    </div>
                     <div class="box-footer">
-                        <button type="button" class="btn btn-primary">@lang('Save')</button>
+                        <div class="input-group input-group-sm">
+                            <select id="product-sizes" name="product_sizes" class="form-control"></select>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-info btn-flat size-add">@lang('Add Size')</button>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
+            <!-- End box-color -->
 
             <div class="col-md-4">
                 <div class="box box-solid">
@@ -204,14 +281,14 @@
                     <!-- /.box-header -->
                     <div class="box-body" style="max-height: 200px; overflow-y: auto">
                         <table class="table table-hover">
-                            @include('adminlte.news.partials.category', ['categories' => $categories[0],
+                            @include('adminlte.product.partials.categories', ['categories' => $categories[0],
                                                                             'tree' => $categories,
                                                                             'category_list' => array_column($product->categories->toArray(), 'id'),
                                                                              'prefix' => ''])
                         </table>
                     </div>
                 </div>
-                <div class="box box-solid">
+                <div class="box box-solid box-tags">
                     <div class="box-header with-border">
                         <h3 class="box-title">Tags</h3>
                         <div class="box-tools">
@@ -221,12 +298,11 @@
                         </div>
                     </div>
                     <!-- /.box-header -->
-                    <div class="box-body box-newstags">
+                    <div class="box-body">
                         @include('adminlte.product.partials.tags', ['tags' => $product->tags])
                     </div>
                     <div class="box-footer">
                         <div class="input-group margin">
-                            {{--<input type="text" name="newstags" class="form-control">--}}
                             <select class="form-control" name="product_tags" id="product-tags"></select>
                             <span class="input-group-btn">
                                 <button type="button" class="btn btn-info add-tags">Thêm</button>
@@ -236,7 +312,7 @@
                                           target="_blank">thêm tag mới</a> ?</span>
                     </div>
                 </div>
-                <div class="box box-solid">
+                <div class="box box-solid box-featured">
                     <div class="box-header with-border">
                         <h3 class="box-title">@lang('Featured Image')</h3>
                         <div class="box-tools">
@@ -247,9 +323,7 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        {{--                        @if($news->media)
-                                                    <img src="{{ media($news->media->medium) }}" alt="{{ $news->media->name }}" class="img-thumbnail news-image">
-                                                @endif--}}
+                        @include('adminlte.product.partials.featured', ['featured' => $product->featured])
                     </div>
                 </div>
             </div>
@@ -266,8 +340,10 @@
     <script src="//cdn.ckeditor.com/4.7.3/standard-all/ckeditor.js"></script>
     <script type="text/javascript" src="{{ asset('vendor/bower_dl/select2/dist/js/select2.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/bower_dl/masonry/dist/masonry.pkgd.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/bower_dl/dropzone/dist/dropzone.js') }}"></script>
     <script type="text/javascript">
+        //variable
+        var url_ajax = '{{ route('admin.product.edit.ajax', $product->id) }}';
+
         $(function () {
             $.ajaxSetup({
                 headers: {
@@ -285,6 +361,23 @@
                 itemSelector: '.media-item',
                 columnWidth: 140,
                 gutter: 15
+            });
+
+            //news tags list
+            $('#product-sizes').select2({
+                theme: "bootstrap",
+                ajax: {
+                    url: '{{ route('api.product.sizes') }}',
+                    dataType: 'json',
+                    delay: 500,
+                    processResults: function (result) {
+                        console.log(result);
+                        return {
+                            results: result
+                        }
+                    },
+                    cache: true
+                }
             });
 
             $('#file-upload').on('change', function () {
@@ -336,7 +429,6 @@
                     dataType: 'json',
                     delay: 500,
                     processResults: function (result) {
-                        console.log(result);
                         return {
                             results: result
                         }
@@ -345,116 +437,80 @@
                 }
             });
 
-        });
+            $(".add-tags").click(function () {
+                let tag_id = $('#product-tags').val();
+                addTag(tag_id);
+                $('#product-tags').val(null);
+            });
 
-        //open media
-        $(document).on('click', '.open-media', function () {
-            $.get($(this).attr('data-url'), function (data) {
-                if (data) {
-                    $('.modal').empty().append(data).modal();
-                } else {
-                    // for debugging
-                    alert(data);
+            $(document).on('click', '.image-set-color', function (event) {
+                event.preventDefault();
+                var cf = confirm("Bạn có lấy hình ảnh này làm màu");
+                var md = $(this).closest(".modal");
+                var url = '{{ route('admin.product.edit.add.color', $product->id) }}';
+                var data = {
+                    image_id: $(this).attr('data-id')
+                };
+                if (cf) {
+                    $.post(url, data, function (result) {
+                        if (result.status) {
+                            md.modal('hide');
+                            loadColors();
+                            console.log(result);
+                        }
+                    }, 'json')
                 }
-            })
-        });
+            });
 
-        //delete
-        $(document).on('click', '.image-delete', function (event) {
-            event.preventDefault();
-            var cf = confirm("Bạn có muốn xóa hình này");
-            var md = $(this).closest(".modal");
-            if (cf) {
-                $.post('{{ route('admin.media.destroy') }}', {id: $(this).attr('data-id')}, function (result) {
-                    if (result.status) {
-                        md.modal('hide');
-                        loadImages();
-                        console.log(result);
+            //open media
+            $(document).on('click', '.open-media', function () {
+                $.get($(this).attr('data-url'), function (data) {
+                    if (data) {
+                        $('.modal').empty().append(data).modal();
+                    } else {
+                        // for debugging
+                        alert(data);
                     }
-                }, 'json')
-            }
-        });
+                })
+            });
 
-        $(document).on('click', '.image-set-color', function(event) {
-            event.preventDefault();
-            var cf = confirm("Bạn có lấy hình ảnh này làm màu");
-            var md = $(this).closest(".modal");
-            var url = '{{ route('admin.product.edit.add.color', $product->id) }}';
-            var data = {
-                image_id: $(this).attr('data-id')
-            };
-            if (cf) {
+            //delete
+            $(document).on('click', '.image-delete', function (event) {
+                event.preventDefault();
+                var cf = confirm("Bạn có muốn xóa hình này");
+                var md = $(this).closest(".modal");
+                if (cf) {
+                    $.post('{{ route('admin.media.destroy') }}', {id: $(this).attr('data-id')}, function (result) {
+                        if (result.status) {
+                            md.modal('hide');
+                            loadImages();
+                            console.log(result);
+                        }
+                    }, 'json')
+                }
+            });
+
+            $(document).on('focusout', '.color-name', function () {
+                alert('lamdang');
+                var url = '{{ route('admin.product.edit.color.name', $product->id) }}';
+                var color_id = $(this).attr('data-id');
+                var data = {
+                    color_id: color_id,
+                    name: $(this).val()
+                };
                 $.post(url, data, function (result) {
-                    if (result.status) {
-                        md.modal('hide');
-                        loadColors();
-                        console.log(result);
-                    }
-                }, 'json')
-            }
+                })
+            });
+
+            //size delete
+            $(document).on('click', '.size-add', function (event) {
+                event.preventDefault();
+                var size = $("#product-sizes").val();
+                sizeAdd(size, sizeLoad);
+                $("#product-sizes").val('');
+            });
         });
 
-
-        /*
-        $(function () {
-            $('#file-upload').on('change', function() {
-                var formData = new FormData();
-                var action = '{{ route('admin.product.edit.postMedia', $product->id) }}';
-                formData.append('_token', $('input[name="_token"]').val());
-                formData.append('id', '{{ $product->id }}');
-                formData.append('type',  'product');
-                formData.append('files', $('input[name="files[]"]').prop('files'));
-                $.ajax({
-                    url: action,
-                    method: 'post',
-                    data: formData,
-                    dataType: 'json',
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    success: function(data) {
-                        console.log(data);
-                    },
-                    error: function(data) {
-                    }
-                });
-
-            });
-
-            function fileUpload($url, $files, $for) {
-
-            };
-        });*//*
-        $(function () {
-            $('#file-upload').on('change', function() {
-                var formData = new FormData();
-                var action = '{{ route('admin.product.edit.postMedia', $product->id) }}';
-                formData.append('_token', $('input[name="_token"]').val());
-                formData.append('id', '{{ $product->id }}');
-                formData.append('type',  'product');
-                formData.append('files', $('input[name="files[]"]').prop('files'));
-                $.ajax({
-                    url: action,
-                    method: 'post',
-                    data: formData,
-                    dataType: 'json',
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    success: function(data) {
-                        console.log(data);
-                    },
-                    error: function(data) {
-                    }
-                });
-
-            });
-
-            function fileUpload($url, $files, $for) {
-
-            };
-        });*/
-        //end select2
         function loadImages() {
             var action = '{{ route('admin.product.edit.panel.image', $product->id) }}';
             $.get(action, function (result) {
@@ -466,7 +522,7 @@
                     });
                 }
             );
-        };
+        }
 
         function loadColors() {
             var action = '{{ route('admin.product.edit.panel.color', $product->id) }}';
@@ -474,19 +530,122 @@
                     $('.box-color .box-body').html(result);
                 }
             );
-        };
+        }
 
-        function colorDelete(product_id, image_id) {
-            var url = '{{ route('admin.product.edit.color.delete') }}';
+        function colorDelete(image_id) {
+            var url = '{{ route('admin.product.edit.color.delete', $product->id) }}';
             var data = {
-                product_id: product_id,
                 image_id: image_id
             };
-            $.get(url, data, function(result) {
-                if(result.status) {
+            $.post(url, data, function (result) {
+                if (result.status) {
                     loadColors();
                 }
             }, 'json');
-        };
+        }
+
+
+        function sizeLoad() {
+            var action = '{{ route('admin.product.edit.size.load', $product->id) }}';
+            $.get(action, function (result) {
+                    $('.box-sizes .box-body').html(result);
+                }
+            );
+        }
+
+        function sizeAdd(size_id, callback) {
+            var data = {
+                act: 'size_add',
+                size_id: size_id
+            };
+            $.post(url_ajax, data, function (result) {
+                if (result.status) {
+                    callback();
+                }
+            });
+        }
+
+        function siteDelete(size_id, callback) {
+            let data = {
+                act: 'size_delete',
+                size_id: size_id
+            };
+            $.post(url_ajax, data, function (result) {
+                if (result.status) {
+                    callback();
+                }
+            });
+        }
+
+        function setFeatured(image_id, callback, callback2 = null) {
+            let data = {
+                act: 'set_featured',
+                image_id: image_id
+            };
+            $.post(url_ajax, data, function (result) {
+                if (result.status) {
+                    callback();
+                    if (callback2) {
+                        callback2();
+                    }
+                }
+            });
+        }
+
+        function loadFeatured() {
+            let data = {
+                act: 'load_featured'
+            };
+            $.post(url_ajax, data, function (result) {
+                $('.box-featured .box-body').html(result);
+            }, 'text');
+        }
+
+        function modalClose() {
+            $('.modal').modal('hide');
+        }
+
+        function addCategory(category_id, element) {
+            let checked = $(element).is(':checked');
+            let data = {
+                act: 'add_category',
+                checked: checked,
+                category_id: category_id
+            };
+            $.post(url_ajax, data, function (result) {
+                console.log(result);
+            }, 'text');
+        }
+
+        function addTag(tag_id) {
+            let data = {
+                act: 'add_tag',
+                tag_id: tag_id
+            };
+            $.post(url_ajax, data, function (result) {
+                console.log(result);
+                loadTag();
+            }, 'json');
+        }
+
+        function deleteTag(tag_id) {
+            let data = {
+                act: 'delete_tag',
+                tag_id: tag_id
+            };
+            $.post(url_ajax, data, function (result) {
+                console.log(result);
+                loadTag();
+            }, 'json');
+        }
+
+        function loadTag() {
+            let data = {
+                act: 'load_tag'
+            };
+            $.post(url_ajax, data, function (result) {
+                $(".box-tags .box-body").html(result);
+            }, 'text');
+        }
     </script>
 @endsection
