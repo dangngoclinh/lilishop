@@ -6,9 +6,9 @@
                         alt="Kids Life" title="Kids Life"></a>
         </div>
         <div class="search-field fl">
-            <form class="search" action="/search">
+            <form class="search" method="get" action="{{ route('search') }}">
 
-                <input type="text" name="q" class="search_box" placeholder="Search" value="">
+                <input type="text" name="q" class="search_box" placeholder="@lang('Tìm sản phẩm')" value="">
             </form>
         </div>
     </div>

@@ -15,6 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        ProductCategory::fixTree();
         $categories = sort_category(ProductCategory::all());
         return view('adminlte.product.category.index', compact('categories'));
     }

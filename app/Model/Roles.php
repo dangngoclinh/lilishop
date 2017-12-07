@@ -4,14 +4,14 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class Roles extends Model
 {
-    protected $table    = 'table_role';
+    protected $table    = 'roles';
     protected $fillable = [
         'name', 'slug'
     ];
 
     public function users() {
-        return $this->belongsToMany('App\Model\User');
+        return $this->belongsToMany('App\Model\Users');
     }
 }

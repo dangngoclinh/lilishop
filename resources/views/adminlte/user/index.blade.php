@@ -21,7 +21,7 @@
                 </div>
             @endif
             <table class="table table-hover">
-                <tbody>
+                <thead>
                 <tr>
                     <th width="5%">
                         <div class="btn-group btn-checkbox cm-check-items">
@@ -35,6 +35,8 @@
                     <th></th>
                     <th class="right">@lang('Status')</th>
                 </tr>
+                </thead>
+                <tbody
                 @foreach($users as $key => $user)
                     @php
                         $url_edit = route('admin.user.edit', $user->id);
@@ -76,8 +78,8 @@
                         </td>
                         <td class="right"></td>
                     </tr>
-                @endforeach
-                </tbody>
+                    @endforeach
+                    </tbody>
             </table>
         </div>
         <!-- /.box-body -->

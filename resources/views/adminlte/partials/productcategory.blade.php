@@ -6,9 +6,12 @@
         $url_destroy = url(route('admin.product.category.destroy', $category->id));
         @endphp
         <tr>
+            <td><input type="checkbox" name="category[]"></td>
             <td>{{ $category->id }}</td>
             <td>{{ $prefix . '  ' . $category->name }}</td>
             <td class="center"><span class="badge bg-gray">0</span></td>
+            <td>{{ $category->_lft }}</td>
+            <td>{{ $category->_rgt }}</td>
             <td>
                 <div class="btn-group hidden-tools">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"

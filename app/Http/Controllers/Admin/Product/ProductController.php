@@ -21,7 +21,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(1);
+        $products = Product::orderBy('id', 'desc')->paginate(25);
         return view('adminlte.product.index', compact('products'));
     }
 
@@ -332,18 +332,19 @@ class ProductController extends Controller
                 case "add_category":
                     $checked     = $request->input('checked');
                     $category_id = $request->input('category_id');
-                    if ($checked)
+                    if ($checked == 'true') {
                         $product->attachCategory($category_id);
-                    else
+                    } else {
                         $product->detachCategory($category_id);
+                    }
                     break;
                 case "add_tag":
-                    $tag_id  = $request->input('tag_id');
+                    $tag_id = $request->input('tag_id');
                     $product->attachTag($tag_id);
                     return response()->json(['status' => true]);
                     break;
                 case "delete_tag":
-                    $tag_id  = $request->input('tag_id');
+                    $tag_id = $request->input('tag_id');
                     $product->detachTag($tag_id);
                     return response()->json(['status' => true]);
                     break;

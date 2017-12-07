@@ -10,7 +10,7 @@ class PageController extends Controller
 {
     public function home()
     {
-        $products_new  = Product::paginate(4);
+        $products_new  = Product::orderBy('created_at', 'desc')->paginate(4);
         $products_boy  = Product::paginate(4);
         $products_girl = Product::paginate(4);
         return view('index.index')
@@ -22,10 +22,5 @@ class PageController extends Controller
     public function products()
     {
         return view('index.page.products');
-    }
-
-    public function contact()
-    {
-        return view('index.page.contact');
     }
 }

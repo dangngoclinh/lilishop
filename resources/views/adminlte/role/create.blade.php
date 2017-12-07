@@ -8,7 +8,7 @@
         @include('adminlte.layout.partials.error')
         <div class="box box-solid">
             <div class="box-header with-border">
-                <h3 class="box-title">@lang('Create a Role')</h3>
+                <h3 class="box-title">@lang('Roles')</h3>
 
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"

@@ -1,5 +1,6 @@
 h1, h2, h3, h4, h5, h6, .dt-sc-ico-content h4 a, .dt-sc-ico-content.type2 h4 a, .entry-title h3, .dt-sc-team h4, h3.widgettitle, .dt-sc-music-audio h5 a, input[type=text], input[type=email], textarea, .breadcrumb-section h1, .activity h4, .megamenu-child-container > ul.sub-menu > li > a {
-    font-family: 'Lobster', cursive;
+    font-family: 'Roboto Condensed', sans-serif;
+    /*font-family: 'Lobster', cursive;*/
 }
 
 body {
@@ -72,9 +73,9 @@ ul.color-list li {
     position: relative;
     display: inline-block;
     margin: 10px 10px 0 0;
-    padding: 5px;
+    padding: 0;
     list-style: none;
-    border: 2px solid #CCCCCC;
+    border: 1px solid #CCCCCC;
     cursor: pointer;
 }
 
@@ -218,4 +219,102 @@ form select {
 
 .hide-loading .loading {
     display: none;
+}
+
+.tags {
+    list-style: none;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+}
+
+.tags li {
+    float: left;
+}
+
+.tag {
+    background: #eee;
+    border-radius: 3px 0 0 3px;
+    color: #999;
+    display: inline-block;
+    height: 26px;
+    line-height: 26px;
+    padding: 0 20px 0 23px;
+    position: relative;
+    margin: 0 10px 10px 0;
+    text-decoration: none;
+    -webkit-transition: color 0.2s;
+}
+
+.tag::before {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: inset 0 1px rgba(0, 0, 0, 0.25);
+    content: '';
+    height: 6px;
+    left: 10px;
+    position: absolute;
+    width: 6px;
+    top: 10px;
+}
+
+.tag::after {
+    background: #fff;
+    border-bottom: 13px solid transparent;
+    border-left: 10px solid #eee;
+    border-top: 13px solid transparent;
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.tag:hover {
+    background-color: #008c99;
+    color: white;
+}
+
+.tag:hover::after {
+    border-left-color: #008c99;
+}
+
+.clearfix:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.margin-top-20 {
+    margin-top: 20px;
+}
+
+ol.breadcrumb {
+    list-style-type: none;
+    padding: 30px 0 20px;
+}
+
+ol.breadcrumb li {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
+ol.breadcrumb li:after {
+    content: "\f0da";
+    font-family: FontAwesome;
+    padding: 0 12px;
+}
+
+ol.breadcrumb li:last-child:after {
+    content: "";
+    padding: 0;
+}
+
+.banner-large img,
+.banner-large a {
+    display: block;
+}
+
+.margin-top-40 {
+    margin-top: 45px;
 }

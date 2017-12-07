@@ -201,3 +201,6 @@ table .btn .caret {
     padding: 0;
 }
 
+tr.no-view td {
+    font-weight: bold;
+}

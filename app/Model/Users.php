@@ -4,12 +4,12 @@ namespace App\Model;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class Users extends Authenticatable
 {
     /**
      * @var string
      */
-    protected $table = 'table_user';
+    protected $table = 'users';
 
     /**
      * @var array
@@ -36,7 +36,7 @@ class User extends Authenticatable
 
     public function roles()
     {
-        return $this->belongsToMany('App\Model\Role', 'table_user_roles', 'user_id', 'role_id');
+        return $this->belongsToMany('App\Model\Roles', 'users_roles', 'user_id', 'role_id');
     }
 
     public function getRoles()

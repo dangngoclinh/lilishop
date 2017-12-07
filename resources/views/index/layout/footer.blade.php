@@ -30,7 +30,7 @@
                         <p class="dt-sc-contact-info"><span class="fa fa-map-marker"></span> {{ option('address') }} </p>
                         <p class="dt-sc-contact-info"><span class="fa fa-phone"></span> {{ option('phone') }} </p>
                         <p class="dt-sc-contact-info"><span class="fa fa-envelope"></span><a
-                                    href="{{ route('page.contact') }}"> {{ option('email') }} </a></p>
+                                    href="{{ route('contact') }}"> {{ option('email') }} </a></p>
                     </div>
                 </aside>
                 <aside class="widget mailchimp">
@@ -42,7 +42,6 @@
                         </p>
                         <input type="submit" value="Subscribe" class="button" name="btnsubscribe">
                     </form>
-                    <div id="ajax_subscribe_msg">dfdf</div>
                 </aside>
             </div>
 

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Model\Role;
-use App\Model\User;
+use App\Model\Roles;
+use App\Model\Users;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -19,7 +19,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(25);
+        $users = Users::paginate(25);
         return view('adminlte.user.index', compact('users'));
     }
 
@@ -30,7 +30,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::all();
+        $roles = Roles::all();
         return view('adminlte.user.create', compact('roles'));
     }
 
@@ -84,8 +84,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user  = User::find($id);
-        $roles = Role::all();
+        $user  = Users::find($id);
+        $roles = Roles::all();
         if ($user) {
             return view('adminlte.user.edit', compact('user', 'roles'));
         }
@@ -127,7 +127,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user      = User::find($id);
+        $user      = Users::find($id);
         if ($user) {
             $user_name = $user->name;
             $user->roles()->detach($user->roles()->pluck('user_id')->toArray());

@@ -1,9 +1,20 @@
 @extends('index/master', ['body_class' => 'main'])
 @section('title', option('title'))
 @section('description', option('description'))
-@section('author', 'this is author')
 @section('keyword', option('keyword'))
 @section('footer')
+    <script type="application/ld+json">
+        {
+          "@context": "http://schema.org",
+          "@type": "WebSite",
+          "url": "https://www.example.com/",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://query.example.com/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        }
+    </script>
     <script type="text/javascript"
             src="{{ asset('vendor/bower_dl/jquery-validation/dist/jquery.validate.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/bower_dl/jquery.easing/js/jquery.easing.min.js') }}"></script>
@@ -14,10 +25,6 @@
     <script type="text/javascript" src="{{ asset('resources/assets/kidslife/js/jquery.tipTip.minified.js') }}"></script>
     <script type="text/javascript" src="{{ asset('resources/assets/kidslife/js/jquery.bxslider.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('resources/assets/kidslife/js/jquery.prettyPhoto.js') }}"></script>
-    <script type="text/javascript"
-            src="{{ asset('resources/assets/kidslife/js/twitter/jquery.tweet.min.js') }}"></script>
-    <script type="text/javascript"
-            src="{{ asset('vendor/bower_dl/jquery-parallax/scripts/jquery.parallax-1.1.3.js') }}"></script>
     <script type="text/javascript" src="{{ asset('resources/assets/kidslife/js/shortcodes.js') }}"></script>
     <script type="text/javascript" src="{{ asset('public/js/custom.js') }}"></script>
 
@@ -44,22 +51,17 @@
         }); </script>
 @endsection
 @section('content')
-    <section id="primary" class="content-full-width">
-        <div class="container clearfix">
-            <a href="">
-                <img src="{{ asset('public/upload/tichdiem1.jpg') }}" alt="">
-            </a>
+    <section id="primary" class="content-full-width clearfix">
+        <div class="container banner-large clearfix">
+            <a href="#"><img src="{{ asset('public/upload/tichdiem1.jpg') }}" alt=""></a>
         </div>
-        <div class="dt-sc-hr"></div>
-        <!--container starts-->
-        <div class="container clearfix">
+
+        <div class="container margin-top-40 clearfix">
             <h2 class="dt-sc-hr-green-title">Sản Phẩm Mới</h2>
             @include('index.partials.product_list_4', ['products' => $products_new])
         </div>
 
-        <div class="dt-sc-hr"></div>
-        <!--container starts-->
-        <div class="container clearfix">
+        <div class="container margin-top-40 clearfix">
             <h2 class="dt-sc-hr-green-title">Bạn Muốn Mua Gì?</h2>
 
             <div class="column dt-sc-one-fourth first">
@@ -130,10 +132,6 @@
         </div>
         <!--container ends-->
 
-
-        <div class="dt-sc-hr"></div>
-
-        <!--container starts-->
         <div class="container clearfix">
             <h2 class="dt-sc-hr-green-title">Tin tức thời trang trẻ em</h2>
             <div class="column dt-sc-one-half first">
@@ -211,8 +209,6 @@
             <!--dt-sc-one-half ends-->
         </div>
         <!--container ends-->
-
-        <div class="dt-sc-hr"></div>
 
     </section>
     <!--primary ends-->

@@ -15,18 +15,27 @@
             </div>
             <div class="box-body">
                 <table class="table table-hover">
-                    <tbody>
+                    <thead>
                     <tr>
+                        <th><input type="checkbox" name="check_all"></th>
                         <th>ID</th>
                         <th>Tên</th>
                         <th class="center">Sản Phẩm</th>
+                        <th>Left</th>
+                        <th>Right</th>
                         <th></th>
                     </tr>
+                    </thead>
+                    <tbody>
                     @include('adminlte.partials.productcategory', ['categories' => $categories[0], 'tree' => $categories, 'prefix' => ''])
                     </tbody>
                 </table>
             </div>
             <!-- /.box-body -->
+            <div class="box-footer">
+                <button class="btn btn-danger">Xóa</button>
+                <button class="btn btn-primary pull-right">Thêm Category</button>
+            </div>
         </div>
         <!-- /.box -->
     @else

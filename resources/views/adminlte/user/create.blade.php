@@ -82,7 +82,7 @@
                 </div>
                 @if($roles)
                     <div class="form-group">
-                        <label for="password-confirm" class="col-md-4 control-label">@lang('Role')</label>
+                        <label for="password-confirm" class="col-md-4 control-label">@lang('Roles')</label>
 
                         <div class="col-md-6">
                             @foreach($roles as $role)

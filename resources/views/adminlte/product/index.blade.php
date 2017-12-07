@@ -37,7 +37,7 @@
                             <td>{{ $product->SKU }}</td>
                             <td><a href="{{ route('admin.product.edit', $product->id) }}">{{ $product->name }}</a></td>
                             <td>{{ $product->quantity }}</td>
-                            <td>{{ $product->created_at }}</td>
+                            <td>{{ $product->created_at->diffForHumans() }}</td>
                         </tr>
                     @endforeach
                     </tbody>

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Index;
 
+use App\Library\Breadcrumbs;
 use App\Model\Product;
+use App\Model\ProductCategory;
 use App\Model\ProductSize;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -11,9 +13,16 @@ class ProductController extends Controller
 {
     public function index($name, $id)
     {
-        $product = Product::where('id', $id)->first();
-        //$product_ralated = Product::where('id_list', $product->id_list)->limit(5)->get();
-        return view('index.product')->with('product', $product);
+        $product     = Product::where('id', $id)->first();
+        $categories  = ProductCategory::ancestorsAndSelf($product->categories->first()->id);
+        $breadcrumbs = new Breadcrumbs();
+        if ($categories->isNotEmpty()) {
+            foreach ($categories as $category) {
+                $breadcrumbs->addBC($category->name, route('product.category', ['name' => $category->slug, 'id' => $category->id]));
+            }
+        }
+        $breadcrumbs->addBC($product->name, '', false);
+        return view('index.product', compact('product', 'breadcrumbs'));
     }
 
     public function ajax(Request $request, $id)

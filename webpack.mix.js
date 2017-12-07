@@ -12,5 +12,14 @@ let mix = require('laravel-mix');
  */
 
 mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
-mix.copy('vendor/bower_dl/font-awesome/css/font-awesome.css', 'public/css/font-awesome.css');
+    .js('resources/assets/js/breadcrumbs.js', 'public/js')
+    .sass('resources/assets/sass/app.scss', 'public/css');
+mix.sass('resources/assets/sass/breadcrumbs.scss', 'public/css');
+/*mix.copy('vendor/bower_dl/font-awesome/css/font-awesome.css', 'public/css/font-awesome.css');*/
+
+mix.styles([
+    'resources/assets/kidslife/style.css',
+    'resources/assets/kidslife/css/shortcodes.css',
+    'resources/assets/kidslife/css/responsive.css',
+    'public/css/custom.css',
+], 'public/css/all.css');

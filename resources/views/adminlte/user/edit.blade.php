@@ -86,7 +86,7 @@
                 </div>
                 @if($roles)
                     <div class="form-group">
-                        <label for="roles" class="col-md-4 control-label">@lang('Role')</label>
+                        <label for="roles" class="col-md-4 control-label">@lang('Roles')</label>
 
                         <div class="col-md-6">
                             @php

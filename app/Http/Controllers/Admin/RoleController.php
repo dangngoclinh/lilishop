@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Model\Role;
+use App\Model\Roles;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -15,7 +15,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::all();
+        $roles = Roles::all();
         return view('adminlte.role.index', compact('roles'));
     }
 
@@ -41,9 +41,9 @@ class RoleController extends Controller
                                'name' => 'required',
                                'slug' => 'required|unique:table_role'
                            ]);
-        $role = Role::create($request->all());
+        $role = Roles::create($request->all());
         $role->save();
-        return back()->with('success', __('Add new Role Success'));
+        return back()->with('success', __('Add new Roles Success'));
     }
 
     /**
@@ -65,7 +65,7 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $role = Role::find($id);
+        $role = Roles::find($id);
         if ($role) {
             return view('adminlte.role.edit', compact('role'));
         }
@@ -85,7 +85,7 @@ class RoleController extends Controller
                                'name' => 'required',
                                'slug' => 'required|unique:table_role'
                            ]);
-        $role = Role::find($id);
+        $role = Roles::find($id);
         if ($role) {
             $role->fill($request->all());
             $role->update();
@@ -101,11 +101,11 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        $role = Role::find($id);
+        $role = Roles::find($id);
         if ($role) {
             $role_name = $role->name;
             $role->delete();
-            return redirect()->route('admin.role')->with('success', __('Role: :name has deleted', ['name' => $role_name]));
+            return redirect()->route('admin.role')->with('success', __('Roles: :name has deleted', ['name' => $role_name]));
         }
         abort(404);
     }

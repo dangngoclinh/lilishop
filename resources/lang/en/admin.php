@@ -25,9 +25,9 @@ return [
         'edit' => 'Edit',
     ],
     'role' => [
-        'create' =>'Create Role',
-        'edit' =>'Edit Role',
-        'destroy' =>'Delete Role',
+        'create' =>'Create Roles',
+        'edit' =>'Edit Roles',
+        'destroy' =>'Delete Roles',
         'store_success' =>'Create a role success',
         'edit_success' =>'Update Success',
         'destroy_success' =>'Destroy Success',

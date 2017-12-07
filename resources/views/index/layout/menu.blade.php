@@ -165,7 +165,7 @@
                     <a class="dt-menu-expand">+</a>
                 </li>
                 <li class="purple"><a href="shop.html" title="">Shop</a></li>
-                <li class="pink"><a href="{{ route('page.contact') }}" title="">Contact us</a></li>
+                <li class="pink"><a href="{{ route('contact') }}" title="">Liên hệ</a></li>
             </ul>
         </nav>
         <!--nav ends-->

@@ -52,7 +52,7 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">Total Members</span>
-                    <span class="info-box-number">{{ \App\Model\User::count() }}</span>
+                    <span class="info-box-number">{{ \App\Model\Users::count() }}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>

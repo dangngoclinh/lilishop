@@ -6,7 +6,7 @@ namespace App\Library;
  * Class SocialAccountService
  */
 use App\Model\SocialAccount;
-use App\Model\User;
+use App\Model\Users;
 use Laravel\Socialite\Contracts\User as ProviderUser;
 
 class SocialAccountService
@@ -32,11 +32,11 @@ class SocialAccountService
                                              'provider_user_id' => $providerUser->getId(),
                                              'provider' => 'facebook'
                                          ]);
-            $user = User::where('email', $providerUser->getEmail())->first();
+            $user = Users::where('email', $providerUser->getEmail())->first();
 
             if (!$user) {
 
-                $user = new User();
+                $user = new Users();
                 $user->fill([
                                 'email' => $providerUser->getEmail(),
                                 'name' => $providerUser->getName(),

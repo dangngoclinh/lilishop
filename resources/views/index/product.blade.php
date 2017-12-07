@@ -1,82 +1,67 @@
 @extends('index/master', ['body_class' => 'page-category sidebar-left'])
-@section('title', 'title')
+@section('title', $product->name . ' - ' . option('sitename'))
 @section('description', 'this is description')
 @section('author', 'this is author')
 @section('keyword', 'this is keyword')
 @section('content')
-
     <div class="container">
-        <div class="container clearfix">
-            <a href="">
-                <img src="{{ asset('public/upload/tichdiem1.jpg') }}" alt="">
-            </a>
+        <a href="">
+            <img src="{{ asset('public/upload/tichdiem1.jpg') }}" alt="">
+        </a>
+    </div>
+    @if($breadcrumbs)
+        <div class="container">
+            <ol class="breadcrumb">
+            {!! $breadcrumbs->toString() !!}
+            </ol>
         </div>
-        <div class="dt-sc-hr"></div>
-        <!--primary starts-->
+    @endif
+    <div class="container content-wrapper clearfix">
         <section id="primary" class="with-sidebar">
-
-
-            <div class="images">
-                <a href="#">
-                    <img src="{{ media($product->featured->medium) }}" alt="" title="">
-                </a>
-            </div>
-            <div class="summary">
-                <h2>{{ $product->name }}</h2>
-                <p class="price">
-                    @if($product->price_sale)
-                        <del>{{ number_format($product->price) }}</del>
-                        <span>{{ number_format($product->price_sale) }} đ</span>
-                    @else
-                        <span>{{ number_format($product->price) }} đ</span>
-                    @endif
-                </p>
-                <p>
-                    {!! $product->excerpt !!}
-                </p>
-                <form class="carts" method="post" action="#">
-                    <div class="box-field columns">
-                        <p class="color-label">
-                            <label for="size">Chọn kích cỡ: </label>
-                            <span>12T</span>
-                        </p>
-                        <select name="select-size" onchange="fn_set_size(this);">
-                            @foreach($product->ProductSizes as $size)
-                                <option value="{{ $size->id }}">{{ $size->size->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    @include('index.partials.product_size', ['colors' => $product->ProductSizes->first()->productColors])
-                    <div class="box-field columns box-quantity">
-                        <label for="quantity">Số lượng: </label>
-
-                        <input type="number" name="quantity" value="1" class="small">
-                        <button type="submit" class="dt-sc-button small">Thêm vào giỏ hàng</button>
-                    </div>
-                    <input type="hidden" name="add-to-cart" value="1146">
-                </form>
-                <div class="product_meta">
-                    <p class="posted_in">Categories:
-                        @foreach($product->categories as $category)
-                            <a href="{{ route('product.category', ['name' => $category->slug, 'id' => $category->id]) }}">{{ $category->name }}</a>
-                            ,
-                        @endforeach
-                    </p>
-                    <p class="posted_in">Tags:
-                        @foreach($product->tags as $tag)
-                            <a href="{{ route('product.tag', ['name' => $tag->slug, 'id' => $tag->id]) }}"
-                               rel="tag">{{ $tag->name }}</a>,
-                        @endforeach
-                    </p>
+            <div class="product-detail clearfix">
+                <div class="images">
+                    <a href="#">
+                        <img src="{{ media($product->featured->medium) }}" alt="" title="">
+                    </a>
                 </div>
-                <div class="loading">
-                    <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
-                    <span class="sr-only">Loading...</span>
+                <div class="summary">
+                    <h2>{{ $product->name }}</h2>
+                    <p class="price">
+                        @if($product->price_sale)
+                            <del>{{ number_format($product->price) }}</del>
+                            <span>{{ number_format($product->price_sale) }} đ</span>
+                        @else
+                            <span>{{ number_format($product->price) }} đ</span>
+                        @endif
+                    </p>
+                    <p>
+                        {!! $product->excerpt !!}
+                    </p>
+                    <form class="carts" method="post" action="#">
+                        <div class="box-field columns">
+
+                            <p class="color-label">
+                                <label for="size">Chọn kích cỡ: </label>
+                                <span>12T</span>
+                            </p>
+                            @include('index.partials.product_size', ['sizes' => $product->ProductSizes])
+                        </div>
+                        @include('index.partials.product_color', ['colors' => $product->ProductSizes->first()->productColors])
+                        <div class="box-field columns box-quantity">
+                            <label for="quantity">Số lượng: </label>
+                            @include('index.partials.product_quantity', ['quantity' => $product->ProductSizes->first()->productColors->first()->pivot->quantity])
+                            <button type="submit" class="dt-sc-button small">Thêm vào giỏ hàng</button>
+                        </div>
+                        <input type="hidden" name="add-to-cart" value="1146">
+                    </form>
+                    <div class="loading">
+                        <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                        <span class="sr-only">Loading...</span>
+                    </div>
                 </div>
             </div>
 
-
-            <div class="related">
+            <div class="related clearfix">
                 <h2>Có thể bạn quan tâm</h2>
                 {{--<ul class="products">
                     @foreach($product_related as $key => $related)
@@ -107,37 +92,44 @@
                 </ul>--}}
             </div>
             <!-- end .related -->
-            <div class="dt-sc-hr"></div>
 
-            <!--dt-sc-tabs-container starts-->
             <div class="dt-sc-tabs-container">
-                <ul class="dt-sc-tabs">
-                    <li><a href="#"> Thông tin sản phẩm </a></li>
-                    <li><a href="#"> Hướng dẫn chọn size </a></li>
+                <ul class="dt-sc-tabs clearfix">
+                    <li><a href="#">Thông tin sản phẩm</a></li>
+                    <li><a href="#">Hướng dẫn chọn size</a></li>
                 </ul>
                 <div class="dt-sc-tabs-content">
-                    <h2>Mô tả sản phẩm</h2>
+                    <h3>Chi tiết sản phẩm</h3>
                     {!! html_entity_decode($product->noidung) !!}
                 </div>
                 <div class="dt-sc-tabs-content">
-                    <h2>4 Reviews for Pretty Little Girl</h2>
-                    <div id="comments">
-                        <ol class="commentlist">
-                            <li>
-                                <div class="comment_container">
-                                    <img src="http://placehold.it/100x100" alt="" title="">
-                                </div>
-                                <div class="comment-text">
-                                    <div class="rating-review">
-                                        <span class="author-rating rating-5"></span> <a href="#">5 reviews</a>
-                                    </div>
-                                    <p>Nam consectetur justo non nis dapibus, ac commodo mi sagittis. Integer enim odio.
-                                        In lobortis rhoncus pulvinar. Pellentesque habitant morbi tristique senectus et
-                                        netus et malesuada fames ac turpis egestas.</p>
-                                </div>
-                            </li>
-                        </ol>
-                    </div>
+                    <h3>4 Reviews for Pretty Little Girl</h3>
+                </div>
+            </div>
+            <!--dt-sc-tabs-container ends-->
+            <div class="dt-sc-tabs-container">
+                <ul class="dt-sc-tabs cleafix">
+                    <li><a href="#">Bình Luận </a></li>
+                    <li><a href="#">Category & Tags</a></li>
+                </ul>
+                <div class="dt-sc-tabs-content">
+                    <h2>Mô tả sản phẩm</h2>
+                </div>
+                <div class="dt-sc-tabs-content">
+                    <h3>Category</h3>
+                    <ul class="tags">
+                        @foreach($product->categories as $tag)
+                            <li><a href="{{ route('product.tag', ['name' => $tag->slug, 'id' => $tag->id]) }}"
+                                   class="tag">{{ $tag->name }}</a></li>
+                        @endforeach
+                    </ul>
+                    <h3>Tags</h3>
+                    <ul class="tags">
+                        @foreach($product->tags as $tag)
+                            <li><a href="{{ route('product.tag', ['name' => $tag->slug, 'id' => $tag->id]) }}"
+                                   class="tag">{{ $tag->name }}</a></li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
             <!--dt-sc-tabs-container ends-->
@@ -293,6 +285,7 @@
         $(function () {
 
         });
+
         function selectSize() {
 
         }

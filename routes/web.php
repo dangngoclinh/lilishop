@@ -16,10 +16,16 @@ Route::get('/', 'Index\PageController@home')->name('page.home');
 Route::get('/san-pham.html', 'Index\PageController@products')
     ->name('page.products');
 
+Route::group(['namespace' => 'Index'], function () {
 
+    //contact
+    Route::get('/lien-he.html', 'ContactController@index')
+        ->name('contact');
+    Route::post('/lien-he.html', 'ContactController@store');
 
-Route::get('/lien-he.html', 'Index\PageController@contact')
-    ->name('page.contact');
+    //search page
+    Route::get('/search', 'SearchController@index')->name('search');
+});
 
 Route::group(['namespace' => 'Index'], function () {
     Route::get('/tin-tuc.html', 'NewsController@index')
@@ -37,7 +43,7 @@ Route::group(['namespace' => 'Index'], function () {
         ->where(['name' => '[a-z-]+', 'id' => '[0-9]+'])
         ->name('product.tag');
 
-    Route::get('/san-pham/{name}-{id}.html', 'ProductController@index')
+    Route::get('/{name}-{id}.html', 'ProductController@index')
         ->where(['name' => '[a-z-]+', 'id' => '[0-9]+'])
         ->name('page.product');
 
@@ -298,6 +304,13 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['adm
         Route::get('/edit/{id}', 'RoleController@edit')->where(['id' => '[0-9]+'])->name('admin.role.edit');
         Route::post('/update', 'RoleController@update')->name('admin.role.update');
         Route::get('/destroy/{id}', 'RoleController@destroy')->where(['id' => '[0-9]+'])->name('admin.role.destroy');
+    });
+
+    Route::group(['prefix' => 'contact'], function () {
+        Route::get('/', 'ContactController@index')->name('admin.contact');
+        Route::get('/{id}', 'ContactController@view')->where(['id' => '[0-9]+'])->name('admin.contact.view');
+        Route::post('/{id}/reply', 'ContactController@reply')->where(['id' => '[0-9]+'])->name('admin.contact.reply');
+        Route::post('/ajax', 'ContactController@ajax')->name('admin.contact.ajax');
     });
 });
 
