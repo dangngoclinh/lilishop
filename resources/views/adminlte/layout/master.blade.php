@@ -27,46 +27,48 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <style>
-/*        li.menu-open > ul.treeview-menu,
-        li.active > ul.treeview-menu {
-            display: block;
-        }*/
+        /*        li.menu-open > ul.treeview-menu,
+                li.active > ul.treeview-menu {
+                    display: block;
+                }*/
     </style>
-    @yield('header')
-    <!-- Custom style -->
+@yield('header')
+<!-- Custom style -->
     <link rel="stylesheet" href="{{ asset('public/css/admin.css') }}">
 </head>
 <body class="hold-transition skin-green sidebar-mini layout-boxed">
 <div class="wrapper">
 
-    @include('adminlte.layout.header')
-    @include('adminlte.layout.sidebar')
+@include('adminlte.layout.header')
+@include('adminlte.layout.sidebar')
 
-    <!-- Content Wrapper. Contains page content -->
+<!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Admin Lilishop
-                <small>Version 1.0</small>
+                @section('heading')
+                    Admin Lilishop
+                    <small>Version 1.0</small>
+                @show
             </h1>
             <ol class="breadcrumb">
-                <li><a href="{{ route('admin.home') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-                @yield('breadcrumb')
+                <li><a href="{{ route('admin.home') }}"><i class="fa fa-dashboard"></i> @lang('Dashboard')</a></li>
+                @yield('breadcrumbs')
             </ol>
         </section>
 
         <!-- Main content -->
         <section class="content">
-        @yield('content')
+            @yield('content')
         </section>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
 
-    @include('adminlte.layout.footer')
+@include('adminlte.layout.footer')
 
-    <!-- Control Sidebar -->
+<!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">
         <!-- Create the tabs -->
         <ul class="nav nav-tabs nav-justified control-sidebar-tabs">

@@ -220,13 +220,12 @@
                                 <button type="button" class="btn btn-info addnewstags">Thêm</button>
                             </span>
                         </div>
-                        <span>Bạn muốn <a href="{{ route('admin.news.tags.add') }}"
-                                          target="_blank">thêm tag mới</a> ?</span>
+                        <span>@lang('Bạn muốn <a href=":url" target="_blank">thêm tag mới</a> ?', ['url' => route("admin.news.tags.add")])</span>
                     </div>
                 </div>
                 <div class="box box-solid">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Ảnh Đại Diện</h3>
+                        <h3 class="box-title">@lang('Ảnh đại diện')</h3>
                         <div class="box-tools">
                             <!-- This will cause the box to collapse when clicked -->
                             <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -235,8 +234,8 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        @if($news->media)
-                            <img src="{{ media($news->media->medium) }}" alt="{{ $news->media->name }}" class="img-thumbnail news-image">
+                        @if($news->image)
+                            <img src="{{ media($news->image->medium) }}" alt="{{ $news->image->name }}" class="img-thumbnail news-image">
                         @endif
                     </div>
                 </div>

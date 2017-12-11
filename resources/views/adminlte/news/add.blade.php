@@ -1,12 +1,16 @@
 @extends('adminlte.layout.master')
-@section('breadcrumb')
+@section('heading')
+    @lang('Quản lý tin tức')
+@endsection
+@section('breadcrumbs')
+    <li><a href="{{ route('admin.news')  }}">@lang('Tin tức')</a></li>
+    <li class="active">@lang('Thêm')</li>
 @endsection
 @section('content')
-    <!-- Default box -->
     @include('adminlte.layout.partials.error')
-    <div class="box">
+    <div class="box box-solid">
         <div class="box-header with-border">
-            <h3 class="box-title">Thêm Tags</h3>
+            <h3 class="box-title">@lang('Thêm bài viết')</h3>
 
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -21,24 +25,24 @@
             {{ csrf_field() }}
             <div class="box-body">
                 <div class="form-group">
-                    <label for="name" class="col-sm-2 control-label">Tiêu Đề</label>
+                    <label for="name" class="col-sm-2 control-label">@lang('Tiêu đề')</label>
 
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="name" id="name" placeholder="Tên tag">
+                        <input type="text" class="form-control" name="name" id="name" placeholder="@lang('Tiêu đề')">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="slug" class="col-sm-2 control-label">Slug</label>
+                    <label for="slug" class="col-sm-2 control-label">@lang('Slug')</label>
 
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="slug" id="slug" placeholder="Slug">
+                        <input type="text" class="form-control" name="slug" id="slug" placeholder="@lang('Slug')">
                     </div>
                 </div>
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-                <button type="reset" class="btn btn-default">Nhập Lại</button>
-                <button type="submit" class="btn btn-info pull-right">Thêm</button>
+                <button type="reset" class="btn btn-default">@lang('Nhập Lại')</button>
+                <button type="submit" class="btn btn-info pull-right">@lang('Thêm')</button>
             </div>
             <!-- /.box-footer -->
         </form>

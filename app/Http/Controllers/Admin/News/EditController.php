@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\News;
 
-use App\Model\Media;
+use App\Model\Image as Media;
 use App\Model\News;
 use App\Model\NewsCategory;
 use App\Model\NewsCategoryList;
@@ -21,14 +21,9 @@ class EditController extends Controller
         $categories    = NewsCategory::getAll();
         $category_list = NewsCategoryList::where('news_id', $id)->pluck('category_id')->toArray();
         $tags_list     = NewsTagsList::where('news_id', $id)->get();
-        $images        = Media::where('id_type', $id)->get();;
+        $images        = Media::where('imageable_id', $id)->get();;
         if ($news) {
-            return view('adminlte.news.edit')
-                ->with('news', $news)
-                ->with('categories', $categories)
-                ->with('category_list', $category_list)
-                ->with('tags_list', $tags_list)
-                ->with('images', $images);
+            return view('adminlte.news.edit', compact('news', 'categories', 'category_list', 'tags_list', 'images'));
         }
     }
 

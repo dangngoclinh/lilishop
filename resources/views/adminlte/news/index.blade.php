@@ -17,15 +17,16 @@
             </div>
         </div>
         <div class="box-body">
-            <table class="table table-hover table-bordered">
-                <tbody>
+            <table class="table table-hover">
+                <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Loại</th>
-                    <th>Tên</th>
-                    <th>Ngày Cập Nhật</th>
+                    <th>@lang('ID')</th>
+                    <th>@lang('Bài viết')</th>
+                    <th>@lang('Ngày tạo')</th>
                     <th></th>
                 </tr>
+                </thead>
+                <tbody>
                 @foreach($news_list as $key => $news)
                     @php
                         $url_edit = route('admin.news.edit', (['id' => $news->id]));
@@ -33,9 +34,8 @@
                     @endphp
                     <tr>
                         <td>{{ $news->id }}</td>
-                        <td><span class="badge bg-red">Approved</span></td>
                         <td><a href="{{ $url_edit }}">{{ $news->name }}</a></td>
-                        <td>{{ Carbon\Carbon::parse($news->created_at)->format('d-m-Y') }}</td>
+                        <td>{{ $news->created_at->diffForHumans() }}</td>
                         <td>
                             <a href="{{ $url_edit }}" class="btn btn-danger btn-xs news_delete"><i class="fa fa-pencil"></i></a>
                             <a href="{{ $url_view }}" class="btn btn-success btn-xs" target="_blank"><i
@@ -43,7 +43,7 @@
                         </td>
                     </tr>
                 @endforeach
-                </tbody>
+                </thead>
             </table>
         </div>
         <!-- /.box-body -->
