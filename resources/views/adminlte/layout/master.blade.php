@@ -8,14 +8,14 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
-    <link rel="stylesheet" href="{{ asset('public/AdminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/bower_dl/bootstrap/dist/css/bootstrap.min.css') }}">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('public/AdminLTE/bower_components/font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/bower_dl/font-awesome/css/font-awesome.min.css') }}">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="{{ asset('public/AdminLTE/bower_components/Ionicons/css/ionicons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/bower_dl/Ionicons/css/ionicons.min.css') }}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('public/AdminLTE/dist/css/AdminLTE.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/AdminLTE/dist/css/skins/skin-green.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/bower_dl/admin-lte/dist/css/AdminLTE.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/bower_dl/admin-lte/dist/css/skins/skin-green.min.css') }}">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -264,16 +264,16 @@
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->
-<script src="{{ asset('public/AdminLTE/bower_components/jquery/dist/jquery.min.js') }}"></script>
+<script src="{{ asset('vendor/bower_dl/jquery/dist/jquery.min.js') }}"></script>
 <!-- Bootstrap 3.3.7 -->
-<script src="{{ asset('public/AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('vendor/bower_dl/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <!-- SlimScroll -->
-<script src="{{ asset('public/AdminLTE/bower_components/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
+<script src="{{ asset('vendor/bower_dl/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
 <!-- FastClick -->
-<script src="{{ asset('public/AdminLTE/bower_components/fastclick/lib/fastclick.js') }}"></script>
+<script src="{{ asset('vendor/bower_dl/fastclick/lib/fastclick.js') }}"></script>
 <!-- AdminLTE App -->
 <script type="text/javascript" src="{{ asset('vendor/bower_dl/clipboard/dist/clipboard.min.js') }}"></script>
-<script src="{{ asset('public/AdminLTE/dist/js/adminlte.min.js') }}"></script>
+<script src="{{ asset('vendor/bower_dl/admin-lte/dist/js/adminlte.min.js') }}"></script>
 <script src="{{ asset('public/js/admin.js') }}"></script>
 @yield('footer')
 </body>

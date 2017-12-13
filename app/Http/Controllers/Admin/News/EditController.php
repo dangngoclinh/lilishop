@@ -17,14 +17,7 @@ class EditController extends Controller
 {
     public function get($id)
     {
-        $news          = News::find($id);
-        $categories    = NewsCategory::getAll();
-        $category_list = NewsCategoryList::where('news_id', $id)->pluck('category_id')->toArray();
-        $tags_list     = NewsTagsList::where('news_id', $id)->get();
-        $images        = Media::where('imageable_id', $id)->get();;
-        if ($news) {
-            return view('adminlte.news.edit', compact('news', 'categories', 'category_list', 'tags_list', 'images'));
-        }
+
     }
 
     public function post(Request $request, $id)

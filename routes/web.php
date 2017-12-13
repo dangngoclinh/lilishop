@@ -17,7 +17,6 @@ Route::get('/san-pham.html', 'Index\PageController@products')
     ->name('page.products');
 
 Route::group(['namespace' => 'Index'], function () {
-
     //contact
     Route::get('/lien-he.html', 'ContactController@index')
         ->name('contact');
@@ -25,6 +24,10 @@ Route::group(['namespace' => 'Index'], function () {
 
     //search page
     Route::get('/search', 'SearchController@index')->name('search');
+
+    //tag
+    Route::get('/tag/{name}-{id}.html', 'TagController@index')->where(['name' => '[a-z]+', 'id' => '[0-9]+'])
+        ->name('tag');
 });
 
 Route::group(['namespace' => 'Index'], function () {
@@ -38,10 +41,6 @@ Route::group(['namespace' => 'Index'], function () {
     Route::get('/category/{name}-{id}.html', 'ProductCategoryController@index')
         ->where(['name' => '[a-z]+', 'id' => '[0-9]+'])
         ->name('product.category');
-
-    Route::get('/tag/{name}-{id}.html', 'ProductTagController@index')
-        ->where(['name' => '[a-z-]+', 'id' => '[0-9]+'])
-        ->name('product.tag');
 
     Route::get('/{name}-{id}.html', 'ProductController@index')
         ->where(['name' => '[a-z-]+', 'id' => '[0-9]+'])
@@ -95,8 +94,10 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['adm
 
         //admin/news/edit
         Route::group(['prefix' => 'edit'], function () {
-            Route::get('/{id}', 'EditController@get')->where(['id' => '[0-9]+'])
+            Route::get('/{id}', 'NewsController@edit')->where(['id' => '[0-9]+'])
                 ->name('admin.news.edit');
+            Route::post('/{id}', 'IndexController@ajax')->where(['id' => '[0-9]+'])
+                ->name('admin.news.ajax');
             Route::post('/{id}', 'EditController@post')->where(['id' => '[0-9]+']);
             Route::post('/{id}/postCategory', 'EditController@postCategory')->where(['id' => '[0-9]+']);
             Route::post('/{id}/postTags', 'EditController@postTags')->where(['id' => '[0-9]+']);
@@ -127,24 +128,16 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['adm
                 ->name('admin.news.category.delete');
         });
 
-        //admin/news/tags
-        Route::group(['prefix' => 'tags'], function () {
-            Route::get('/', 'TagsController@index')
-                ->name('admin.news.tags');
-            Route::get('/add', 'TagsController@add')
-                ->name('admin.news.tags.add');
-            Route::post('/add', 'TagsController@postAdd');
-            Route::get('/edit/{id}', 'TagsController@edit')
-                ->where(['id' => '[0-9]+'])
-                ->name('admin.news.tags.edit');
-            Route::post('/edit/{id}', 'TagsController@postEdit')
-                ->where(['id' => '[0-9]+'])
-                ->name('admin.news.tags.edit');
-            Route::get('/delete/{id}', 'TagsController@delete')
-                ->where(['id' => '[0-9]+'])
-                ->name('admin.news.tags.delete');
-        });
+    });
 
+    //admin/tags
+    Route::group(['prefix' => 'tags'], function () {
+        Route::get('/', 'TagController@index')->name('admin.tags');
+        Route::get('/create', 'TagController@create')->name('admin.tags.create');
+        Route::post('/store', 'TagController@store');
+        Route::get('/edit/{id}', 'TagController@edit')->where(['id' => '[0-9]+'])->name('admin.tags.edit');
+        Route::post('/update/{id}', 'TagController@update')->where(['id' => '[0-9]+']);
+        Route::get('/destroy/{id}', 'TagController@destroy')->where(['id' => '[0-9]+'])->name('admin.tags.destroy');
     });
 
     //admin/product

@@ -43,38 +43,42 @@
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-newspaper-o"></i>
-                    <span>News</span>
+                    <span>@lang('Bài viết')</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ route('admin.news') }}"><i class="fa fa-newspaper-o"></i> News</a></li>
-                    <li><a href="{{ route('admin.news.add') }}"><i class="fa fa-plus"></i> Add News</a></li>
+                    <li><a href="{{ route('admin.news') }}"><i class="fa fa-newspaper-o"></i> @lang('Danh sách')</a>
+                    </li>
+                    <li><a href="{{ route('admin.news.add') }}"><i class="fa fa-plus"></i> @lang('Thêm bài viết')</a>
+                    </li>
                     <li class="treeview"><a href="{{ route('admin.news.category') }}"><i class="fa fa-folder"></i>
-                            Category
+                            @lang('Dang mục')
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
                         <ul class="treeview-menu">
                             <li><a href="{{ route('admin.news.category') }}">
-                                    <i class="fa fa-list-alt"></i> List</a>
+                                    <i class="fa fa-list-alt"></i> @lang('Danh sách')</a>
                             </li>
                             <li><a href="{{ route('admin.news.category.add') }}">
-                                    <i class="fa fa-plus"></i> Add Category</a>
+                                    <i class="fa fa-plus"></i> @lang('Thêm danh mục')</a>
                             </li>
                         </ul>
                     </li>
                     <li class="treeview">
-                        <a href="{{ route('admin.news.tags') }}"><i class="fa fa-tags"></i> Tags
+                        <a href="#"><i class="fa fa-tags"></i> Tags
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="{{ route('admin.news.tags') }}"><i class="fa fa-list-alt"></i> List</a></li>
-                            <li><a href="{{ route('admin.news.tags.add') }}"><i class="fa fa-plus"></i> Add Tag</a></li>
+                            <li><a href="{{ route('admin.tags') }}"><i class="fa fa-list-alt"></i> @lang('Danh sách')
+                                </a></li>
+                            <li><a href="{{ route('admin.tags.create') }}"><i class="fa fa-plus"></i> @lang('Thêm tag')
+                                </a></li>
                         </ul>
                     </li>
                 </ul>
@@ -82,44 +86,33 @@
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-archive"></i>
-                    <span>Products</span>
+                    <span>@lang('Sản phẩm')</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{{ route('admin.product') }}"><i class="fa fa-product-hunt" aria-hidden="true"></i>
-                            List
-                            Products</a></li>
-                    <li><a href="{{ route('admin.product.create') }}"><i class="fa fa-plus"></i> Add Products</a></li>
+                            @lang('Danh sách sản phẩm')</a></li>
+                    <li><a href="{{ route('admin.product.create') }}"><i class="fa fa-plus"></i>
+                            @lang('Thêm sản phẩm')</a></li>
                     <li class="treeview"><a href="{{ route('admin.product.category') }}"><i class="fa fa-folder"></i>
-                            Category
+                            @lang('Danh mục')
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
                         <ul class="treeview-menu">
                             <li><a href="{{ route('admin.product.category') }}">
-                                    <i class="fa fa-list-alt"></i> List</a>
+                                    <i class="fa fa-list-alt"></i> @lang('Danh sách')</a>
                             </li>
                             <li><a href="{{ route('admin.product.category.create') }}">
-                                    <i class="fa fa-plus"></i> Add Category</a>
+                                    <i class="fa fa-plus"></i> @lang('Thêm danh mục')</a>
                             </li>
                         </ul>
                     </li>
-                    <li class="treeview">
-                        <a href="{{ route('admin.product.tag') }}"><i class="fa fa-tags"></i> Tags
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="{{ route('admin.product.tag') }}"><i class="fa fa-list-alt"></i> List</a></li>
-                            <li><a href="{{ route('admin.product.tag.create') }}"><i class="fa fa-plus"></i> Add Tag</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="{{ route('admin.size') }}"><i class="fa fa-th-large"></i> Size</a></li>
+
+                    <li><a href="{{ route('admin.size') }}"><i class="fa fa-th-large"></i> @lang('Kích thước')</a></li>
                 </ul>
             </li>
             <li class="treeview">
@@ -158,7 +151,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ route('admin.contact') }}"><i class="fa fa-envelope" aria-hidden="true"></i> @lang('Liên hệ')</a></li>
+                    <li><a href="{{ route('admin.contact') }}"><i class="fa fa-envelope"
+                                                                  aria-hidden="true"></i> @lang('Liên hệ')</a></li>
                 </ul>
             </li>
         </ul>

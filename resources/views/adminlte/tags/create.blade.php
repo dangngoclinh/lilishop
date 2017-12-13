@@ -2,10 +2,9 @@
 @section('breadcrumb')
 @endsection
 @section('content')
-    <!-- Default box -->
-    <div class="box">
+    <div class="box box-solid">
         <div class="box-header with-border">
-            <h3 class="box-title">Thêm Tags</h3>
+            <h3 class="box-title">@lang('Thêm Tag')</h3>
 
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -16,28 +15,28 @@
                     <i class="fa fa-times"></i></button>
             </div>
         </div>
-        <form class="form-horizontal" method="post" action="{{ action('Admin\News\TagsController@postAdd') }}">
+        <form class="form-horizontal" method="post" action="{{ action('Admin\TagController@store') }}">
             {{ csrf_field() }}
             <div class="box-body">
                 <div class="form-group">
-                    <label for="name" class="col-sm-2 control-label">Tên Tags</label>
+                    <label for="name" class="col-sm-2 control-label">@lang('Tên Tag')</label>
 
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="name" id="name" placeholder="Tên tag">
+                        <input type="text" class="form-control" name="name" placeholder="@lang('Tên')">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="slug" class="col-sm-2 control-label">Slug</label>
+                    <label for="slug" class="col-sm-2 control-label">@lang('Slug')</label>
 
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="slug" id="slug" placeholder="Slug">
+                        <input type="text" class="form-control" name="slug" placeholder="@lang('slug')">
                     </div>
                 </div>
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-                <button type="reset" class="btn btn-default">Nhập Lại</button>
-                <button type="submit" class="btn btn-info pull-right">Thêm</button>
+                <button type="reset" class="btn btn-default">@lang('Nhập Lại')</button>
+                <button type="submit" class="btn btn-info pull-right">@lang('Thêm')</button>
             </div>
             <!-- /.box-footer -->
         </form>

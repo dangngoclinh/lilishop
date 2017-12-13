@@ -5,10 +5,9 @@
     <script src="//cdn.ckeditor.com/4.7.3/standard/ckeditor.js"></script>
 @endsection
 @section('content')
-    <!-- Default box -->
-    <div class="box">
+    <div class="box box-solid">
         <div class="box-header with-border">
-            <h3 class="box-title">Thêm Tags</h3>
+            <h3 class="box-title">@lang('Chỉnh sửa tag')</h3>
 
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -20,7 +19,7 @@
             </div>
         </div>
         <form class="form-horizontal" method="post"
-              action="{{ action('Admin\News\TagsController@postEdit', ['id' => $tag->id]) }}">
+              action="{{ action('Admin\TagController@update', ['id' => $tag->id]) }}">
             {{ csrf_field() }}
             <div class="box-body">
                 @if ($errors->any())
@@ -58,38 +57,37 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="name" class="col-sm-2 control-label">Excerpt</label>
+                    <label for="name" class="col-sm-2 control-label">@lang('Tóm tắt')</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="excerpt" id="excerpt" placeholder="Excerpt"
-                               value="{{ $tag->excerpt }}">
+                        <textarea name="excerpt" class="form-control" rows="3">{{ $tag->excerpt }}</textarea>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="content" class="col-sm-2 control-label">Content</label>
+                    <label for="content" class="col-sm-2 control-label">@lang('Nội dung')</label>
                     <div class="col-sm-10">
                         <textarea class="form-control" name="content" id="content"
                                   rows="10">{{ $tag->content }}</textarea>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="name" class="col-sm-2 control-label">SEO Keywords</label>
+                    <label for="name" class="col-sm-2 control-label">Keywords</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="seo_keyword" id="seo_keyword"
-                               placeholder="SEO Keywords" value="{{ $tag->seo_keyword }}">
+                        <input type="text" class="form-control" name="keywords"
+                               placeholder="SEO Keywords" value="{{ $tag->keywords }}">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="seo_description" class="col-sm-2 control-label">SEO Description</label>
+                    <label for="seo_description" class="col-sm-2 control-label">Description</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" name="seo_description" id="seo_description"
-                                  rows="4">{{ $tag->seo_description }}</textarea>
+                        <textarea class="form-control" name="description"
+                                  rows="4">{{ $tag->description }}</textarea>
                     </div>
                 </div>
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-                <button type="reset" class="btn btn-default">Nhập Lại</button>
-                <button type="submit" class="btn btn-info pull-right">Update</button>
+                <button type="reset" class="btn btn-default">@lang('Nhập lại')</button>
+                <button type="submit" class="btn btn-info pull-right">@lang('Lưu')</button>
             </div>
             <!-- /.box-footer -->
         </form>

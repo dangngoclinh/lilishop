@@ -2,10 +2,9 @@
 @section('breadcrumb')
 @endsection
 @section('content')
-    <!-- Default box -->
     <div class="box box-solid">
-        <div class="box-header with-border">
-            <h3 class="box-title">Danh sách tin tức</h3>
+        <div class="box-header box-broder">
+            <h3 class="box-title">Danh sách Tags</h3>
 
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -17,33 +16,34 @@
             </div>
         </div>
         <div class="box-body">
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-check"></i> Thành công!</h4>
+                    {{ session('success') }}
+                </div>
+            @endif
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th>@lang('ID')</th>
-                    <th>@lang('Bài viết')</th>
-                    <th>@lang('Mục')</th>
-                    <th>@lang('Ngày tạo')</th>
+                    <th><input type="checkbox" name="check_all"></th>
+                    <th>Tên</th>
+                    <th>Slug</th>
                     <th></th>
+                    <th class="right">Updated</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($news_list as $key => $news)
+                @foreach($tags as $key => $tag)
                     @php
-                        $url_edit = route('admin.news.edit', (['id' => $news->id]));
-                        $url_view = route('index.news.view', ['slug' => $news->slug, 'id' => $news->id]);
+                        $url_edit = route('admin.tags.edit', $tag->id);
+                        $url_view = route('tag', ['name' => $tag->slug, 'id' => $tag->id]);
+                        $url_delete = route('admin.tags.destroy', $tag->id);
                     @endphp
                     <tr>
-                        <td>{{ $news->id }}</td>
-                        <td><a href="{{ $url_edit }}">{{ $news->name }}</a></td>
-                        <td>
-                            @if($news->categories->isNotEmpty())
-                                @foreach($news->categories as $category)
-                                    <a href="">{{ $category->name }}</a>
-                                @endforeach
-                            @endif
-                        </td>
-                        <td>{{ $news->created_at->diffForHumans() }}</td>
+                        <td><input type="checkbox" name="tags[]"></td>
+                        <td>{{ $tag->name }}</td>
+                        <td>{{ $tag->slug }}</td>
                         <td>
                             <div class="btn-group hidden-tools">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
@@ -58,17 +58,21 @@
                                     </li>
                                     <li class="divider"></li>
                                     <li><a href="{{ $url_edit }}">Chỉnh sửa</a></li>
+                                    <li><a href="{{ $url_delete }}" class="act_delete">Xóa</a>
+                                    </li>
                                 </ul>
                             </div>
                         </td>
+                        <td class="right">{{ $tag->updated_at->format('d/m/Y') }}</td>
                     </tr>
                 @endforeach
-                </thead>
+                </tbody>
             </table>
         </div>
         <!-- /.box-body -->
         <div class="box-footer">
-            {{  $news_list->links('vendor.pagination.adminlte') }}
+            <button type="button" class="btn btn-danger pull-left">@lang('Xóa')</button>
+            {{  $tags->links('vendor.pagination.adminlte') }}
         </div>
         <!-- /.box-footer-->
     </div>

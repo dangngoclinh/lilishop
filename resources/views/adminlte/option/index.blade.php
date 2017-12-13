@@ -5,9 +5,9 @@
     <div class="row">
         <div class="col-md-12">
             <!-- Horizontal Form -->
-            <div class="box box-info">
+            <div class="box box-solid">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Option Setting</h3>
+                    <h3 class="box-title">@lang('Thiết lập website')</h3>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
@@ -45,8 +45,8 @@
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer">
-                        <button type="reset" class="btn btn-default">Cancel</button>
-                        <button type="submit" class="btn btn-info pull-right">Cập Nhật</button>
+                        <button type="reset" class="btn btn-default">@lang('Nhập lại')</button>
+                        <button type="submit" class="btn btn-info pull-right">@lang('Cập nhật')</button>
                     </div>
                     <!-- /.box-footer -->
                 </form>

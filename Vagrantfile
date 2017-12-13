@@ -41,4 +41,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     if defined? VagrantPlugins::HostsUpdater
         config.hostsupdater.aliases = settings['sites'].map { |site| site['map'] }
     end
+    config.vm.provider "virtualbox" do |v|
+        v.customize ["modifyvm", :id, "--accelerate3d", "off"]
+    end
+    Vagrant.configure("2") do |config|
+        config.ssh.private_key_path = "~/.ssh/id_rsa"
+        config.ssh.forward_agent = true
+    end
 end

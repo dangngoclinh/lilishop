@@ -14,4 +14,8 @@ class IndexController extends Controller
         return view('adminlte.news.index')
             ->with('news_list', $news_list);
     }
+
+    public function edit() {
+
+    }
 }

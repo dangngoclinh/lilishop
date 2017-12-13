@@ -16,10 +16,8 @@ class OptionServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if(Cache::has('option'))
+        if (Cache::has('option'))
             config()->set('option', Cache::get('option'));
-        else
-            config()->set('option', Option::pluck('value', 'key')->all());
     }
 
     /**
