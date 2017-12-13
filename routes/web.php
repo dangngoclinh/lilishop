@@ -88,9 +88,9 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['adm
             ->name('admin.news');
 
         //admin/news/add
-        Route::get('/add', 'AddController@index')
-            ->name('admin.news.add');
-        Route::post('/add', 'AddController@postAdd');
+        Route::get('/create', 'NewsController@create')
+            ->name('admin.news.create');
+        Route::post('/store', 'NewsController@store');
 
         //admin/news/edit
         Route::group(['prefix' => 'edit'], function () {
@@ -114,17 +114,13 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['adm
         Route::group(['prefix' => 'category'], function () {
             Route::get('/', 'CategoryController@index')
                 ->name('admin.news.category');
-            Route::get('/add', 'CategoryController@add')
-                ->name('admin.news.category.add');
-            Route::post('/add', 'CategoryController@postAdd');
-            Route::get('/edit/{id}', 'CategoryController@edit')
-                ->where(['id' => '[0-9]+'])
+            Route::get('/create', 'CategoryController@create')->name('admin.news.category.create');
+            Route::post('/create', 'CategoryController@store');
+            Route::get('/edit/{id}', 'CategoryController@edit')->where(['id' => '[0-9]+'])
                 ->name('admin.news.category.edit');
-            Route::post('/edit/{id}', 'CategoryController@postEdit')
-                ->where(['id' => '[0-9]+'])
+            Route::post('/edit/{id}', 'CategoryController@update')->where(['id' => '[0-9]+'])
                 ->name('admin.news.category.edit');
-            Route::get('/delete/{id}', 'CategoryController@delete')
-                ->where(['id' => '[0-9]+'])
+            Route::get('/delete/{id}', 'CategoryController@destroy')->where(['id' => '[0-9]+'])
                 ->name('admin.news.category.delete');
         });
 

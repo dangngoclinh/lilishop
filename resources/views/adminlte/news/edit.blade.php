@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="{{ asset('vendor/bower_dl/select2-bootstrap-theme/dist/select2-bootstrap.min.css') }}">
 @endsection
 @section('content')
-
     @include('adminlte.layout.partials.error')
     <form name="news_add" class="form-horizontal" method="post"
           action="{{ action('Admin\News\EditController@post', $news->id) }}">
@@ -87,7 +86,7 @@
 
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" name="seo_title" placeholder="SEO Title"
-                                       value="{{ $news->seo_title }}">
+                                       value="{{ $news->title }}">
                             </div>
                         </div>
                         <div class="form-group">
@@ -95,14 +94,14 @@
 
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" name="seo_keywords" placeholder="SEO Keywords"
-                                       value="{{ $news->seo_title }}">
+                                       value="{{ $news->keywords }}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="seo_description" class="col-md-2 control-label">SEo Description</label>
                             <div class="col-sm-10">
                                 <textarea class="form-control" name="seo_description"
-                                          rows="4">{{ $news->seo_description }}</textarea>
+                                          rows="4">{{ $news->description }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -189,10 +188,10 @@
                     <!-- /.box-header -->
                     <div class="box-body" style="max-height: 200px; overflow-y: auto">
                         <table class="table table-hover">
-                            @include('adminlte.news.partials.category', ['categories' => $categories[0],
+{{--                            @include('adminlte.news.partials.category', ['categories' => $categories[0],
                                                                             'tree' => $categories,
                                                                             'category_list' => $category_list,
-                                                                             'prefix' => ''])
+                                                                             'prefix' => ''])--}}
                         </table>
                     </div>
                 </div>
@@ -207,9 +206,9 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body box-newstags">
-                        @foreach($tags_list as $tags)
+{{--                        @foreach($tags_list as $tags)
                             <span class="tag" data-id="{{ $tags->NewsTags->id }}">{{ $tags->NewsTags->name }}</span>
-                        @endforeach
+                        @endforeach--}}
 
                     </div>
                     <div class="box-footer">

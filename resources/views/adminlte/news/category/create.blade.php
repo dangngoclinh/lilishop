@@ -2,10 +2,10 @@
 @section('breadcrumb')
 @endsection
 @section('content')
-    <!-- Default box -->
-    <div class="box">
+    @include('adminlte.layout.partials.error')
+    <div class="box box-solid">
         <div class="box-header with-border">
-            <h3 class="box-title">Thêm Category</h3>
+            <h3 class="box-title">@lang('Thêm danh mục')</h3>
 
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -16,29 +16,39 @@
                     <i class="fa fa-times"></i></button>
             </div>
         </div>
-        <form class="form-horizontal" method="post" action="{{ action('Admin\News\CategoryController@postAdd') }}">
+        <form class="form-horizontal" method="post" action="{{ action('Admin\News\CategoryController@store') }}">
             {{ csrf_field() }}
             <div class="box-body">
                 <div class="form-group">
-                    <label for="name" class="col-sm-2 control-label">Tên Tags</label>
+                    <label for="name" class="col-sm-2 control-label">@lang('Tên danh mục')</label>
 
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="name" id="name" placeholder="Tên tag">
+                        <input type="text" class="form-control" name="name" placeholder="@lang('Tên danh mục')" value="{{ old('name') }}">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="slug" class="col-sm-2 control-label">Slug</label>
+                    <label for="slug" class="col-sm-2 control-label">@lang('Slug')</label>
 
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="slug" id="slug" placeholder="Slug">
+                        <input type="text" class="form-control" name="slug" placeholder="@lang('Slug')" value="{{ old('slug') }}">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="slug" class="col-sm-2 control-label">Cha</label>
+                    <label for="slug" class="col-sm-2 control-label">@lang('Vị trí')</label>
                     <div class="col-sm-10">
                         <select name="parent_id" class="form-control">
-                            <option value="">Chọn Category Cha</option>
-                            @include('adminlte.news.category.partials.option', ['categories' => $categories[0], 'tree' => $categories, 'prefix' => ''])
+                            <option value="">- Cấp độ gốc -</option>
+                            @php
+                                $traverse = function ($categories, $prefix = '') use (&$traverse) {
+                                    foreach ($categories as $category) {
+                                    echo '<option value="'.$category->id.'">
+                                            '.$prefix.'  '.$category->name.'</option>';
+                                        $traverse($category->children, $prefix.'¦&nbsp;&nbsp;&nbsp;&nbsp;');
+                                    }
+                                };
+
+                                $traverse($categories);
+                            @endphp
                         </select>
                     </div>
                 </div>

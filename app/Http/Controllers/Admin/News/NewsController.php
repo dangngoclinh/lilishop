@@ -18,21 +18,30 @@ class NewsController extends Controller
 
     public function create()
     {
-
+        return view('adminlte.news.create');
     }
 
-    public function store()
+    public function store(Request $request)
     {
-
+        $request->validate([
+                               'name' => 'required',
+                               'slug' => 'required|unique:' . (new News())->getTable(),
+                           ]);
+        $news = News::create($request->all());
+        $news->save();
+        return redirect()->route('admin.news.edit', $news->id);
     }
 
     public function edit($id)
     {
         $news          = News::find($id);
-        $categories    = NewsCategory::getAll();
+        $categories    = NewsCategory::get()->toTree();
+        //dd($news->categories);
+
         $category_list = $news->categories()->pluck('id')->toArray();
-        $tags_list     = NewsTagsList::where('news_id', $id)->get();
-        $images        = Media::where('imageable_id', $id)->get();;
+        //dd($category_list);
+        //$tags_list     = NewsTagsList::where('news_id', $id)->get();
+        //$images        = Media::where('imageable_id', $id)->get();;
         if ($news) {
             return view('adminlte.news.edit', compact('news', 'categories', 'category_list', 'tags_list', 'images'));
         }

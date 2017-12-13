@@ -21,7 +21,7 @@
                     <i class="fa fa-times"></i></button>
             </div>
         </div>
-        <form class="form-horizontal" method="post" action="{{ action('Admin\News\AddController@postAdd') }}">
+        <form class="form-horizontal" method="post" action="{{ action('Admin\News\NewsController@store') }}">
             {{ csrf_field() }}
             <div class="box-body">
                 <div class="form-group">

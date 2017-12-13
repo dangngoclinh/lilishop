@@ -51,7 +51,7 @@
                 <ul class="treeview-menu">
                     <li><a href="{{ route('admin.news') }}"><i class="fa fa-newspaper-o"></i> @lang('Danh sách')</a>
                     </li>
-                    <li><a href="{{ route('admin.news.add') }}"><i class="fa fa-plus"></i> @lang('Thêm bài viết')</a>
+                    <li><a href="{{ route('admin.news.create') }}"><i class="fa fa-plus"></i> @lang('Thêm bài viết')</a>
                     </li>
                     <li class="treeview"><a href="{{ route('admin.news.category') }}"><i class="fa fa-folder"></i>
                             @lang('Dang mục')
@@ -63,7 +63,7 @@
                             <li><a href="{{ route('admin.news.category') }}">
                                     <i class="fa fa-list-alt"></i> @lang('Danh sách')</a>
                             </li>
-                            <li><a href="{{ route('admin.news.category.add') }}">
+                            <li><a href="{{ route('admin.news.category.create') }}">
                                     <i class="fa fa-plus"></i> @lang('Thêm danh mục')</a>
                             </li>
                         </ul>

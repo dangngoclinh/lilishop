@@ -5,29 +5,30 @@ namespace App\Http\Controllers\Admin\News;
 use App\Model\NewsCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Kalnoy\Nestedset\Collection;
-
-/*use Kalnoy\Nestedset\QueryBuilder;*/
 
 class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = NewsCategory::getAll();
-        return view('adminlte.news.category.index')
+        $categories = NewsCategory::get()->toTree();
+        return view('adminlte.news.category.index', compact('categories'));
+    }
+
+    public function create()
+    {
+        $categories = NewsCategory::get()->toTree();
+        return view('adminlte.news.category.create')
             ->with('categories', $categories);
     }
 
-    public function add()
+    public function store(Request $request)
     {
-        $categories = $this->getCategoryAll();
-        return view('adminlte.news.category.add')
-            ->with('categories', $categories);
-    }
-
-    public function postAdd(Request $request)
-    {
-        $category = NewsCategory::create($request->all());
+        $category = new NewsCategory;
+        $request->validate([
+                               'name' => 'required',
+                               'slug' => 'required|unique:' . $category->getTable()
+                           ]);
+        $category->fill($request->all());
         $category->save();
         return redirect()->route('admin.news.category.edit', ['id' => $category->id]);
 
@@ -42,26 +43,31 @@ class CategoryController extends Controller
             ->with('categories', $categories);
     }
 
-    public function postEdit(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $category = NewsCategory::find($id);
         $request->validate([
-            'name' => 'required',
-            'slug' => 'required|unique:' . $category->getTable() . ',slug,' . $category->id
+                               'name' => 'required',
+                               'slug' => 'required|unique:' . $category->getTable() . ',slug,' . $category->id
                            ]);
         $category->fill($request->all());
         $category->update();
         return back()->with('success', 'Update Success');
     }
 
-/*    public function getCategoryAll()
+    /*    public function getCategoryAll()
+        {
+            $categories = NewsCategory::all();
+            $result     = array();
+            foreach ($categories as $category) {
+                $parent            = ($category->parent_id != null) ? $category->parent_id : 0;
+                $result[$parent][] = $category;
+            }
+            return $result;
+        }*/
+
+    public function destroy($id)
     {
-        $categories = NewsCategory::all();
-        $result     = array();
-        foreach ($categories as $category) {
-            $parent            = ($category->parent_id != null) ? $category->parent_id : 0;
-            $result[$parent][] = $category;
-        }
-        return $result;
-    }*/
+
+    }
 }

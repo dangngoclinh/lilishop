@@ -15,6 +15,10 @@ class News extends Model
         return $this->belongsTo('App\Model\Image', 'image_id');
     }
 
+    public function images() {
+        return $this->morphMany('App\Model\Image', 'imageable');
+    }
+
     public function categories() {
         return $this->belongsToMany('App\Model\NewsCategory', 'news_categories', 'news_id', 'category_id');
     }
