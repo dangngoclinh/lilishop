@@ -231,7 +231,7 @@
             <div class="col-md-4">
                 <div class="box box-solid">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Hành Động</h3>
+                        <h3 class="box-title">@lang('Hành động')</h3>
                         <div class="box-tools">
                             <!-- This will cause the box to collapse when clicked -->
                             <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -241,13 +241,15 @@
                     <!-- /.box-header -->
                     <div class="box-body">
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Ngày xuất bản:</label>
+                            <label class="col-md-4 control-label left">@lang('Xuất bản:')</label>
                             <div class="col-md-8">
-                                <div class="input-group date">
-                                <span class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                </span>
-                                    <input type="text" class="form-control pull-right" id="datepicker">
+                                <div class="input-group date datetimepicker">
+                                    <input type="text" class="form-control pull-right"
+                                           name="publish_date"
+                                           value="{{ ($product->published_at) ? $product->published_at->format('d-m-Y h:i:s') : '' }}">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
                                 </div>
                                 <!-- /.input group -->
                             </div>
@@ -255,12 +257,14 @@
                         <div class="form-group">
                             <div class="col-md-12">
                                 <label>
-                                    <input type="radio" name="status" class="flat-red">
-                                    Hiển Thị
+                                    <input type="radio" name="status"
+                                           class="flat-red" value="1"{{ ($product->status)? " checked" : "" }}>
+                                    @lang('Hiên thị')
                                 </label>&nbsp;&nbsp;&nbsp;
                                 <label>
-                                    <input type="radio" name="status" class="flat-red" checked>
-                                    Nháp
+                                    <input type="radio" name="status"
+                                           class="flat-red" value="0"{{ ($product->status)? "" : " checked" }}>
+                                    @lang('Ẩn')
                                 </label>
                             </div>
                         </div>
@@ -290,7 +294,7 @@
                 </div>
                 <div class="box box-solid box-tags">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Tags</h3>
+                        <h3 class="box-title">@lang('Tags')</h3>
                         <div class="box-tools">
                             <!-- This will cause the box to collapse when clicked -->
                             <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -303,13 +307,14 @@
                     </div>
                     <div class="box-footer">
                         <div class="input-group margin">
-                            <select class="form-control" name="product_tags" id="product-tags"></select>
+                            <select class="form-control" name="product_tags" id="tags"></select>
                             <span class="input-group-btn">
                                 <button type="button" class="btn btn-info add-tags">Thêm</button>
                             </span>
                         </div>
-                        <span>Bạn muốn <a href="{{ route('admin.news.tags.add') }}"
-                                          target="_blank">thêm tag mới</a> ?</span>
+                        <span>@lang('Bạn muốn <a href=":url"
+                                          target="_blank">thêm tag mới</a>?',
+                                          ['url' => route('admin.tags.create') ])</span>
                     </div>
                 </div>
                 <div class="box box-solid box-featured">
@@ -422,10 +427,18 @@
             });
 
             //news tags list
-            $('#product-tags').select2({
+            $('#tags').select2({
                 theme: "bootstrap",
                 ajax: {
-                    url: '{{ route('api.product.tags') }}',
+                    url: '{{ route('api.tags.searchSelect2') }}',
+                    data: function (params) {
+                        let query = {
+                            search: params.term
+                        };
+
+                        // Query parameters will be ?search=[term]&page=[page]
+                        return query;
+                    },
                     dataType: 'json',
                     delay: 500,
                     processResults: function (result) {
@@ -438,9 +451,9 @@
             });
 
             $(".add-tags").click(function () {
-                let tag_id = $('#product-tags').val();
+                let tag_id = $('#tags').val();
                 addTag(tag_id);
-                $('#product-tags').val(null);
+                $('#tags').val(null);
             });
 
             $(document).on('click', '.image-set-color', function (event) {
@@ -623,7 +636,6 @@
                 tag_id: tag_id
             };
             $.post(url_ajax, data, function (result) {
-                console.log(result);
                 loadTag();
             }, 'json');
         }
@@ -645,7 +657,7 @@
             };
             $.post(url_ajax, data, function (result) {
                 $(".box-tags .box-body").html(result);
-            }, 'text');
+            });
         }
     </script>
 @endsection

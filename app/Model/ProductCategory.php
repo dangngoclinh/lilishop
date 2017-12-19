@@ -12,6 +12,6 @@ class ProductCategory extends Model
     public $fillable = ['name', 'slug', 'parent_id', 'title', 'excerpt', 'content', 'seo_keyword', 'seo_description'];
 
     public function products() {
-        return $this->belongsToMany('App\Model\Product');
+        return $this->belongsToMany('App\Model\Products');
     }
 }

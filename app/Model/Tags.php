@@ -13,4 +13,14 @@ class Tags extends Model
     {
         return $this->belongsTo('App\Model\Image', 'image_id');
     }
+
+    public function news()
+    {
+        return $this->morphedByMany('App\Model\News', 'taggable', 'taggables', 'tag_id');
+    }
+
+    public function products()
+    {
+        return $this->morphedByMany('App\Model\Products', 'taggable', 'taggables', 'tag_id');
+    }
 }

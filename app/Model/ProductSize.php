@@ -13,7 +13,7 @@ class ProductSize extends Model
 
     public function products()
     {
-        return $this->belongsTo('App\Model\Product', 'product_id');
+        return $this->belongsTo('App\Model\Products', 'product_id');
     }
 
     public function productColors()

@@ -9,7 +9,7 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">Total Product</span>
-                    <span class="info-box-number">{{ \App\Model\Product::count() }}</span>
+                    <span class="info-box-number">{{ \App\Model\Products::count() }}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>

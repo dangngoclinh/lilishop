@@ -204,3 +204,28 @@ table .btn .caret {
 tr.no-view td {
     font-weight: bold;
 }
+
+.table.no-border-top > tbody > tr:first-child > td {
+    border-top: none;
+}
+
+.bootstrap-datetimepicker-widget {
+    z-index: 999;
+}
+
+.table-products .featured {
+    width: 75px;
+}
+
+.table-products .meta {
+    font-size: 11px;
+    margin-top: 10px;
+}
+
+.table-products .meta a:after {
+    content: ',';
+}
+
+.table-products .meta a:last-child:after {
+    content: normal;
+}

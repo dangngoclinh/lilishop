@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Index;
 
 use App\Library\Breadcrumbs;
-use App\Model\Product;
+use App\Model\Products;
 use App\Model\ProductCategory;
 use App\Model\ProductSize;
 use Illuminate\Http\Request;
@@ -13,7 +13,7 @@ class ProductController extends Controller
 {
     public function index($name, $id)
     {
-        $product     = Product::where('id', $id)->first();
+        $product     = Products::where('id', $id)->first();
         $categories  = ProductCategory::ancestorsAndSelf($product->categories->first()->id);
         $breadcrumbs = new Breadcrumbs();
         if ($categories->isNotEmpty()) {

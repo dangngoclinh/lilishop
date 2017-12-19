@@ -55,4 +55,12 @@ class TagController extends Controller
         $tag = Tags::destroy($id);
         return back()->with('success', __('Đã xóa tag'));
     }
+
+    public function search(Request $request) {
+
+        $result = Tags::select('id', 'name')->get()->map(function ($value) {
+            return array('id' => $value->id,
+                         'text' => $value->name);
+        });
+    }
 }

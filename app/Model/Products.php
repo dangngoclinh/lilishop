@@ -2,23 +2,39 @@
 
 namespace App\Model;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Products extends Model
 {
-    protected $table = "table_product";
+    protected $table = "products";
 
     protected $fillable = [
-        'SKU', 'name', 'slug', 'price_original', 'price', 'price_sale', 'excerpt', 'content', 'title', 'description', 'keywords', 'new', 'top_selling', 'highlight'
+        'SKU', 'name', 'slug', 'price_original', 'price', 'price_sale', 'excerpt', 'content', 'title', 'description', 'keywords', 'new', 'top_selling', 'highlight', 'published_at', 'status'
     ];
 
     protected $guarded = [
         'quantity', 'view'
     ];
 
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'published_at'
+    ];
+
+    protected $casts = [
+        'status' => 'boolean',
+    ];
+
+    public function setPublishedAtAttribute($value)
+    {
+        $this->attributes['published_at'] = Carbon::createFromFormat('d-m-Y H:i:s', $value);
+    }
+
     public function tags()
     {
-        return $this->belongsToMany('App\Model\ProductTag', 'table_product_tag_list', 'product_id', 'product_tag_id');
+        return $this->morphToMany('App\Model\Tags', 'taggable', 'taggables', 'taggable_id', 'tag_id');
     }
 
     public function categories()
@@ -80,9 +96,10 @@ class Product extends Model
 
     public function attachTag($tag_id)
     {
-        $cl = $this->tags()->where('product_tag_id', $tag_id)->first();
-        if (!$cl) {
-            $this->tags()->attach($tag_id);
+        $tag_exists  = $this->tags()->where('tag_id', $tag_id)->first();
+        $tag = Tags::find($tag_id);
+        if (!$tag_exists) {
+            $this->tags()->attach($tag_exists);
         }
     }
 

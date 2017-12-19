@@ -30,7 +30,8 @@
                 @php
                     $traverse = function ($categories, $prefix = '') use (&$traverse) {
                         foreach ($categories as $category) {
-                            echo view('adminlte.news.category.partials.list', compact('category', 'prefix'))->render();
+                            echo view('adminlte.news.category.partials.list',
+                                        compact('category', 'prefix'))->render();
                             $traverse($category->children, $prefix.'¦&nbsp;&nbsp;&nbsp;&nbsp;');
                         }
                     };

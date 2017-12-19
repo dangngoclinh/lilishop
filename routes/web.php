@@ -1,5 +1,6 @@
 <?php
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,8 +15,9 @@
 Route::get('/', 'Index\PageController@home')->name('page.home');
 
 Route::get('/san-pham.html', 'Index\PageController@products')
-    ->name('page.products');
-
+    ->name('products');
+Route::get('/{slug}-{id}.html', 'ProductController@view')->where(['slug' => '[a-z]+', 'id' => '[0-9]+'])
+    ->name('product');
 Route::group(['namespace' => 'Index'], function () {
     //contact
     Route::get('/lien-he.html', 'ContactController@index')
@@ -31,11 +33,15 @@ Route::group(['namespace' => 'Index'], function () {
 });
 
 Route::group(['namespace' => 'Index'], function () {
-    Route::get('/tin-tuc.html', 'NewsController@index')
-        ->name('index.news');
-    Route::get('/tin-tuc/{slug}-{id}.html', 'NewsController@view')
-        ->where(['slug' => '[a-z-]+', 'id' => '[0-9-]+'])
-        ->name('index.news.view');
+    //tin tuc
+    Route::group(['prefix' => 'tin-tuc'], function () {
+        Route::get('.html', 'NewsController@index')->name('news');
+
+        Route::get('/{slug}-{id}.html', 'NewsController@view')
+            ->where(['slug' => '[a-z-]+', 'id' => '[0-9-]+'])->name('news.view');
+        Route::get('/{slug}', 'NewsController@view')->where(['slug' => '[a-z-]+'])->name('news.category');
+    });
+
 
     //product
     Route::get('/category/{name}-{id}.html', 'ProductCategoryController@index')
@@ -48,12 +54,11 @@ Route::group(['namespace' => 'Index'], function () {
 
 });
 
-
 Route::get('/test', function () {
     echo '<pre>';
-    $product = \App\Model\Product::find(1);
-    $product->attachTag(2);
-    dd($product->tags);
+    $image = \App\Model\Image::find(115);
+    echo media_path($image->file);
+    \Illuminate\Support\Facades\Storage::delete($image->medium);
     echo '</pre>';
 });
 
@@ -72,33 +77,31 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['adm
 
     //admin/option
     Route::group(['prefix' => 'option'], function () {
-        Route::get('/', 'OptionController@index')
-            ->name('admin.option');
-        Route::post('/', 'OptionController@update')
-            ->name('admin.option.update');
-        Route::get('/add', 'OptionController@add')
-            ->name('admin.option.add');
-        Route::post('/add', 'OptionController@postAdd')
-            ->name('admin.option.add.post');
+        Route::get('/', 'OptionController@index')->name('admin.option');
+        Route::post('/', 'OptionController@update');
+        Route::get('/create', 'OptionController@create')->name('admin.option.create');
+        Route::post('/create', 'OptionController@store');
     });
 
     //admin/news
     Route::group(['namespace' => 'News', 'prefix' => 'news'], function () {
-        Route::get('/', 'IndexController@index')
+        Route::get('/', 'NewsController@index')
             ->name('admin.news');
 
         //admin/news/add
-        Route::get('/create', 'NewsController@create')
-            ->name('admin.news.create');
-        Route::post('/store', 'NewsController@store');
+        Route::get('/create', 'NewsController@create')->name('admin.news.create');
+        Route::post('/create', 'NewsController@store');
 
+        Route::get('/edit/{id}', 'NewsController@edit')->where(['id' => '[0-9]+'])->name('admin.news.edit');
+        Route::post('/edit/{id}', 'NewsController@update')->where(['id' => '[0-9]+']);
+
+
+        Route::post('/ajax/{id}', 'NewsController@ajax')->where(['id' => '[0-9]+'])->name('admin.news.ajax');
         //admin/news/edit
         Route::group(['prefix' => 'edit'], function () {
-            Route::get('/{id}', 'NewsController@edit')->where(['id' => '[0-9]+'])
-                ->name('admin.news.edit');
-            Route::post('/{id}', 'IndexController@ajax')->where(['id' => '[0-9]+'])
-                ->name('admin.news.ajax');
-            Route::post('/{id}', 'EditController@post')->where(['id' => '[0-9]+']);
+            //Edit
+
+
             Route::post('/{id}/postCategory', 'EditController@postCategory')->where(['id' => '[0-9]+']);
             Route::post('/{id}/postTags', 'EditController@postTags')->where(['id' => '[0-9]+']);
             Route::post('/{id}/postMedia', 'EditController@postMedia')->where(['id' => '[0-9]+']);
@@ -120,8 +123,8 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['adm
                 ->name('admin.news.category.edit');
             Route::post('/edit/{id}', 'CategoryController@update')->where(['id' => '[0-9]+'])
                 ->name('admin.news.category.edit');
-            Route::get('/delete/{id}', 'CategoryController@destroy')->where(['id' => '[0-9]+'])
-                ->name('admin.news.category.delete');
+            Route::get('/destroy/{id}', 'CategoryController@destroy')->where(['id' => '[0-9]+'])
+                ->name('admin.news.category.destroy');
         });
 
     });

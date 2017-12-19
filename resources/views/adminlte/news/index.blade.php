@@ -20,31 +20,30 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th>@lang('ID')</th>
+                    <th><input type="checkbox" name="check_all"></th>
                     <th>@lang('Bài viết')</th>
                     <th>@lang('Mục')</th>
-                    <th>@lang('Ngày tạo')</th>
                     <th></th>
+                    <th class="right">@lang('Ngày tạo')</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($news_list as $key => $news)
                     @php
                         $url_edit = route('admin.news.edit', (['id' => $news->id]));
-                        $url_view = route('index.news.view', ['slug' => $news->slug, 'id' => $news->id]);
+                        $url_view = route('news.view', ['slug' => $news->slug, 'id' => $news->id]);
                     @endphp
                     <tr>
-                        <td>{{ $news->id }}</td>
+                        <td><input type="checkbox" name="news_id[]"></td>
                         <td><a href="{{ $url_edit }}">{{ $news->name }}</a></td>
                         <td>
                             @if($news->categories->isNotEmpty())
                                 @foreach($news->categories as $category)
-                                    <a href="">{{ $category->name }}</a>
+                                    <a href="#">{{ $category->name }}</a>,
                                 @endforeach
                             @endif
                         </td>
-                        <td>{{ $news->created_at->diffForHumans() }}</td>
-                        <td>
+                        <td class="right">
                             <div class="btn-group hidden-tools">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
                                         aria-expanded="false">
@@ -61,6 +60,7 @@
                                 </ul>
                             </div>
                         </td>
+                        <td class="right">{{ $news->created_at->format('d/m/Y') }}</td>
                     </tr>
                 @endforeach
                 </thead>

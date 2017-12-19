@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admin\Product;
 
 use App\Model\Image as Media;
-use App\Model\Product;
+use App\Model\Products;
 use App\Model\ProductCategory;
 use App\Model\ProductTag;
 use App\Model\Size;
+use App\Model\Tags;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -21,7 +22,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('id', 'desc')->paginate(25);
+        $products = Products::orderBy('id', 'desc')->paginate(25);
         return view('adminlte.product.index', compact('products'));
     }
 
@@ -48,7 +49,7 @@ class ProductController extends Controller
                                'name' => 'required|max:191',
                                'slug' => 'required|max:191|unique:table_product'
                            ]);
-        $product = Product::create($request->all());
+        $product = Products::create($request->all());
         $product->save();
         return redirect()->route('admin.product.edit', $product->id);
     }
@@ -72,7 +73,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product    = Product::find($id);
+        $product    = Products::find($id);
         $categories = sort_category(ProductCategory::all());
         if ($product) {
             return view('adminlte.product.edit', compact('product', 'categories'));
@@ -89,11 +90,11 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $product = Products::find($id);
         $request->validate([
                                'name' => 'required',
-                               'slug' => 'required|unique:table_product,slug,' . $id
+                               'slug' => 'required|unique:' . $product->getTable() . ',slug,' . $id
                            ]);
-        $product = Product::find($id);
         $product->fill($request->all());
         $product->update();
         return back()->with('success', __('Update success'));
@@ -112,7 +113,7 @@ class ProductController extends Controller
 
     public function quantity($id)
     {
-        $product = Product::find($id);
+        $product = Products::find($id);
         if ($product) {
             return view('adminlte.product.quantity', compact('product'));
         }
@@ -120,7 +121,7 @@ class ProductController extends Controller
 
     public function postMedia(Request $request, $id)
     {
-        $product = Product::find($id);
+        $product = Products::find($id);
 
         if ($product) {
             $request->validate([
@@ -192,7 +193,7 @@ class ProductController extends Controller
 
     public function getPanelImage($id)
     {
-        $product = Product::find($id);
+        $product = Products::find($id);
         $images  = $product->images;
         if ($product) {
             return response()->view('adminlte.product.partials.images', compact('images'));
@@ -201,9 +202,9 @@ class ProductController extends Controller
 
     public function getPanelTag($id)
     {
-        $product = Product::find($id);
+        $product = Products::find($id);
         if ($product) {
-            $tags = $product->images;
+            $tags = $product->tags;
             return response()->view('adminlte.product.partials.tags', compact('tags'));
         }
     }
@@ -218,7 +219,7 @@ class ProductController extends Controller
 
     public function getPanelColor($id)
     {
-        $product = Product::find($id);
+        $product = Products::find($id);
         if ($product) {
             $colors = $product->colors;
             return response()->view('adminlte.product.partials.colors', compact('colors'));
@@ -227,7 +228,7 @@ class ProductController extends Controller
 
     public function postAddColor(Request $request, $id)
     {
-        $product = Product::find($id);
+        $product = Products::find($id);
         $image   = $product->images()->where('id', $request->input('image_id'))->first();
 
         // check image have in product image list
@@ -240,7 +241,7 @@ class ProductController extends Controller
     public function postColorDelete(Request $request, $id)
     {
         $image_id = $request->input('image_id');
-        $product  = Product::find($id);
+        $product  = Products::find($id);
         if ($product) {
             $product->colors()->detach($image_id);
             return response()->json(['status' => true]);
@@ -250,7 +251,7 @@ class ProductController extends Controller
     public function postColorName(Request $request, $id)
     {
         $image_id = $request->input('image_id');
-        $product  = Product::find($id);
+        $product  = Products::find($id);
         if ($product) {
             $product->colors()->updateExistingPivot($image_id, ['name' => $request->input('name')]);
             return response()->json(['status' => true]);
@@ -263,7 +264,7 @@ class ProductController extends Controller
                                'tag_id' => 'required'
                            ]);
         $tag     = ProductTag::find($request->input('tag_id'));
-        $product = Product::find($id);
+        $product = Products::find($id);
         if ($product && $tag) {
             $product->tags()->attach($tag->id);
             return response()->json(['status' => true]);
@@ -273,7 +274,7 @@ class ProductController extends Controller
     public function postSizeAdd(Request $request, $id)
     {
         $size    = Size::find($request->input('id'));
-        $product = Product::find($id);
+        $product = Products::find($id);
         if ($product && $size) {
             $product->attachSize($size->id);
             return response()->json(['status' => true]);
@@ -284,7 +285,7 @@ class ProductController extends Controller
     public function postSizeDelete(Request $request, $id)
     {
         $size    = Size::find($request->input('id'));
-        $product = Product::find($id);
+        $product = Products::find($id);
         if ($product && $size) {
             $product->dettachSize($size->id);
             return response()->json(['status' => true]);
@@ -294,7 +295,7 @@ class ProductController extends Controller
 
     public function getSizeLoad($id)
     {
-        $product = Product::find($id);
+        $product = Products::find($id);
         if ($product) {
             $sizes = $product->sizes;
             return response()->view('adminlte.product.partials.sizes', compact('sizes'));
@@ -307,7 +308,7 @@ class ProductController extends Controller
                                'act' => 'required'
                            ]);
         $act     = $request->input('act');
-        $product = Product::find($id);
+        $product = Products::find($id);
         if ($product) {
             switch ($act) {
                 case "size_add":
@@ -340,12 +341,18 @@ class ProductController extends Controller
                     break;
                 case "add_tag":
                     $tag_id = $request->input('tag_id');
-                    $product->attachTag($tag_id);
+                    $check  = $product->tags()->where('id', $tag_id)->first();
+                    if (!$check) {
+                        $tag = Tags::find($tag_id);
+                        $tag->products()->save($product);
+                    }
                     return response()->json(['status' => true]);
+                    break;
                     break;
                 case "delete_tag":
                     $tag_id = $request->input('tag_id');
-                    $product->detachTag($tag_id);
+                    $tag    = Tags::find($tag_id);
+                    $tag->products()->detach($product);
                     return response()->json(['status' => true]);
                     break;
                 case "load_tag":

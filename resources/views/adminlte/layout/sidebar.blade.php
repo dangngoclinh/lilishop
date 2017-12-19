@@ -36,8 +36,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ route('admin.option') }}"><i class="fa fa-cog"></i> Option Setting</a></li>
-                    <li><a href="{{ route('admin.option.add') }}"><i class="fa fa-plus"></i> Add Option</a></li>
+                    <li><a href="{{ route('admin.option') }}"><i class="fa fa-cog"></i> @lang('Cài đặt')</a></li>
+                    <li><a href="{{ route('admin.option.create') }}"><i class="fa fa-plus"></i> @lang('Thêm thiết lập')</a></li>
                 </ul>
             </li>
             <li class="treeview">

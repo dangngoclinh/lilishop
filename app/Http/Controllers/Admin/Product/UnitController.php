@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Product;
 
-use App\Model\Product;
+use App\Model\Products;
 use App\Model\ProductColor;
 use App\Model\ProductSize;
 use Illuminate\Http\Request;
@@ -17,7 +17,7 @@ class UnitController extends Controller
     public function index($id)
     {
         $this->updateUnit($id);
-        $product = Product::find($id);
+        $product = Products::find($id);
         if ($product) {
             return view('adminlte.product.quantity', compact('product'));
         }
@@ -29,7 +29,7 @@ class UnitController extends Controller
         $quantity = $request->input('quantity');
         $price    = $request->input('price');
 
-        $product = Product::find($id);
+        $product = Products::find($id);
         $sizes   = $product->productSizes;
         foreach ($sizes as $size) {
             $colors = $size->productColors;
@@ -55,7 +55,7 @@ class UnitController extends Controller
         $quantity = $request->input('quantity');
         $price    = $request->input('price');
 
-        $product = Product::find($id);
+        $product = Products::find($id);
         $sizes   = $product->productSizes;
         $data    = array();
         foreach ($sizes as $size) {

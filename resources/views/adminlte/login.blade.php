@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Log in</title>
+    <title>@lang('LiliShop Admin')</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -31,11 +31,11 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
-        <a href="{{ url(route('admin.home')) }}}"><b>Admin</b>LTE</a>
+        <a href="{{ url(route('admin.home')) }}}"><b>Lilishop</b>.vn</a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
-        <p class="login-box-msg">Sign in to start your session</p>
+        <p class="login-box-msg">@lang('Đăng nhập')</p>
         @if($errors->any())
             <div class="alert alert-warning alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -63,7 +63,7 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">@lang('Đăng nhập')</button>
                 </div>
                 <!-- /.col -->
             </div>
@@ -71,16 +71,15 @@
 
         <div class="social-auth-links text-center">
             <p>- OR -</p>
-            <a href="{{ route('admin.login.facebook') }}" target="_blank" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in
-                using
-                Facebook</a>
-            <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in
-                using
-                Google+</a>
+            <a href="{{ route('admin.login.facebook') }}" target="_blank"
+               class="btn btn-block btn-social btn-facebook btn-flat"><i
+                        class="fa fa-facebook"></i> @lang('Đăng nhập qua Facebook')</a>
+            <a href="#" class="btn btn-block btn-social btn-google btn-flat">
+                <i class="fa fa-google-plus"></i> @lang('Đăng nhập qua Google+')</a>
         </div>
         <!-- /.social-auth-links -->
 
-        <a href="#">I forgot my password</a><br>
+        <a href="#">@lang('Tôi quên mật khẩu')</a><br>
 
     </div>
     <!-- /.login-box-body -->
