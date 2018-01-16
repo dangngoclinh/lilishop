@@ -1,10 +1,13 @@
 @extends('adminlte.layout.master')
-@section('breadcrumb')
+@section('heading')
+    @lang('Quản lý sản phẩm')
+@endsection
+@section('breadcrumbs')
+    <li><a href="{{ route('admin.product')  }}">@lang('Sản phẩm')</a></li>
+    <li class="active">@lang('Chỉnh sửa sản phẩm')</li>
 @endsection
 @section('content')
-
     @include('adminlte.layout.partials.error')
-
     <div class="btn-group box-menu">
         <a href="{{ route('admin.product.edit', $product->id) }}" class="btn btn-info btn-flat">Thông Tin Sản Phẩm</a>
         {{--<a href="{{ route('admin.product.edit.size', $product->id) }}" class="btn btn-info btn-flat">Hình ảnh</a>--}}
@@ -60,6 +63,18 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="name" class="col-sm-3 control-label">@lang('Thương hiệu')</label>
+
+                            <div class="col-sm-9">
+                                <select class="form-control" name="brands" id="brands">
+                                    @if($product->brand)
+                                        <option value="{{ $product->brand->id }}">
+                                            {{ $product->brand->name }} </option>
+                                    @endif
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="excerpt" class="col-sm-3 control-label">Tóm tắt</label>
 
                             <div class="col-sm-9">
@@ -76,45 +91,34 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="excerpt" class="col-sm-3 control-label">Giá khuyến mãi</label>
+                            <label for="excerpt" class="col-sm-3 control-label">@lang('Giá khuyến mãi')</label>
 
                             <div class="col-sm-9">
-                                <input class="form-control" name="price_sale" value="{{ $product->price_sale }}">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="excerpt" class="col-sm-3 control-label">Bắt đầu khuyến mãi</label>
-
-                            <div class="col-sm-9">
-                                <div class="input-group date">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>
-                                    </span>
-                                    <input type="text" name="sale_begin" class="form-control pull-right"
-                                           id="datepicker">
-                                </div>
+                                <input class="form-control" name="discount_price"
+                                       value="{{ $product->discount_price }}">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="excerpt" class="col-sm-3 control-label">Kết thúc khuyến mãi</label>
+                            <label for="excerpt" class="col-sm-3 control-label">@lang('Ngày kết thúc')</label>
 
                             <div class="col-sm-9">
-                                <div class="input-group date">
+                                <div class="input-group date datepicker">
+                                    <input type="text" class="form-control pull-right"
+                                           name="discount_end"
+                                           value="">
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </span>
-                                    <input type="text" name="sale_end" class="form-control pull-right"
-                                           id="datepicker">
                                 </div>
                             </div>
                         </div>
+
                     </div>
                     <!-- /.box-body -->
                 </div>
                 <div class="box box-solid">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Nội Dung</h3>
+                        <h3 class="box-title">@lang('Thông tin chi tiết sản phẩm')</h3>
                         <div class="box-tools">
                             <!-- This will cause the box to collapse when clicked -->
                             <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -191,7 +195,7 @@
                 </div>
                 <div class="box box-solid box-color">
                     <div class="box-header with-border">
-                        <h3 class="box-title">@lang('Color')</h3>
+                        <h3 class="box-title">@lang('Màu sắc')</h3>
                         <div class="box-tools">
                             <!-- This will cause the box to collapse when clicked -->
                             <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -205,7 +209,7 @@
                 </div>
                 <div class="box box-solid box-sizes">
                     <div class="box-header with-border">
-                        <h3 class="box-title">@lang('Size')</h3>
+                        <h3 class="box-title">@lang('Kích thước')</h3>
                         <div class="box-tools">
                             <!-- This will cause the box to collapse when clicked -->
                             <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -220,7 +224,8 @@
                         <div class="input-group input-group-sm">
                             <select id="product-sizes" name="product_sizes" class="form-control"></select>
                             <span class="input-group-btn">
-                                <button type="button" class="btn btn-info btn-flat size-add">@lang('Add Size')</button>
+                                <button type="button"
+                                        class="btn btn-info btn-flat size-add">@lang('Thêm kích thước')</button>
                             </span>
                         </div>
                     </div>
@@ -245,7 +250,7 @@
                             <div class="col-md-8">
                                 <div class="input-group date datetimepicker">
                                     <input type="text" class="form-control pull-right"
-                                           name="publish_date"
+                                           name="published_at"
                                            value="{{ ($product->published_at) ? $product->published_at->format('d-m-Y h:i:s') : '' }}">
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
@@ -275,7 +280,7 @@
                 </div>
                 <div class="box box-solid">
                     <div class="box-header with-border">
-                        <h3 class="box-title">@lang('Category')</h3>
+                        <h3 class="box-title">@lang('Danh mục')</h3>
                         <div class="box-tools">
                             <!-- This will cause the box to collapse when clicked -->
                             <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -285,16 +290,26 @@
                     <!-- /.box-header -->
                     <div class="box-body" style="max-height: 200px; overflow-y: auto">
                         <table class="table table-hover">
-                            @include('adminlte.product.partials.categories', ['categories' => $categories[0],
-                                                                            'tree' => $categories,
-                                                                            'category_list' => array_column($product->categories->toArray(), 'id'),
-                                                                             'prefix' => ''])
+                            @php
+                                $category_list = $product->categories->pluck('id')->toArray();
+                                    $traverse = function ($categories, $prefix = '', $category_list)
+                                    use (&$traverse) {
+                                        foreach ($categories as $category) {
+                                            echo view('adminlte.product.partials.category',
+                                                        compact('category', 'prefix', 'category_list'))->render();
+
+                                            $traverse($category->children, $prefix.'¦&nbsp;&nbsp;&nbsp;&nbsp;',
+                                                            $category_list);
+                                        }
+                                    };
+                                    $traverse($categories, '', $category_list);
+                            @endphp
                         </table>
                     </div>
                 </div>
                 <div class="box box-solid box-tags">
                     <div class="box-header with-border">
-                        <h3 class="box-title">@lang('Tags')</h3>
+                        <h3 class="box-title">@lang('Nhãn')</h3>
                         <div class="box-tools">
                             <!-- This will cause the box to collapse when clicked -->
                             <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -345,6 +360,8 @@
     <script src="//cdn.ckeditor.com/4.7.3/standard-all/ckeditor.js"></script>
     <script type="text/javascript" src="{{ asset('vendor/bower_dl/select2/dist/js/select2.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/bower_dl/masonry/dist/masonry.pkgd.min.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ asset('vendor/bower_dl/bootstrap3-typeahead/bootstrap3-typeahead.js') }}"></script>
     <script type="text/javascript">
         //variable
         var url_ajax = '{{ route('admin.product.edit.ajax', $product->id) }}';
@@ -372,11 +389,18 @@
             $('#product-sizes').select2({
                 theme: "bootstrap",
                 ajax: {
-                    url: '{{ route('api.product.sizes') }}',
+                    url: '{{ route('api.sizes.searchSelect2') }}',
+                    data: function (params) {
+                        let query = {
+                            search: params.term
+                        };
+
+                        // Query parameters will be ?search=[term]&page=[page]
+                        return query;
+                    },
                     dataType: 'json',
                     delay: 500,
                     processResults: function (result) {
-                        console.log(result);
                         return {
                             results: result
                         }
@@ -449,6 +473,34 @@
                     cache: true
                 }
             });
+
+            //news tags list
+            $('#brands').select2({
+                theme: "bootstrap",
+                ajax: {
+                    url: '{{ route('api.brands.searchSelect2') }}',
+                    data: function (params) {
+                        let query = {
+                            search: params.term
+                        };
+
+                        // Query parameters will be ?search=[term]&page=[page]
+                        return query;
+                    },
+                    dataType: 'json',
+                    delay: 500,
+                    processResults: function (result) {
+                        return {
+                            results: result
+                        }
+                    },
+                    cache: true
+                }
+            });
+
+            $.get("{{ route('api.colors.searchSelect2') }}", function (data) {
+                $(".typeahead").typeahead({source: data});
+            }, 'json');
 
             $(".add-tags").click(function () {
                 let tag_id = $('#tags').val();

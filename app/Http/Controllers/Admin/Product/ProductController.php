@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Admin\Product;
 
+use App\Events\ProductsAttributeAdd;
+use App\Events\ProductsAttributeChange;
+use App\model\Brands;
+use App\Model\Colors;
 use App\Model\Image as Media;
 use App\Model\Products;
-use App\Model\ProductCategory;
+use App\Model\ProductsCategory;
 use App\Model\ProductTag;
-use App\Model\Size;
+use App\Model\Sizes;
 use App\Model\Tags;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -47,22 +51,11 @@ class ProductController extends Controller
         $request->request->add(['slug' => str_slug($request->input('name'))]);
         $request->validate([
                                'name' => 'required|max:191',
-                               'slug' => 'required|max:191|unique:table_product'
+                               'slug' => 'required|max:191|unique:' . with(new Products())->getTable()
                            ]);
         $product = Products::create($request->all());
         $product->save();
         return redirect()->route('admin.product.edit', $product->id);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -74,7 +67,7 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product    = Products::find($id);
-        $categories = sort_category(ProductCategory::all());
+        $categories = ProductsCategory::get()->toTree();
         if ($product) {
             return view('adminlte.product.edit', compact('product', 'categories'));
         }
@@ -90,6 +83,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //dd($request->all());
         $product = Products::find($id);
         $request->validate([
                                'name' => 'required',
@@ -97,7 +91,26 @@ class ProductController extends Controller
                            ]);
         $product->fill($request->all());
         $product->update();
-        return back()->with('success', __('Update success'));
+
+        //update brands
+        if ($request->has('brands')) {
+            $brands = Brands::find($request->input('brands'));
+            if ($brands) {
+                $product->brand()->associate($brands);
+                $product->save();
+            }
+        }
+
+        //Update color_name
+        $color_name = $request->input('color_name');
+        $colors     = $product->colors;
+        foreach ($colors as $color) {
+            //dd($color);
+            $color->pivot->name = $color_name[$color->pivot->image_id];
+            $color->pivot->save();
+            Colors::add($color_name[$color->pivot->image_id]);
+        }
+        return back()->with('success', __('Sản phẩm đã được lưu'));
     }
 
     /**
@@ -108,15 +121,17 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Products::find($id);
+        $product->trashed();
+        return back()->with(['success' => __('Sản phẩm đã được xóa')]);
     }
 
     public function quantity($id)
     {
-        $product = Products::find($id);
-        if ($product) {
-            return view('adminlte.product.quantity', compact('product'));
-        }
+        /*        $product = Products::find($id);
+                if ($product) {
+                    return view('adminlte.product.quantity', compact('product'));
+                }*/
     }
 
     public function postMedia(Request $request, $id)
@@ -273,7 +288,7 @@ class ProductController extends Controller
 
     public function postSizeAdd(Request $request, $id)
     {
-        $size    = Size::find($request->input('id'));
+        $size    = Sizes::find($request->input('id'));
         $product = Products::find($id);
         if ($product && $size) {
             $product->attachSize($size->id);
@@ -284,7 +299,7 @@ class ProductController extends Controller
 
     public function postSizeDelete(Request $request, $id)
     {
-        $size    = Size::find($request->input('id'));
+        $size    = Sizes::find($request->input('id'));
         $product = Products::find($id);
         if ($product && $size) {
             $product->dettachSize($size->id);

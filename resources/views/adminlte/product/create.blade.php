@@ -1,14 +1,17 @@
 @extends('adminlte.layout.master')
-@section('breadcrumb')
+@section('heading')
+    @lang('Quản lý sản phẩm')
 @endsection
-@section('header')
+@section('breadcrumbs')
+    <li><a href="{{ route('admin.product')  }}">@lang('Sản phẩm')</a></li>
+    <li class="active">@lang('Thêm sản phẩm')</li>
 @endsection
 @section('content')
     <form class="form-horizontal" method="post" action="{{ action('Admin\Product\ProductController@store') }}">
         {{ csrf_field() }}
         <div class="box box-solid ui sticky">
             <div class="box-header with-border">
-                <h3 class="box-title">@lang('Create a product')</h3>
+                <h3 class="box-title">@lang('Thêm sản phẩm mới')</h3>
 
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -19,10 +22,10 @@
             <!-- End .box-header -->
             <div class="box-body">
                 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                    <label for="name" class="col-sm-2 control-label">@lang('Name')</label>
+                    <label for="name" class="col-sm-2 control-label">@lang('Tên sản phẩm')</label>
 
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="name" placeholder="@lang('Name Size')"
+                        <input type="text" class="form-control" name="name"
                                value="{{ old('name') }}">
                         @if ($errors->has('name'))
                             <span class="help-block ">{{ $errors->first('name') }}</span>
@@ -32,8 +35,8 @@
             </div>
             <!-- End .box-body -->
             <div class="box-footer">
-                <button type="reset" class="btn btn-default">@lang('Reset')</button>
-                <button type="submit" class="btn btn-info pull-right">@lang('Save')</button>
+                <button type="reset" class="btn btn-default">@lang('Nhập lại')</button>
+                <button type="submit" class="btn btn-info pull-right">@lang('Thêm')</button>
             </div>
             <!-- .box-footer -->
         </div>

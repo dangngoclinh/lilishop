@@ -1,4 +1,7 @@
 @extends('adminlte.layout.master')
+@section('heading')
+    @lang('Quản lý sản phẩm')
+@endsection
 @section('breadcrumb')
 @endsection
 @section('header')
@@ -34,69 +37,84 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($products as $product)
-                        @php
-                            $categories = $product->categories;
-                            $tags = $product->tags;
-                        @endphp
+                    @if($products->isNotEmpty())
+                        @foreach($products as $product)
+                            @php
+                                $categories = $product->categories;
+                                $tags = $product->tags;
+                            @endphp
+                            <tr>
+                                <td><input type="checkbox" name="product[]"
+                                           value="{{ $product->id }}"></td>
+                                <td>{{ $product->SKU }}</td>
+                                <td class="featured">
+                                    @if($product->featured)
+                                        <img class="img-responsive" src="{{ media($product->featured->small) }}"
+                                             alt="{{ $product->featured->name }}">
+                                    @else
+                                    @endif
+                                </td>
+                                <td>
+                                    <a href="{{ route('admin.product.edit', $product->id) }}">{{ $product->name }}</a>
+                                    <div class="meta">
+                                        @if($categories->isNotEmpty())
+                                            <div class="categories">
+                                                <span>Categories: </span>
+                                                @foreach($product->categories as $category)
+                                                    <a href="#">{{ $category->name }}</a>
+                                                @endforeach
+                                            </div>
+                                        @endif
+                                        @if($tags->isNotEmpty())
+                                            <div class="tags">
+                                                <span>Tags: </span>
+                                                @foreach($product->tags as $tag)
+                                                    <a href="#">{{ $tag->name }}</a>
+                                                @endforeach
+                                            </div>
+                                        @endif
+                                    </div>
+                                </td>
+                                <td>{{ $product->quantity }}</td>
+                                <td class="center">
+                                    <div class="btn-group hidden-tools">
+                                        <button type="button" class="btn btn-default dropdown-toggle"
+                                                data-toggle="dropdown"
+                                                aria-expanded="false">
+                                            <i class="fa fa-cog" aria-hidden="true"></i>
+                                            <span class="caret"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li>
+                                                <a href="{{ route('product', ['slug' => $product->slug, 'id' => $product->id]) }}"
+                                                   target="_blank">Xem</a>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li>
+                                                <a href="{{ route('admin.product.edit', $product->id) }}">@lang('Chỉnh sửa')</a>
+                                            </li>
+                                            <li><a href="{{ route('admin.product.destroy', $product->id) }}"
+                                                   class="delete_direct">@lang('Xóa')</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td class="right">{{ $product->created_at->format('d/m/Y') }}</td>
+                            </tr>
+                        @endforeach
+                    @else
                         <tr>
-                            <td><input type="checkbox" name="product[]" value="{{ $product->id }}"></td>
-                            <td>{{ $product->SKU }}</td>
-                            <td class="featured">
-                                @if($product->featured)
-                                    <img class="img-responsive" src="{{ media($product->featured->small) }}"
-                                         alt="{{ $product->featured->name }}">
-                                @else
-                                @endif
+                            <td colspan="7" class="center">
+                                Chưa có sản phẩm
                             </td>
-                            <td>
-                                <a href="{{ route('admin.product.edit', $product->id) }}">{{ $product->name }}</a>
-                                <div class="meta">
-                                    @if($categories->isNotEmpty())
-                                        <div class="categories">
-                                            <span>Categories: </span>
-                                            @foreach($product->categories as $category)
-                                                <a href="#">{{ $category->name }}</a>
-                                            @endforeach
-                                        </div>
-                                    @endif
-                                    @if($tags->isNotEmpty())
-                                        <div class="tags">
-                                            <span>Tags: </span>
-                                            @foreach($product->tags as $tag)
-                                                <a href="#">{{ $tag->name }}</a>
-                                            @endforeach
-                                        </div>
-                                    @endif
-                                </div>
-                            </td>
-                            <td>{{ $product->quantity }}</td>
-                            <td class="center">
-                                <div class="btn-group hidden-tools">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                                            aria-expanded="false">
-                                        <i class="fa fa-cog" aria-hidden="true"></i>
-                                        <span class="caret"></span>
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li>
-                                            <a href="{{ route('product', ['slug' => $product->slug, 'id' => $product->id]) }}"
-                                               target="_blank">Xem</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li><a href="{{ route('admin.product.edit', $product->id) }}">Chỉnh sửa</a></li>
-                                    </ul>
-                                </div>
-                            </td>
-                            <td class="right">{{ $product->created_at->format('d/m/Y') }}</td>
                         </tr>
-                    @endforeach
+                    @endif
                     </tbody>
                 </table>
             </div>
             <div class="box-footer">
-                <button type="submit" class="btn btn-danger pull-left">Xóa</button>
+                <button type="submit" class="btn btn-danger">@lang('Xóa')</button>
+                <a class="btn btn-primary" href="{{ route('admin.product.create') }}">@lang('Thêm sản phẩm mới')</a>
                 {{  $products->links('vendor.pagination.adminlte') }}
             </div>
         </div>

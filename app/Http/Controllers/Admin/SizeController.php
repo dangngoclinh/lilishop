@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Model\Size;
+use App\Model\Sizes;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -15,7 +15,7 @@ class SizeController extends Controller
      */
     public function index()
     {
-        $sizes = Size::all();
+        $sizes = Sizes::all();
         return view('adminlte.size.index', compact('sizes'));
     }
 
@@ -38,23 +38,13 @@ class SizeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-                               'name' => 'required|unique:table_size|max:191'
+                               'name' => 'required|unique:' . with(new Sizes())->getTable() . '|max:191'
                            ]);
-        $size = Size::create($request->all());
+        $size = Sizes::create($request->all());
         $size->save();
         return back()->with('success', __('Create a size success'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -64,7 +54,7 @@ class SizeController extends Controller
      */
     public function edit($id)
     {
-        $size = Size::find($id);
+        $size = Sizes::find($id);
         if ($size) {
             return view('adminlte.size.edit', compact('size'));
         }
@@ -80,14 +70,14 @@ class SizeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $size = Size::find($id);
+        $size = Sizes::find($id);
         if ($size) {
             $request->validate([
-                                   'name' => 'required|unique:table_size,name,' . $id . '|max:191'
+                                   'name' => 'required|unique:' . $size->getTable() . ',name,' . $id . '|max:191'
                                ]);
             $size->name = $request->input('name');
             $size->update();
-            return back()->with('success', __('Update success'));
+            return back()->with('success', __('Đã cập nhật'));
         }
         abort(404);
     }
@@ -100,7 +90,7 @@ class SizeController extends Controller
      */
     public function destroy($id)
     {
-        $size = Size::find($id);
+        $size = Sizes::find($id);
         if ($size) {
             $size->delete();
             return redirect()->route('admin.size')->with('success', __('Size: :name has deleted', ['name' => $size->name]));

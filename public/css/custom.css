@@ -21,7 +21,7 @@ body {
 }
 
 #primary {
-    margin-top: 0;
+    margin-top: 40px;
 }
 
 .dt-sc-team:hover .dt-sc-image-overlay a.link, .portfolio:hover .image-overlay a.link {

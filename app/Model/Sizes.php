@@ -4,8 +4,9 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Listproduct extends Model
+class Sizes extends Model
 {
-    protected $table = "table_product_list";
+    protected $table      = 'sizes';
+    protected $fillable   = ['name'];
     public $timestamps = false;
 }

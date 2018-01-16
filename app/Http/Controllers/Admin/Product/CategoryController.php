@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Product;
 
-use App\Model\ProductCategory;
+use App\Model\ProductsCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -15,8 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        ProductCategory::fixTree();
-        $categories = sort_category(ProductCategory::all());
+        ProductsCategory::fixTree();
+        $categories = sort_category(ProductsCategory::all());
         return view('adminlte.product.category.index', compact('categories'));
     }
 
@@ -27,7 +27,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = sort_category(ProductCategory::all());
+        $categories = sort_category(ProductsCategory::all());
         return view('adminlte.product.category.create', compact('categories'));
     }
 
@@ -41,9 +41,9 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'slug' => 'required|unique:table_product_category'
+            'slug' => 'required|unique:' . with(new ProductsCategory())->getTable()
                             ]);
-        $category = ProductCategory::create($request->all());
+        $category = ProductsCategory::create($request->all());
         $category->save();
         return redirect()->route('admin.product.category.edit', $category->id);
     }
@@ -67,8 +67,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = ProductCategory::find($id);
-        $categories = sort_category(ProductCategory::where('id', '!=', $id)->get());
+        $category = ProductsCategory::find($id);
+        $categories = sort_category(ProductsCategory::where('id', '!=', $id)->get());
         if($category) {
             return view('adminlte.product.category.edit', compact('category', 'categories'));
         }
@@ -84,7 +84,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $category = ProductCategory::find($id);
+        $category = ProductsCategory::find($id);
         if($category) {
             $request->validate([
                                    'name' => 'required',

@@ -14,7 +14,7 @@ class NewsController extends Controller
         return view('index.news.index', compact('news_list'));
     }
 
-    public function view($name, $id)
+    public function view($slug, $id)
     {
         $news = News::where('id', $id)->first();
         return view('index.news.view')

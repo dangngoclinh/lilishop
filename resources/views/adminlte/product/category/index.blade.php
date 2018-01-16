@@ -33,8 +33,8 @@
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-                <button class="btn btn-danger">Xóa</button>
-                <button class="btn btn-primary pull-right">Thêm Category</button>
+                <button class="btn btn-danger">@lang('Xóa')</button>
+                <a class="btn btn-primary pull-right" href="{{ route('admin.product.category.create') }}">@lang('Thêm danh mục mới')</a>
             </div>
         </div>
         <!-- /.box -->

@@ -32,3 +32,15 @@ Route::group(['prefix' => 'product'], function () {
 Route::group(['prefix' => 'tags'], function () {
     Route::get('searchSelect2', 'Api\TagsController@searchSelect2')->name('api.tags.searchSelect2');
 });
+
+Route::group(['prefix' => 'brands'], function () {
+    Route::get('searchSelect2', 'Api\BrandsController@searchSelect2')->name('api.brands.searchSelect2');
+});
+
+Route::group(['prefix' => 'sizes'], function () {
+    Route::get('searchSelect2', 'Api\SizesController@searchSelect2')->name('api.sizes.searchSelect2');
+});
+
+Route::group(['prefix' => 'colors'], function () {
+    Route::get('searchSelect2', 'Api\ColorsController@searchSelect2')->name('api.colors.searchSelect2');
+});

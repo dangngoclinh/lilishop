@@ -11,7 +11,7 @@
             <div class="breadcrumb">
                 <a href="{{ route('page.home') }}">Lilishop</a>
                 <span class="fa fa-angle-double-right"></span>
-                <a href="{{ route('index.news') }}">Tin Tức</a>
+                <a href="{{ route('news') }}">Tin Tức</a>
                 <span class="fa fa-angle-double-right"></span>
                 <span class="current">{{ $news->name }}</span>
             </div>

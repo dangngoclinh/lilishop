@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Auth;
 
 class NewsController extends Controller
 {
@@ -32,6 +33,7 @@ class NewsController extends Controller
                                'slug' => 'required|unique:' . (new News())->getTable(),
                            ]);
         $news = News::create($request->all());
+        $news->user()->associate(Auth::user());
         $news->save();
         return redirect()->route('admin.news.edit', $news->id);
     }
@@ -54,12 +56,14 @@ class NewsController extends Controller
                            ]);
         //dd($request->all());
         $news = News::find($id);
+        //dd($request->all());
         if ($news) {
             $news->fill($request->all());
+            $news->user()->associate(Auth::user());
             $news->update();
-            return back()->with('success', 'Update Success');
+            return back()->with('success', __('Bài viết đã được lưu'));
         }
-        return back()->withErrors(['msg' => 'Không xác định']);
+        return back()->withErrors(['msg' => __('Không xác định')]);
     }
 
     public function destroy()

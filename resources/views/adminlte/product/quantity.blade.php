@@ -1,4 +1,7 @@
 @extends('adminlte.layout.master')
+@section('heading')
+    @lang('Quản lý sản phẩm')
+@endsection
 @section('breadcrumb')
 @endsection
 @section('header')
@@ -6,59 +9,17 @@
 @endsection
 @section('content')
     @php
-        $sizes = $product->productSizes;
+        $sizes = $product->sizes;
         $colors = $product->colors;
-    //dd($sizes->first()->size->name);
     @endphp
     @include('adminlte.layout.partials.alert')
     <div class="btn-group box-menu">
         <a href="{{ route('admin.product.edit', $product->id) }}" class="btn btn-info btn-flat">Thông Tin Sản Phẩm</a>
-        {{--<a href="{{ route('admin.product.edit.size', $product->id) }}" class="btn btn-info btn-flat">Hình ảnh</a>--}}
         <a href="{{ route('admin.product.edit.quantity', $product->id) }}" class="btn btn-info btn-flat">Quản Lý Tồn
             Kho</a>
     </div>
     <form class="form-horizontal" method="post"
-          action="{{ action('Admin\Product\UnitController@storeGeneral', $product->id) }}">
-        {{ csrf_field() }}
-        <div class="box box-solid">
-            <div class="box-header with-border">
-                <h3 class="box-title">@lang('Số lượng chung')</h3>
-
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
-                            title="Collapse">
-                        <i class="fa fa-minus"></i></button>
-                </div>
-            </div>
-            <div class="box-body">
-                <div>
-                    <div class="form-group">
-                        <label for="quantity" class="col-sm-3 control-label">Số lượng cho mỗi sản phẩm</label>
-
-                        <div class="col-sm-6">
-                            <input type="number" name="quantity" class="form-control" placeholder="số lượng">
-                        </div>
-                    </div>
-                    @foreach($sizes as $size)
-                        <div class="form-group">
-                            <label for="quantity" class="col-sm-3 control-label">Giá bán
-                                size: {{ $size->name }}</label>
-
-                            <div class="col-sm-6">
-                                <input type="number" name="price[{{ $size->id }}]" class="form-control"
-                                       placeholder="Giá" value="{{ old('price')[$size->id] }}">
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-            <div class="box-footer">
-                <button type="submit" class="btn btn-primary pull-right">Lưu</button>
-            </div>
-        </div>
-    </form>
-    <form class="form-horizontal" method="post"
-          action="{{ action('Admin\Product\UnitController@store', $product->id) }}">
+          action="{{ action('Admin\Product\UnitController@update', $product->id) }}">
         {{ csrf_field() }}
         <div class="box box-solid ui sticky">
             <div class="box-header with-border">
@@ -72,46 +33,39 @@
             </div>
             <!-- End .box-header -->
             <div class="box-body">
-                <div class="box-tabs">
-                    <ul class="nav nav-tabs" role="tablist">
-                        @foreach($sizes as $key => $size)
-                            <li role="presentation"{{ $key == 0 ? 'class=active' : $key }}><a
-                                        href="#tab-{{ $size->id }}" role="tab"
-                                        data-toggle="tab">&nbsp;&nbsp;Size:&nbsp;&nbsp;{{ $size->size->name }}&nbsp;&nbsp;</a>
-                            </li>
-                        @endforeach
-                    </ul>
+                <table class="table table-unit">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Màu</th>
+                        <th>Size</th>
+                        <th>SKU</th>
+                        <th>Tồn kho</th>
+                        <th>Giá bán</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($units as $key => $unit)
+                        <tr>
+                            <td><img src="{{ media($unit->color->image->small) }}" class="img-responsive"
+                                               alt=""></td>
 
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        @foreach($sizes as $key => $size)
-                            <div role="tabpanel" class="tab-pane fade{{ $key == 0 ? ' in active' : $key }}"
-                                 id="tab-{{$size->id}}">
-                                <div class="row">
-                                    @php
-                                        $colors = $size->productColors;
-                                    @endphp
-                                    @foreach($colors as $color)
-                                        {{--@php(dd($color))--}}
-                                        <div class=" col-sm-4 product-color" style="margin-top: 40px;">
-                                            <img src="{{ media($color->image->small) }}" class="img-responsive" alt="">
-                                            <div class="input-group">
-                                                <span class="input-group-addon">Số lượng</span>
-                                                <input type="number" name="quantity[{{ $size->id }}][{{ $color->id }}]"
-                                                       class="form-control" value="{{ $color->pivot->quantity }}">
-                                            </div>
-                                            <div class="input-group border-top-none">
-                                                <span class="input-group-addon">Giá bán</span>
-                                                <input type="number" name="price[{{ $size->id }}][{{ $color->id }}]"
-                                                       class="form-control" value="{{ $color->pivot->price }}">
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
+                            <td>{{ $unit->color->name }}</td>
+                            <td>{{ $unit->size->size->name }}</td>
+                            <td><input type="text" class="form-control quantity" name="sku[{{ $unit->id }}]"
+                                       value="{{ ($unit->sku != null) ? $unit->sku : $product->SKU }}"{{ ($key==0) ? 'id=sku' : '' }}></td>
+                            <td><input type="number" class="form-control quantity" name="quantity[{{ $unit->id }}]"
+                                       value="{{ $unit->quantity }}"{{ ($key==0) ? 'id=quantity' : '' }}></td>
+                            <td><input type="text" class="form-control price" name="price[{{ $unit->id }}]"
+                                       value="{{ $unit->price }}"{{ ($key==0) ? ' id=price' : '' }}></td>
+                            <td class="right">
+                                <button type="button" class="btn btn-primary btn-sx">@lang('Giống trên')</button>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
             </div>
             <!-- End .box-body -->
             <div class="box-footer">
@@ -124,4 +78,14 @@
     </form>
 @endsection
 @section('footer')
+    <script type="text/javascript">
+        $(function () {
+            $('#quantity').on('change', function () {
+                $('.quantity').val($(this).val());
+            });
+            $('#price').on('change', function () {
+                $('.price').val($(this).val());
+            });
+        })
+    </script>
 @endsection

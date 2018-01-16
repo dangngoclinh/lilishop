@@ -25,6 +25,10 @@
                                 <textarea class="form-control" rows="3"
                                           name="value[{{ $option->key }}]">{{ $option->value }}</textarea>
                                 @break
+                                @case('editor')
+                                <textarea class="form-control ckeditor" rows="5"
+                                          name="value[{{ $option->key }}]">{{ $option->value }}</textarea>
+                                @break
                             @endswitch
                         </div>
                         <div class="col-sm-3">
@@ -42,4 +46,15 @@
         </form>
     </div>
     <!-- /.box -->
+@endsection
+@section('footer')
+    <script src="//cdn.ckeditor.com/4.7.3/standard-all/ckeditor.js"></script>
+    <script>
+        $(function () {
+            CKEDITOR.replace('.editor', {
+                extraPlugins: 'image2',
+                height: 450
+            });
+        })
+    </script>
 @endsection

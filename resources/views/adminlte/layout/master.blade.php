@@ -16,6 +16,8 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('vendor/bower_dl/admin-lte/dist/css/AdminLTE.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/bower_dl/admin-lte/dist/css/skins/skin-green.min.css') }}">
+    <link rel="stylesheet"
+          href="{{ asset('vendor/bower_dl/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') }}">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -275,6 +277,9 @@
 <script type="text/javascript" src="{{ asset('vendor/bower_dl/clipboard/dist/clipboard.min.js') }}"></script>
 <script src="{{ asset('vendor/bower_dl/admin-lte/dist/js/adminlte.min.js') }}"></script>
 <script src="{{ asset('public/js/admin.js') }}"></script>
+<script type="text/javascript" src="{{ asset('vendor/bower_dl/moment/min/moment.min.js') }}"></script>
+<script type="text/javascript"
+        src="{{ asset('vendor/bower_dl/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
 @yield('footer')
 </body>
 </html>

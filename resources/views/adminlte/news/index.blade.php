@@ -1,8 +1,11 @@
 @extends('adminlte.layout.master')
+@section('heading')
+    @lang('Quản lý tin tức')
+@endsection
 @section('breadcrumb')
+    <li class="active">@lang('Thêm')</li>
 @endsection
 @section('content')
-    <!-- Default box -->
     <div class="box box-solid">
         <div class="box-header with-border">
             <h3 class="box-title">Danh sách tin tức</h3>
@@ -28,46 +31,54 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($news_list as $key => $news)
-                    @php
-                        $url_edit = route('admin.news.edit', (['id' => $news->id]));
-                        $url_view = route('news.view', ['slug' => $news->slug, 'id' => $news->id]);
-                    @endphp
+                @if($news_list->isNotEmpty())
+                    @foreach($news_list as $key => $news)
+                        @php
+                            $url_edit = route('admin.news.edit', (['id' => $news->id]));
+                            $url_view = route('news.view', ['slug' => $news->slug, 'id' => $news->id]);
+                        @endphp
+                        <tr>
+                            <td><input type="checkbox" name="news_id[]"></td>
+                            <td><a href="{{ $url_edit }}">{{ $news->name }}</a></td>
+                            <td>
+                                @if($news->categories->isNotEmpty())
+                                    @foreach($news->categories as $category)
+                                        <a href="#">{{ $category->name }}</a>,
+                                    @endforeach
+                                @endif
+                            </td>
+                            <td class="right">
+                                <div class="btn-group hidden-tools">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                            aria-expanded="false">
+                                        <i class="fa fa-cog" aria-hidden="true"></i>
+                                        <span class="caret"></span>
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li>
+                                            <a href="{{ $url_view }}" target="_blank">Xem</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li><a href="{{ $url_edit }}">Chỉnh sửa</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td class="right">{{ $news->created_at->format('d/m/Y') }}</td>
+                        </tr>
+                    @endforeach
+                @else
                     <tr>
-                        <td><input type="checkbox" name="news_id[]"></td>
-                        <td><a href="{{ $url_edit }}">{{ $news->name }}</a></td>
-                        <td>
-                            @if($news->categories->isNotEmpty())
-                                @foreach($news->categories as $category)
-                                    <a href="#">{{ $category->name }}</a>,
-                                @endforeach
-                            @endif
-                        </td>
-                        <td class="right">
-                            <div class="btn-group hidden-tools">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                                        aria-expanded="false">
-                                    <i class="fa fa-cog" aria-hidden="true"></i>
-                                    <span class="caret"></span>
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                </button>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ $url_view }}" target="_blank">Xem</a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li><a href="{{ $url_edit }}">Chỉnh sửa</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                        <td class="right">{{ $news->created_at->format('d/m/Y') }}</td>
+                        <td colspan="5" class="center">@lang('Chưa có bài viết')</td>
                     </tr>
-                @endforeach
-                </thead>
+                @endif
+                </tbody>
             </table>
         </div>
         <!-- /.box-body -->
         <div class="box-footer">
+            <button type="submit" class="btn btn-danger">@lang('Xóa')</button>
+            <a class="btn btn-primary" href="{{ route('admin.news.create') }}">@lang('Thêm bài viết')</a>
             {{  $news_list->links('vendor.pagination.adminlte') }}
         </div>
         <!-- /.box-footer-->

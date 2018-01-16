@@ -229,3 +229,7 @@ tr.no-view td {
 .table-products .meta a:last-child:after {
     content: normal;
 }
+
+.table-unit img {
+    width: 55px;
+}

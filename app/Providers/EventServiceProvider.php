@@ -18,6 +18,13 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\ImageDeleted' => [
             'App\Listeners\ImageDeleteFile',
+        ],
+        'App\Events\ProductsUnitUpdated' => [
+            'App\Listeners\ProductQuantityUpdate',
+            'App\Listeners\ProductUnitIdUpdate'
+        ],
+        'App\Events\ProductsAttributeChange' => [
+            'App\Listeners\ProductsUpdateUnits'
         ]
     ];
 

@@ -1,12 +1,10 @@
 @extends('adminlte.layout.master')
-@section('breadcrumb')
+@section('heading')
+    @lang('Quản lý tin tức')
 @endsection
-@section('header')
-    <link rel="stylesheet" href="{{ asset('public/AdminLTE/plugins/iCheck/minimal/red.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendor/bower_dl/select2/dist/css/select2.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendor/bower_dl/select2-bootstrap-theme/dist/select2-bootstrap.min.css') }}">
-    <link rel="stylesheet"
-          href="{{ asset('vendor/bower_dl/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') }}">
+@section('breadcrumb')
+    <li><a href="{{ route('admin.news')  }}">@lang('Tin tức')</a></li>
+    <li class="active">@lang('Thêm')</li>
 @endsection
 @section('content')
     @include('adminlte.layout.partials.error')
@@ -256,12 +254,13 @@
     </form>
     <div class="modal fade" role="dialog"></div>
 @endsection
-
+@section('header')
+    <link rel="stylesheet" href="{{ asset('public/AdminLTE/plugins/iCheck/minimal/red.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/bower_dl/select2/dist/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/bower_dl/select2-bootstrap-theme/dist/select2-bootstrap.min.css') }}">
+@endsection
 @section('footer')
     <script src="//cdn.ckeditor.com/4.7.3/standard-all/ckeditor.js"></script>
-    <script type="text/javascript" src="{{ asset('vendor/bower_dl/moment/min/moment.min.js') }}"></script>
-    <script type="text/javascript"
-            src="{{ asset('vendor/bower_dl/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/bower_dl/select2/dist/js/select2.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/bower_dl/masonry/dist/masonry.pkgd.min.js') }}"></script>
     <script type="text/javascript">
@@ -280,10 +279,6 @@
                 itemSelector: '.media-item',
                 columnWidth: 200,
                 gutter: 15
-            });
-
-            $(".datetimepicker").datetimepicker({
-                format: 'DD-MM-YYYY HH:mm:ss'
             });
 
             //news tags list
@@ -315,15 +310,6 @@
                 addTag(tag_id);
                 $('#tags').val(null);
             });
-
-            //variable
-            var news_id = '{{ $news->id }}';
-            var token = '{!! csrf_token() !!}';
-            var url = {
-                'postCategory': '{{ action('Admin\News\EditController@postCategory', $news->id) }}',
-                'postTags': '{{ action('Admin\News\EditController@postTags', $news->id) }}',
-                'postMedia': '{{ action('Admin\News\EditController@postMedia', $news->id) }}'
-            };
             //ckEditor for content
             CKEDITOR.replace('content', {
                 extraPlugins: 'image2',
@@ -446,50 +432,7 @@
                 CKEDITOR.instances['content'].insertHtml(text);
             });
 
-            $(document).on('click', '.set-featured', function () {
-                var modal = $(this).closest('.modal');
-                var image_id = $(this).attr('data-id');
-                var action = '{{ action('Admin\News\EditController@setFeatured', $news->id) }}';
-                var method = 'post';
-                $.ajax({
-                    url: action,
-                    method: method,
-                    data: {
-                        _token: $('input[name="_token"]').val(),
-                        image_id: image_id
-                    },
-                    dataType: 'json',
-                    success: function (result) {
-                        if (result.success) {
-                            $('.news-image').attr('src', result.media);
-                            modal.modal('hide');
-                        }
-                        console.log(result);
-                    },
-                    error: function (result) {
-                        console.log(result);
-                    }
-                });
-            });
 
-            function loadMediaList() {
-                var action = '{{ action('Admin\News\EditController@mediaList', $news->id) }}';
-                var method = 'post';
-                var data = {
-                    _token: $('input[name="_token"]').val()
-                };
-                $.ajax({
-                    url: action,
-                    method: method,
-                    data: data,
-                    success: function (result) {
-                        $('.box-media .box-body').empty().html(result).masonry('reload');
-                        $grid.masonry('layout');
-                    },
-                    error: function (result) {
-                    }
-                });
-            }
         });
 
         function addCategory(category_id, element) {

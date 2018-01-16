@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Model\News;
+use App\Model\ProductsSizes;
+use app\Observers\ProductsSizesObservers;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
@@ -24,6 +26,8 @@ class AppServiceProvider extends ServiceProvider
                                'news' => 'App\Model\News',
                                'products' => 'App\Model\Products'
                            ]);
+
+        ProductsSizes::observe(ProductsSizesObservers::class);
     }
 
     /**

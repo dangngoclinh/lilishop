@@ -1,3 +1,4 @@
+/*global $:false, jQuery:false */
 $(document).ready(function () {
     //install
     var clipboard = new Clipboard('.copy');
@@ -25,6 +26,16 @@ $(document).ready(function () {
         $('input[type="checkbox"]', $(this).closest('table')).each(function () {
             $(this).prop('checked', status);
         });
+    });
+
+
+    $(".datetimepicker").datetimepicker({
+        format: 'DD-MM-YYYY HH:mm:ss'
+    });
+
+
+    $(".datepicker").datetimepicker({
+        format: 'DD-MM-YYYY'
     });
 });
 

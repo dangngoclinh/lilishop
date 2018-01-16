@@ -1,14 +1,28 @@
 @if($colors->isNotEmpty())
-    <div class="row">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th></th>
+            <th>@lang('Tên màu')</th>
+            <th class="right">@lang('Xóa')</th>
+        </tr>
+        <tbody>
+
         @foreach($colors as $image)
-            <div class="col-sm-3 image-color">
-                <img class="img-responsive"
-                     src="{{ asset(config('constants.storage_uploads') . $image->file) }}"
-                     alt="{{ $image->name }}"/>
-                <a href="#" class="btn btn-xs btn-danger color-delete" onclick="colorDelete({{ $image->id }}); return false;"><i class="fa fa-times"></i></a>
-            </div>
+            <tr>
+                <td><img class="img-responsive" style="width: 55px;"
+                         src="{{ asset(config('constants.storage_uploads') . $image->small) }}"
+                         alt="{{ $image->name }}"/></td>
+                <td><input type="text" class="form-control typeahead" name="color_name[{{ $image->id }}]"
+                           value="{{ $image->pivot->name }}"></td>
+                <td class="right"><a href="#" class="btn btn-xs btn-danger"
+                                     onclick="colorDelete({{ $image->id }}); return false;"><i class="fa fa-times"></i></a>
+                </td>
+            </tr>
         @endforeach
-    </div>
+        </tbody>
+        </thead>
+    </table>
 @else
-    <h4>Không có hình ảnh</h4>
+    <h4>Sản phẩm không có màu</h4>
 @endif

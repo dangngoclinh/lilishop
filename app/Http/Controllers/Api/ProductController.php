@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Model\ProductTag;
-use App\Model\Size;
+use App\Model\Sizes;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -20,7 +20,7 @@ class ProductController extends Controller
 
     public function sizes()
     {
-        $result = Size::select('id', 'name')->get()->map(function ($value) {
+        $result = Sizes::select('id', 'name')->get()->map(function ($value) {
             return array('id' => $value->id,
                          'text' => $value->name);
         });

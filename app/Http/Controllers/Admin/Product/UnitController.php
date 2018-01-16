@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin\Product;
 
 use App\Model\Products;
-use App\Model\ProductColor;
-use App\Model\ProductSize;
+use App\Model\ProductsColors;
+use App\Model\ProductsSizes;
+use App\Model\ProductsUnit;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -16,34 +17,31 @@ class UnitController extends Controller
      */
     public function index($id)
     {
-        $this->updateUnit($id);
         $product = Products::find($id);
+        $units   = $product->units()->orderBy('product_size_id')->orderBy('product_color_id')->get();
         if ($product) {
-            return view('adminlte.product.quantity', compact('product'));
+            return view('adminlte.product.quantity', compact('product', 'units'));
         }
         abort(404);
     }
 
-    public function store(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $quantity = $request->input('quantity');
         $price    = $request->input('price');
+        $sku    = $request->input('sku');
 
         $product = Products::find($id);
-        $sizes   = $product->productSizes;
-        foreach ($sizes as $size) {
-            $colors = $size->productColors;
-            $data    = array();
-            foreach ($colors as $color) {
-                if ($price[$size->id][$color->id] >= 0)
-                    $data[$color->id]['price'] = $price[$size->id][$color->id];
-                if ($quantity[$size->id][$color->id] >= 0)
-                    $data[$color->id]['quantity'] = $quantity[$size->id][$color->id];
-                $data[$color->id]['product_id'] = $id;
-            }
-            $size->productColors()->sync($data);
+        $units   = $product->units;
+        //dd($quantity);
+        /*dd($units);*/
+        foreach ($units as $unit) {
+            $unit->price    = $price[$unit->id];
+            $unit->quantity = $quantity[$unit->id];
+            $unit->sku = $sku[$unit->id];
+            $unit->update();
         }
-        return back()->with('success', __('Update Success'));
+        return back()->with('success', __('Số lượng và giá đã được cập nhật'));
     }
 
     public function storeGeneral(Request $request, $id)
@@ -67,21 +65,8 @@ class UnitController extends Controller
                     $data[$color->id]['quantity'] = $quantity;
                 $data[$color->id]['product_id'] = $id;
             }
-            $size->productColors()->sync($data);
+            //$size->productColors()->sync($data);
         }
         return back()->with('success', __('Update Success'));
-    }
-
-    private function updateUnit($id)
-    {
-        $productColor = ProductColor::where('product_id', $id)->get();
-        $productSize  = ProductSize::where('product_id', $id)->get();
-        foreach ($productSize as $size) {
-            $data = array();
-            foreach ($productColor as $color) {
-                $data[$color->id] = ['product_id' => $id];
-            }
-            $size->productColors()->sync($data);
-        }
     }
 }

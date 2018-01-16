@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Index;
 
-use App\Model\Contact;
+use App\Model\Contacts;
 use App\Model\Users;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -36,7 +36,7 @@ class ContactController extends Controller
                                    'g-recaptcha-response' => 'required|captcha'
                                ]);
         }
-        $contact = Contact::create($request->all());
+        $contact = Contacts::create($request->all());
         if (Auth::check()) {
             $contact->user()->associate(Users::find(Auth::user()->id));
         }

@@ -52,12 +52,11 @@ class Users extends Authenticatable
     public function canAccessAdminDashboard()
     {
         $roles = $this->getRoles();
-        return (in_array('admin', $roles) ||
-                in_array('super_admin', $roles) ||
+        return (in_array('administrator', $roles) ||
+                in_array('super-administrator', $roles) ||
                 in_array('administrator', $roles) ||
                 in_array('editor', $roles) ||
-                in_array('contributor', $roles) ||
-                in_array('author', $roles) ||
-                in_array('store_manager', $roles));
+                in_array('store-manager', $roles) ||
+                in_array('author', $roles));
     }
 }

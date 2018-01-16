@@ -19,7 +19,7 @@
             <ul class="nav navbar-nav">
                 <!-- Messages: style can be found in dropdown.less-->
                 <li class="dropdown messages-menu">
-                    @include('adminlte.layout.partials.contact_unread', ['contacts' => \App\Model\Contact::getContactUnRead()])
+                    @include('adminlte.layout.partials.contact_unread', ['contacts' => \App\Model\Contacts::getContactUnRead()])
                 </li>
                 <!-- Notifications: style can be found in dropdown.less -->
                 <li class="dropdown notifications-menu">

@@ -9,22 +9,26 @@ class News extends Model
 {
     protected $table = "news";
 
-    protected $fillable = ['name', 'slug', 'excerpt', 'content', 'title', 'keywords', 'description', 'status', 'publish_date'];
+    protected $fillable = ['name', 'slug', 'excerpt', 'content', 'title', 'keywords', 'description', 'status', 'published_at'];
     protected $guarded  = ['show', 'icon', 'image_id', 'user_id', 'view'];
 
     protected $dates = [
         'created_at',
         'updated_at',
-        'publish_date'
+        'published_at'
     ];
 
     protected $casts = [
         'status' => 'boolean',
     ];
 
-    public function setPublishDateAttribute($value)
+    public function setPublishedAtAttribute($value)
     {
-        $this->attributes['publish_date'] = Carbon::createFromFormat('d-m-Y H:i:s', $value);
+        $this->attributes['published_at'] = Carbon::createFromFormat('d-m-Y H:i:s', $value);
+    }
+
+    public function user() {
+        return $this->belongsTo('App\Model\Users', 'user_id');
     }
 
     public function featured()

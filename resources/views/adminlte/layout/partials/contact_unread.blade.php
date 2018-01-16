@@ -1,9 +1,9 @@
 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
     <i class="fa fa-envelope-o"></i>
-    <span class="label label-success">{{ \App\Model\Contact::getCountUnRead() }}</span>
+    <span class="label label-success">{{ \App\Model\Contacts::getCountUnRead() }}</span>
 </a>
 <ul class="dropdown-menu">
-    <li class="header">@lang('Bạn có :number tin nhắn mới', ['number' => \App\Model\Contact::getCountUnRead()])
+    <li class="header">@lang('Bạn có :number tin nhắn mới', ['number' => \App\Model\Contacts::getCountUnRead()])
     </li>
     <li>
         @if($contacts->isNotEmpty())

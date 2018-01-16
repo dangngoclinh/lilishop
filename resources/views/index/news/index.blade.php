@@ -22,14 +22,15 @@
         <section id="primary" class="with-sidebar">
             @foreach($news_list as $key => $news)
                 @php
-                    $url = url(route('index.news.view', ['name' => $news->slug, 'id' => $news->id]));
+                    $url = url(route('news.view', ['name' => $news->slug, 'id' => $news->id]));
+                    $photo = ($news->featured) ? $news->featured->file : 'http://placehold.it/90x90';
                 @endphp
-                <div class="dt-sc-one-column">
+                <div class="column dt-sc-one-half first">
                     <article class="blog-entry">
                         <div class="blog-entry-inner">
                             <div class="entry-meta">
                                 <a href="{{ $url }}" class="blog-author">
-                                    <img src="http://placehold.it/90x90" alt="" title=""></a>
+                                    <img src="http://via.placeholder.com/90x90" alt="" title=""></a>
                                 <div class="date">
                                     <span> 27 </span>
                                     <p> Aug <br> 2014 </p>
@@ -41,9 +42,9 @@
                             </div>
                             <div class="entry-thumb">
                                 <a href="{{ $url }}">
-                                    @if($news->media)
-                                        <img src="{{ media($news->media->file) }}" alt="{{ $news->media->name }}"
-                                             title="{{ $news->media->name }}">
+                                    @if($news->featured)
+                                        <img src="{{ media($news->featured->file) }}" alt="{{ $news->featured->name }}"
+                                             title="{{ $news->featured->name }}">
                                     @else
                                         <img src="http://placehold.it/1170x711" alt=""
                                              title="">
@@ -58,7 +59,7 @@
                                 <div class="entry-body">
                                     <p>{{ $news->excerpt }}</p>
                                 </div>
-                                <a href="{{ $url }}" class="dt-sc-button small"> Xem Thêm <span
+                                <a href="{{ $url }}" class="dt-sc-button small"> @lang('Xem Thêm') <span
                                             class="fa fa-chevron-circle-right"> </span></a>
                             </div>
                         </div>
