@@ -15,10 +15,10 @@
             </div>
             <div class="box-body">
                 <div class="form-group">
-                    <label for="name" class="col-sm-2 control-label">Tên Tags</label>
+                    <label for="name" class="col-sm-2 control-label">Tên Category</label>
 
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="name" id="name" placeholder="Tên tag">
+                        <input type="text" class="form-control" name="name" id="name" placeholder="Tên categorygi">
                     </div>
                 </div>
                 <div class="form-group">

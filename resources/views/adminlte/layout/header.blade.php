@@ -149,14 +149,14 @@
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="{{ auth()->user()->avatar }}" class="user-image"
+                        <img src="{{ (auth()->user()->avatar) ? auth()->user()->avatar : 'http://via.placeholder.com/150x150' }}" class="user-image"
                              alt="User Image">
                         <span class="hidden-xs">{{ auth()->user()->name }}</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="{{ auth()->user()->avatar }}" class="img-circle"
+                            <img src="{{ (auth()->user()->avatar) ? auth()->user()->avatar : 'http://via.placeholder.com/150x150' }}" class="img-circle"
                                  alt="User Image">
 
                             <p>

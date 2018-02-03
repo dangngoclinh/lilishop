@@ -14,67 +14,75 @@ class OptionsTableSeeder extends Seeder
         DB::table('options')->insert([
                                          [
                                              'key' => 'sitename',
-                                             'value' => '',
+                                             'value' => 'Lilishop',
                                              'input' => 'input'
                                          ],
                                          [
                                              'key' => 'title',
-                                             'value' => '',
+                                             'value' => 'Lilishop',
                                              'input' => 'input'
                                          ],
                                          [
                                              'key' => 'keywords',
-                                             'value' => '',
+                                             'value' => 'quan ao tre em',
                                              'input' => 'input'
                                          ],
                                          [
                                              'key' => 'description',
-                                             'value' => '',
+                                             'value' => 'thoi trang tre em',
                                              'input' => 'textarea'
                                          ],
                                          [
                                              'key' => 'address',
-                                             'value' => '',
+                                             'value' => '3/6c Tien Lan, Ba Diem, Hoc Mon',
                                              'input' => 'input'
                                          ],
                                          [
                                              'key' => 'phone',
-                                             'value' => '',
+                                             'value' => '0935919398',
                                              'input' => 'input'
                                          ],
                                          [
                                              'key' => 'email',
-                                             'value' => '',
+                                             'value' => 'liam@dangngoclinh.com',
                                              'input' => 'input'
                                          ],
                                          [
                                              'key' => 'facebook',
-                                             'value' => '',
+                                             'value' => 'lilishop',
                                              'input' => 'input'
                                          ],
                                          [
                                              'key' => 'youtube',
-                                             'value' => '',
+                                             'value' => 'lilishop',
                                              'input' => 'input'
                                          ],
                                          [
                                              'key' => 'twitter',
-                                             'value' => '',
+                                             'value' => 'lilishop',
                                              'input' => 'input'
                                          ],
                                          [
                                              'key' => 'google',
-                                             'value' => '',
+                                             'value' => 'lilishop',
                                              'input' => 'input'
                                          ],
                                          [
                                              'key' => 'copyright',
-                                             'value' => '',
+                                             'value' => 'Lilishop',
                                              'input' => 'input'
                                          ],
                                          [
                                              'key' => 'about',
-                                             'value' => '',
+                                             'value' => '<p>Happy <a href=""><strong>Kids Life</strong></a> comes with powerful theme options, which
+                            empowers you to quickly and easily build incredible store.</p>
+                            <ul>
+                            <li><a href=""> English Grammar Class </a></li>
+                            <li><a href=""> Music class </a></li>
+                            <li><a href=""> Swimming &amp; Karate </a></li>
+                            <li><a href=""> Lot of HTML Styles </a></li>
+                            <li><a href=""> Unique News Page Design </a></li>
+                        </ul>',
                                              'input' => 'editor'
                                          ],
                                          [

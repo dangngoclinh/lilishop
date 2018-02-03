@@ -3694,7 +3694,7 @@ footer .dt-sc-contact-info span {
     display: block;
     line-height: 40px;
     text-align: center;
-    padding: 0;
+    padding: 10px;
 }
 
 .copyright .footer-links ul li.facebook:hover a, .class_hours ul.dt-sc-social-icons li.facebook a {

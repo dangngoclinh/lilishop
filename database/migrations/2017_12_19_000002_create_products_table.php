@@ -19,14 +19,11 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->integer('brand_id')->unsigned()->nullable();
-            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('CASCADE');
 
             $table->integer('image_id')->unsigned()->nullable();
-            $table->foreign('image_id')->references('id')->on('images')->onDelete('CASCADE');
 
             $table->integer('quantity')->unsigned()->default(0);
             $table->integer('unit_id')->unsigned()->nullable();
-            $table->foreign('unit_id')->references('id')->on('products_unit')->onDelete('CASCADE');
             $table->integer('price')->nullable();
             $table->integer('price_sale')->nullable();
             $table->text('excerpt')->nullable();

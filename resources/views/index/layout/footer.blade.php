@@ -55,9 +55,7 @@
             <div class="footer-links">
                 <p>Theo dõi chúng tôi</p>
                 <ul class="dt-sc-social-icons">
-                    <li class="facebook"><a href="{{ option('facebook') }}"><img
-                                    src="{{ asset('resources/assets/kidslife/images/facebook.png') }}" alt=""
-                                    title=""></a></li>
+                    <li class="facebook"><a href="{{ option('facebook') }}"><i class="fab fa-facebook-f"></i></a></li>
                     <li class="twitter"><a href="{{ option('twitter') }}"><img
                                     src="{{ asset('resources/assets/kidslife/images/twitter.png') }}" alt=""
                                     title=""></a></li>
