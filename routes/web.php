@@ -17,7 +17,7 @@ Route::group(['namespace' => 'Index'], function () {
     Route::get('/', 'PageController@home')->name('page.home');
     Route::get('/san-pham.html', 'ProductController@index')
         ->name('products');
-    Route::get('/{slug}-{id}.html', 'ProductController@view')->where(['slug' => '[a-z]+', 'id' => '[0-9]+'])
+    Route::get('/{slug}-{id}.html', 'ProductController@view')->where(['slug' => '[a-z0-9-]+', 'id' => '[0-9]+'])
         ->name('product');
     //contact
     Route::get('/lien-he.html', 'ContactController@index')

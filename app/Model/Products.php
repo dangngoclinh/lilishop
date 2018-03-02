@@ -24,7 +24,8 @@ class Products extends Model
         'created_at',
         'updated_at',
         'published_at',
-        'deleted_at'
+        'deleted_at',
+        'discount_end'
     ];
 
     protected $casts = [

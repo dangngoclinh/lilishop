@@ -25,7 +25,8 @@ class CreateProductsTable extends Migration
             $table->integer('quantity')->unsigned()->default(0);
             $table->integer('unit_id')->unsigned()->nullable();
             $table->integer('price')->nullable();
-            $table->integer('price_sale')->nullable();
+            $table->integer('discount_price')->nullable();
+            $table->integer('discount_end')->nullable();
             $table->text('excerpt')->nullable();
             $table->text('content')->nullable();
             $table->string('title')->nullable();
