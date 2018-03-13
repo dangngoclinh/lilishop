@@ -2786,6 +2786,13 @@ ul.products li.dt-sc-one-third.column:nth-child(3n+1), ul.products li.dt-sc-one-
     color: #008c99;
 }
 
+.product-details .price del {
+    font-size: 14px;
+    font-weight: 300;
+    color: #2d2d29;
+    margin-right: 3px;
+}
+
 .product-thumb .product-button {
     position: absolute;
     display: inline-block;

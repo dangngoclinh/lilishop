@@ -7,6 +7,12 @@
 @section('header')
 @endsection
 @section('content')
+    <div class="btn-group box-menu">
+        <a href="{{ route('admin.product') }}" class="btn btn-info btn-flat">Danh sách</a>
+
+        <a href="{{ route('admin.product.create') }}" class="btn btn-info btn-flat">Thêm
+            Sản Phẩm</a>
+    </div>
     <form action="" method="post">
         <div class="box box-solid">
             <div class="box-header with-border">

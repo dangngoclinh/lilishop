@@ -2,6 +2,12 @@
 @section('breadcrumb')
 @endsection
 @section('content')
+    <div class="btn-group box-menu">
+        <a href="{{ route('admin.product.category') }}" class="btn btn-info btn-flat">Danh sách</a>
+
+        <a href="{{ route('admin.product.category.create') }}" class="btn btn-info btn-flat">Thêm
+            Kho</a>
+    </div>
     <form class="form-horizontal" method="post"
           action="{{ action('Admin\Product\CategoryController@update', $category->id) }}">
         {{ csrf_field() }}

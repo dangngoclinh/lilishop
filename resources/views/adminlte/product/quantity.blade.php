@@ -14,6 +14,12 @@
     @endphp
     @include('adminlte.layout.partials.alert')
     <div class="btn-group box-menu">
+        <a href="{{ route('admin.product') }}" class="btn btn-info btn-flat">Danh sách</a>
+
+        <a href="{{ route('admin.product.create') }}" class="btn btn-info btn-flat">Thêm
+            Sản Phẩm</a>
+    </div>
+    <div class="btn-group box-menu">
         <a href="{{ route('admin.product.edit', $product->id) }}" class="btn btn-info btn-flat">Thông Tin Sản Phẩm</a>
         <a href="{{ route('admin.product.edit.quantity', $product->id) }}" class="btn btn-info btn-flat">Quản Lý Tồn
             Kho</a>

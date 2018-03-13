@@ -13,6 +13,6 @@ return [
     */
     'uploads' => 'uploads/',
     'storage_uploads' => 'storage/app/uploads/',
-    'medium' => array('width' => 550, 'height' => 650),
-    'small' => array('width' => 350, 'height' => 430),
+    'medium' => array('width' => 700),
+    'small' => array('width' => 400),
 ];

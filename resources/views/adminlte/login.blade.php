@@ -17,6 +17,8 @@
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ asset('vendor/bower_dl/admin-lte/plugins/iCheck/square/blue.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('public/css/admin.css') }}">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -57,7 +59,7 @@
                 <div class="col-xs-8">
                     <div class="checkbox icheck">
                         <label>
-                            <input type="checkbox" name="remember"> Remember Me
+                            <input type="checkbox" name="remember"> Tự động đăng nhập lần sau
                         </label>
                     </div>
                 </div>

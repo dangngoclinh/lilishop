@@ -115,7 +115,8 @@
                     <li><a href="{{ route('admin.size') }}">
                             <i class="fa fa-th-large"></i> @lang('Kích thước')</a></li>
                     <li><a href="{{ route('admin.brands') }}">
-                            <i class="fa fa-th-large"></i> @lang('Thương hiệu')</a></li>
+                            <i class="fa fa-th-large"></i> @lang('Thương hiệu')</a>
+                    </li>
                 </ul>
             </li>
             <li class="treeview">

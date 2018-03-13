@@ -2,6 +2,12 @@
 @section('breadcrumb')
 @endsection
 @section('content')
+    <div class="btn-group box-menu">
+        <a href="{{ route('admin.product.category') }}" class="btn btn-info btn-flat">Danh sách</a>
+
+        <a href="{{ route('admin.product.category.create') }}" class="btn btn-info btn-flat">Thêm
+            Kho</a>
+    </div>
     <form class="form-horizontal" method="post" action="{{ action('Admin\Product\CategoryController@store') }}">
         {{ csrf_field() }}
         <div class="box box-solid">
@@ -18,7 +24,7 @@
                     <label for="name" class="col-sm-2 control-label">Tên Category</label>
 
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="name" id="name" placeholder="Tên categorygi">
+                        <input type="text" class="form-control" name="name" id="name" placeholder="Tên category">
                     </div>
                 </div>
                 <div class="form-group">

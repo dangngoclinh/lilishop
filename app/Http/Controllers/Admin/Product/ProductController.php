@@ -156,7 +156,6 @@ class ProductController extends Controller
             }
         }
         return response()->json(['error' => __('ID :id Product Wrong', ['id' => $id])]);
-
     }
 
     public function upload($file)
@@ -164,7 +163,7 @@ class ProductController extends Controller
         $name     = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $fileName = rand(1, 999) . ' - ' . $file->getClientOriginalName();
         $pathDate = date('Y/m/');
-        $path     = config('constants.uploads') . $pathDate;
+        $path     = $pathDate;
         if (!file_exists($path)) {
             Storage::makeDirectory($path);
         }
