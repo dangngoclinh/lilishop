@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Kalnoy\Nestedset\NestedSet;
 
 class CreateMenuItemsTable extends Migration
 {
@@ -18,9 +19,12 @@ class CreateMenuItemsTable extends Migration
             $table->string('label')->nullable();
             $table->string('link')->nullable();
             $table->integer('sort')->default(0);
-            $table->integer('parent')->unsigned()->default(0);
             $table->integer('menus_id')->unsigned();
+            $table->string('class')->nullable();
+            NestedSet::columns($table);
 
+            $table->foreign('menus_id')->references('id')->on('menus')
+                ->onDelete('CASCADE');
             $table->timestamps();
         });
     }

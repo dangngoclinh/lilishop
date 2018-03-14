@@ -271,6 +271,19 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['adm
         Route::post('/{id}/reply', 'ContactController@reply')->where(['id' => '[0-9]+'])->name('admin.contact.reply');
         Route::post('/ajax', 'ContactController@ajax')->name('admin.contact.ajax');
     });
+
+    Route::group(['prefix' => 'menus'], function () {
+        Route::get('/', 'MenusController@index')->name('admin.menus');
+        Route::any('/view/{id}', 'MenusController@view')->name('admin.menus.view')->where(['id' => '[0-9]']);
+        Route::get('/getModalItem/{id}', 'MenusController@getModalItem')->name('admin.menus.getmodalitem')->where(['id' => '[0-9]']);
+        Route::post('/updateItem/{id}', 'MenusController@updateItem')->where(['id' => '[0-9]']);
+        Route::post('/updateList/{id}', 'MenusController@updateList')->where(['id' => '[0-9]']);
+        Route::post('/select', 'MenusController@select');
+        Route::post('/update/{id}', 'MenusController@update')->where(['id' => '[0-9]']);
+        Route::post('/store', 'MenusController@store');
+        Route::post('/storeitem', 'MenusController@storeItem');
+        Route::post('/', 'MenusController@update')->name('admin.update')->where(['id' => '[0-9]']);
+    });
 });
 
 Route::get('/home', 'HomeController@index')->name('home');

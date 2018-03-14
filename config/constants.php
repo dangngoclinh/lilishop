@@ -14,5 +14,5 @@ return [
     'uploads' => 'uploads/',
     'storage_uploads' => 'storage/app/uploads/',
     'medium' => array('width' => 700),
-    'small' => array('width' => 400),
+    'small' => array('width' => 500),
 ];
