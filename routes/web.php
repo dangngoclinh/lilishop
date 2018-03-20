@@ -27,9 +27,9 @@ Route::group(['namespace' => 'Index'], function () {
     //search page
     Route::get('/search', 'SearchController@index')->name('search');
 
-    Route::group(['prefix' => 'tin-tuc'], function () {
+    Route::group(['prefix' => 'blog'], function () {
         Route::get('/', 'NewsController@index')->name('news');
-        Route::get('/{slug}', 'NewsController@category')->where(['slug' => '[a-z-]+'])
+        Route::get('/{slug}', 'NewsController@category')->where(['slug' => '[a-z-0-9]+'])
             ->name('news.category');
         Route::get('/{slug}-{id}.html', 'NewsController@view')
             ->where(['slug' => '[a-z-0-9]+', 'id' => '[0-9-]+'])->name('news.view');
@@ -279,7 +279,8 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['adm
         Route::post('/updateItem/{id}', 'MenusController@updateItem')->where(['id' => '[0-9]']);
         Route::post('/updateList/{id}', 'MenusController@updateList')->where(['id' => '[0-9]']);
         Route::post('/select', 'MenusController@select');
-        Route::post('/update/{id}', 'MenusController@update')->where(['id' => '[0-9]']);
+        // Update menus name
+        Route::post('/update/{id}', 'MenusController@update')->where(['id' => '[0-9]'])->name('admin.menus.update');
         Route::post('/store', 'MenusController@store');
         Route::post('/storeitem', 'MenusController@storeItem');
         Route::post('/', 'MenusController@update')->name('admin.update')->where(['id' => '[0-9]']);

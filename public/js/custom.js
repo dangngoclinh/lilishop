@@ -230,16 +230,6 @@ jQuery(document).ready(function ($) {
         });
     }
 
-    //TWITTER TWEETS...
-    $("#tweets_container").tweet({
-        modpath: 'js/twitter/',
-        username: "envato",
-        count: 3,
-        loading_text: "loading tweets...",
-        join_text: '<i class="icon-twitter"></i>',
-        template: "{join} {time}, {text}"
-    });
-
     //GO TO TOP...
     var offset = 220;
     var duration = 500;

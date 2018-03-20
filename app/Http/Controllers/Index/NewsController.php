@@ -8,6 +8,7 @@ use App\Model\News;
 
 class NewsController extends Controller
 {
+
     public function index()
     {
         $news_list = News::where('type', 'news')->paginate(10);

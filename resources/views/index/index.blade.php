@@ -69,7 +69,7 @@
                     <div class="image">
                         <img class="item-mask" src="{{ asset('resources/assets/kidslife/images/mask.png') }}" alt=""
                              title="">
-                        <img src="{{ asset('public/upload/boy.jpg') }}" alt="" title="">
+                        <img src="{{ media('boy.jpg') }}" alt="" title="">
                         <div class="dt-sc-image-overlay">
                             <a href="#" class="link"><span class="fa fa-link"></span></a>
                         </div>
@@ -85,7 +85,7 @@
                     <div class="image">
                         <img class="item-mask" src="{{ asset('resources/assets/kidslife/images/mask.png') }}" alt=""
                              title="">
-                        <img src="{{ asset('public/upload/girl.jpg') }}" alt="" title="">
+                        <img src="{{ media('girl.jpg') }}" alt="" title="">
                         <div class="dt-sc-image-overlay">
                             <a href="#" class="link"><span class="fa fa-link"></span></a>
                         </div>
@@ -101,7 +101,7 @@
                     <div class="image">
                         <img class="item-mask" src="{{ asset('resources/assets/kidslife/images/mask.png') }}" alt=""
                              title="">
-                        <img src="{{ asset('public/upload/toys.jpg') }}" alt="" title="">
+                        <img src="{{ media('toys.jpeg') }}" alt="" title="">
                         <div class="dt-sc-image-overlay">
                             <a href="#" class="link"><span class="fa fa-link"></span></a>
                         </div>
@@ -117,7 +117,7 @@
                     <div class="image">
                         <img class="item-mask" src="{{ asset('resources/assets/kidslife/images/mask.png') }}" alt=""
                              title="">
-                        <img src="{{ asset('public/upload/business-strategy.jpg') }}" alt="" title="">
+                        <img src="{{ media('business.jpg') }}" alt="" title="">
                         <div class="dt-sc-image-overlay">
                             <a href="#" class="link"><span class="fa fa-link"></span></a>
                         </div>

@@ -10,4 +10,8 @@ class MenuItems extends Model
     use NodeTrait;
     protected $table = "menu_items";
 
+    public function getLink()
+    {
+
+    }
 }

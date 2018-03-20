@@ -2,7 +2,7 @@
     <div class="container clearfix">
         <div class="logo">
             <a href="{{ url('') }}" title="Kids Life"><img
-                        src="{{ asset('resources/assets/kidslife/images/logo.png') }}"
+                        src="{{ option('logo') }}"
                         alt="Kids Life" title="Kids Life"></a>
         </div>
         <div class="search-field fl">
@@ -12,5 +12,5 @@
             </form>
         </div>
     </div>
-    @include('index.layout.menu')
+    @include('index.layout.primary')
 </header>

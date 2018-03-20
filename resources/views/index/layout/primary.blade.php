@@ -4,7 +4,8 @@
         <!--nav starts-->
         <nav id="main-menu">
             <div class="dt-menu-toggle" id="dt-menu-toggle">Menu<span class="dt-menu-toggle-icon"></span></div>
-            <ul id="menu-main-menu" class="menu">
+            {!! $primary->buildMenu() !!}
+            {{--<ul id="menu-main-menu" class="menu">
                 <li class="current_page_item menu-item-simple-parent menu-item-depth-0 red"><a
                             href="index.html"> Home </a>
                     <ul class="sub-menu">
@@ -166,7 +167,7 @@
                 </li>
                 <li class="purple"><a href="shop.html" title="">Shop</a></li>
                 <li class="pink"><a href="{{ route('contact') }}" title="">Liên hệ</a></li>
-            </ul>
+            </ul>--}}
         </nav>
         <!--nav ends-->
 

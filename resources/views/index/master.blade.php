@@ -46,7 +46,7 @@
 <script type="text/javascript" src="{{ asset('vendor/bower_dl/jquery/dist/jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('vendor/bower_dl/jquery-migrate/jquery-migrate.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('public/js/breadcrumbs.js') }}"></script>
-
+<script type="text/javascript" src="{{ asset('resources/assets/kidslife/js/jquery.inview.js') }}"></script>
 @yield('footer')
 </body>
 </html>

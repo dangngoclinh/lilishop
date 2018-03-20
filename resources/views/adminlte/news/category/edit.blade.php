@@ -3,7 +3,7 @@
 @endsection
 @section('content')
     <!-- Default box -->
-    <div class="box">
+    <div class="box box-solid">
         <div class="box-header with-border">
             <h3 class="box-title">Thêm Category</h3>
 
@@ -16,7 +16,7 @@
                     <i class="fa fa-times"></i></button>
             </div>
         </div>
-        <form class="form-horizontal" method="post" action="{{ action('Admin\News\CategoryController@postEdit', ['id' => $category->id]) }}">
+        <form class="form-horizontal" method="post" action="{{ action('Admin\News\CategoryController@update', ['id' => $category->id]) }}">
             {{ csrf_field() }}
             <div class="box-body">
                 @include('adminlte.layout.partials.error')
@@ -38,11 +38,11 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="slug" class="col-sm-2 control-label">Cha</label>
+                    <label for="slug" class="col-sm-2 control-label">Vị trí</label>
                     <div class="col-sm-10">
                         <select name="parent_id" class="form-control">
                             <option value="">-- không chọn --</option>
-                            @include('adminlte.news.category.partials.option', ['categories' => $categories[0], 'tree' => $categories, 'prefix' => ''])
+                            @include('adminlte.partials.categoryoption', ['categories' => $categories[0], 'tree' => $categories, 'prefix' => ''])
                         </select>
                     </div>
                 </div>

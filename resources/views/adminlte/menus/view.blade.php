@@ -17,7 +17,7 @@
                     <div class="input-group input-group-sm">
                         <select class="form-control" name="menus_id">
                             @foreach($menus as $menu)
-                                @if(isset($cmenu) && $cmenu->id == $menu->menus_id)
+                                @if(isset($cmenu) &&  $menu->id == $cmenu->id)
                                     <option value="{{ $menu->id }}" selected>{{ $menu->name }}</option>
                                 @else
                                     <option value="{{ $menu->id }}">{{ $menu->name }}</option>
@@ -77,7 +77,7 @@
                         <h3 class="box-title">Chỉnh sửa</h3>
                     </div>
                     <!-- /.box-header -->
-                    <form action="{{ action('Admin\MenusController@update') }}">
+                    <form method="post" action="{{ route('admin.menus.update', ['id' => $cmenu->id]) }}">
                         {{ csrf_field() }}
                         <div class="box-body">
                             <div class="form-group">
@@ -89,99 +89,6 @@
                             </div>
                             <div class="dd nestable" id="nestable">
                                 {!! $cmenu->buildHTML() !!}
-                                {{--<ol class="dd-list">
-
-                                    <!--- Initial Menu Items --->
-
-                                    <!--- Item1 --->
-                                    <li class="dd-item" data-id="1" data-name="Item 1" data-slug="item-slug-1"
-                                        data-new="0" data-deleted="0">
-                                        <div class="dd-handle">Item 1</div>
-                                        <span class="button-delete btn btn-default btn-xs pull-right" data-owner-id="1">
-                  <i class="fa fa-times-circle-o" aria-hidden="true"></i>
-                </span>
-                                        <span class="button-edit btn btn-default btn-xs pull-right" data-owner-id="1">
-                  <i class="fa fa-pencil" aria-hidden="true"></i>
-                </span>
-                                    </li>
-                                    <li class="dd-item" data-id="2" data-name="Item 2" data-slug="item-slug-2"
-                                        data-new="0" data-deleted="0">
-                                        <div class="dd-handle">Item 2</div>
-                                        <span class="button-delete btn btn-default btn-xs pull-right" data-owner-id="2">
-                  <i class="fa fa-times-circle-o" aria-hidden="true"></i>
-                </span>
-                                        <span class="button-edit btn btn-default btn-xs pull-right" data-owner-id="2">
-                  <i class="fa fa-pencil" aria-hidden="true"></i>
-                </span>
-                                    </li>
-
-                                    <!--- Item2 --->
-
-
-                                    <!--- Item3 --->
-                                    <li class="dd-item" data-id="3" data-name="Item 3" data-slug="item-slug-3"
-                                        data-new="0" data-deleted="0">
-                                        <button data-action="collapse" type="button">Collapse</button>
-                                        <button data-action="expand" type="button" style="display: none;">Expand
-                                        </button>
-                                        <div class="dd-handle">Item 3</div>
-                                        <span class="button-delete btn btn-default btn-xs pull-right" data-owner-id="3">
-                  <i class="fa fa-times-circle-o" aria-hidden="true"></i>
-                </span>
-                                        <span class="button-edit btn btn-default btn-xs pull-right" data-owner-id="3">
-                  <i class="fa fa-pencil" aria-hidden="true"></i>
-                </span>
-                                        <!--- Item3 children --->
-                                        <ol class="dd-list">
-                                            <!--- Item4 --->
-                                            <li class="dd-item" data-id="4" data-name="Item 4" data-slug="item-slug-4"
-                                                data-new="0" data-deleted="0">
-                                                <div class="dd-handle">Item 4</div>
-                                                <span class="button-delete btn btn-default btn-xs pull-right"
-                                                      data-owner-id="4">
-                      <i class="fa fa-times-circle-o" aria-hidden="true"></i>
-                    </span>
-                                                <span class="button-edit btn btn-default btn-xs pull-right"
-                                                      data-owner-id="4">
-                      <i class="fa fa-pencil" aria-hidden="true"></i>
-                    </span>
-                                            </li>
-
-                                            <!--- Item5 --->
-                                            <li class="dd-item" data-id="5" data-name="Item 5" data-slug="item-slug-5"
-                                                data-new="0" data-deleted="0">
-                                                <button data-action="collapse" type="button">Collapse</button>
-                                                <button data-action="expand" type="button" style="display: none;">
-                                                    Expand
-                                                </button>
-                                                <div class="dd-handle">Item 5</div>
-                                                <span class="button-delete btn btn-default btn-xs pull-right"
-                                                      data-owner-id="5">
-                      <i class="fa fa-times-circle-o" aria-hidden="true"></i>
-                    </span>
-                                                <span class="button-edit btn btn-default btn-xs pull-right"
-                                                      data-owner-id="5">
-                      <i class="fa fa-pencil" aria-hidden="true"></i>
-                    </span>
-                                                <ol class="dd-list">
-                                                    <li class="dd-item" data-id="new-1" data-name="dfdf"
-                                                        data-slug="dfdf" data-new="1" data-deleted="0">
-                                                        <div class="dd-handle">dfdf</div>
-                                                        <span class="button-delete btn btn-default btn-xs pull-right"
-                                                              data-owner-id="new-1"> <i class="fa fa-times-circle-o"
-                                                                                        aria-hidden="true"></i> </span><span
-                                                                class="button-edit btn btn-default btn-xs pull-right"
-                                                                data-owner-id="new-1"><i class="fa fa-pencil"
-                                                                                         aria-hidden="true"></i></span>
-                                                    </li>
-                                                </ol>
-                                            </li>
-                                        </ol>
-                                    </li>
-
-                                    <!--------------------------->
-
-                                </ol>--}}
                             </div>
                         </div>
                         <!-- /.box-body -->

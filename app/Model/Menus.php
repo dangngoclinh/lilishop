@@ -18,6 +18,49 @@ class Menus extends Model
         return $this->hasMany('App\Model\Menuitems');
     }
 
+    public function getMenu($name)
+    {
+        return $this->where('name', $name)->first();
+    }
+
+    public function buildMenu()
+    {
+        $menuitems = $this->getAllMenuItems($this->id);
+        $result = null;
+        $allitems = $this->getAllMenuItems();
+
+        if (count($allitems) > 0) {
+            $result .= '<ul id="menu-main-menu" class="menu">';
+            $result .= $this->buildMenuIndex($allitems[0], $allitems, true);
+            $result .= '</ul>';
+        }
+        return $result;
+    }
+
+    private function buildMenuIndex($items, $allitems, $root = false)
+    {
+        $color = array('red', 'mustard', 'green', 'yellow', 'blue', 'steelblue', 'lavender');
+        $result = null;
+        foreach ($items as $key => $item) {
+            $class = array();
+            if ($root) {
+                $class[] = $color[$key];
+            }
+            if(isset($allitems[$item->id])) {
+                $class[] = "menu-item-simple-parent menu-item-depth-0";
+            }
+            $result .= '<li class="' . implode(" ", $class) . '">';
+            $result .= '<a href="' . $item->link . '"> ' . $item->label . ' </a>';
+            if (isset($allitems[$item->id])) {
+                $result .= '<ul class="sub-menu">';
+                $result .= $this->buildMenuIndex($allitems[$item->id], $allitems);
+                $result .= '</ul>';
+            }
+            $result .= '</li>';
+        }
+        return $result;
+    }
+
     public function getAllMenuItems()
     {
         $menuitems = $this->menuitems()->orderBy('sort')->get();
@@ -50,8 +93,7 @@ class Menus extends Model
      */
     private function buildHTMLMenu($items, $allitems)
     {
-        $result = null;
-        $result .= '<ol class="dd-list">';
+        $result = '<ol class="dd-list">';
         foreach ($items as $item) {
             $result .= '<li class="dd-item" data-id="' . $item->id . '">
                     <div class="dd-handle">' . $item->label . '</div>

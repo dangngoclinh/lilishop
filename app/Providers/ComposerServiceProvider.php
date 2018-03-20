@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class ComposerServiceProvider extends ServiceProvider
@@ -13,7 +14,8 @@ class ComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        View::composer('index.layout.primary', 'App\Http\ViewComposers\PrimaryMenuComposer');
+        View::composer('index.widgets.categories', 'App\Http\ViewComposers\BlogMenuComposer');
     }
 
     /**

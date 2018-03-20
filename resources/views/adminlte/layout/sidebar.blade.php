@@ -38,6 +38,7 @@
                 <ul class="treeview-menu">
                     <li><a href="{{ route('admin.option') }}"><i class="fa fa-cog"></i> @lang('Cài đặt')</a></li>
                     <li><a href="{{ route('admin.option.create') }}"><i class="fa fa-plus"></i> @lang('Thêm thiết lập')</a></li>
+                    <li><a href="{{ route('admin.menus') }}"><i class="fa fa-plus"></i> @lang('Quản lý Menus')</a></li>
                 </ul>
             </li>
             <li class="treeview">
